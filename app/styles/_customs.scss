@@ -1,0 +1,81 @@
+.piso {
+    width: 100px;
+}
+
+#dvAmbiente {
+    border: solid 1px;
+    height: 300px;
+}
+
+.stand {
+//    position: absolute;
+}
+
+.stand.horizontal {
+    width: $height-stand;
+    writing-mode: horizontal-tb;
+}
+
+.stand.vertical {
+    height: $height-stand;
+    writing-mode: vertical-rl;
+}
+
+.archivador {
+    height: 200px;
+    writing-mode: vertical-rl;
+    padding: 5px;
+    margin: 0px;
+    display: inline-block;
+}
+
+#dvContainer { 
+    min-height: -webkit-calc(100vh - #{$navbar-height + $footer-height});
+    min-height:    -moz-calc(100vh - #{$navbar-height + $footer-height});
+    min-height:         calc(100vh - #{$navbar-height + $footer-height});
+}
+
+.footer {
+    height: $footer-height;
+    text-align: center;
+}
+
+.body-login {
+    background-color: $color-default;
+    height: 100%;
+    .dv-login {
+        margin-top: 10px;
+    }
+    .header {
+        display: none;
+    }
+    .footer {
+        display: none;
+    }
+}
+
+.center-image-vertical {
+    margin-top: 20%;
+}
+
+.not-disponible {
+    background-color: red;
+}
+.input-dropdown {
+    width: 100%;
+    input[type='text'] {
+        @extend .form-control;
+    }
+    ul {
+        max-height: 310px;
+        overflow-y: auto;
+        li {
+            padding: 0px 0px 0px 10px;
+        }
+    }
+}
+
+.nav > li > a {
+    padding-left: 10px;
+    padding-right: 10px;
+}

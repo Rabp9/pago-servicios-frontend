@@ -1,0 +1,53 @@
+<div class="alert alert-dismissible" ng-class="{'alert-success': message.code === 200, 'alert-danger': message.code !== 200 }" role="alert" ng-show="message.code !== undefined">
+    <button type="button" class="close" ng-click="message.code = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ message.message }} 
+</div>
+<ol class="breadcrumb">
+    <li><a ui-sref="administrar">Home</a></li>
+    <li>Servicios</li>
+</ol>
+<h2>Servicios</h2>
+<hr>
+<div class="row">
+    <div class="col-sm-12"> 
+        <button type="button" class="btn btn-primary" ng-click="showServiciosAdd()"><span class="glyphicon glyphicon-plus"></span> Nuevo Servicio</button>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="search.estado_id" value=""> 
+                Todos
+            </label>
+            <label>
+                <input type="radio" ng-model="search.estado_id" value="1"> 
+                Activos
+            </label>
+            <label>
+                <input type="radio" ng-model="search.estado_id" value="2"> 
+                Inactivos
+            </label>
+        </div>
+        <scrollable-table watch="servicios" class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th sortable-header col="id">Código</th>
+                        <th sortable-header col="descripcion">Descripciòn</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-hide="!loading"><td colspan="3">Cargando...</td></tr>
+                    <tr ng-show="!loading && servicios.length === 0"><td colspan="3">No hay registros</td></tr>
+                    <tr ng-hide="loading" ng-class="{'danger': servicio.estado_id === 2}" ng-repeat="servicio in servicios | toArray:false | filter:search" row-id="{{ servicio.id }}">
+                        <td>{{ servicio.id }}</td>
+                        <td>{{ servicio.descripcion }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="showServiciosEdit(servicio)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button ng-show="servicio.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showServiciosDelete(servicio)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button ng-show="servicio.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showServiciosActivate(servicio)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </scrollable-table>
+    </div>
+</div>

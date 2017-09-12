@@ -1,0 +1,17 @@
+<form novalidate angular-validator angular-validator-submit="saveServicio(servicio, 'btnSaveServicio')" name="ServicioAdd" angular-validator-quiet>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Nuevo Servicio</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="txtDescripcion">Descripción</label>
+            <input id="txtDescripcion" class="form-control" type="text" ng-model="servicio.descripcion"
+                name="servicioDescripcion" required required-message="'Este campo es requerido'" validate-on="blur" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="cancel()">Cerrar</button>
+        <button id="btnSaveServicio" class="btn btn-success" type="submit">Guardar Servicio</button>
+    </div>
+</form>

@@ -1,0 +1,21 @@
+{
+    "elements": {
+        "scrollable-table": {
+            "attributes": {
+                "watch": {},
+                "class": {}
+            }
+        }
+    },
+    "attributes": {
+        "angular-validator": {
+            "context": "form"
+        },
+        "ui-sref-active": {
+            "context": "li"
+        },
+        "ui-sref": {
+            "context": "a"
+        }
+    }
+}
