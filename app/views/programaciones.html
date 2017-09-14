@@ -9,7 +9,15 @@
 <h2>Programaciones</h2>
 <hr>
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
+        <label for="sltTipo">Tipo</label>
+        <select id="sltTipo" class="form-control"
+            ng-options="tipo as tipo.descripcion for tipo in tipos"
+            ng-model="tipo" ng-change="onChangeTipo(tipo.id)">
+            <option value="">Selecciona un Tipo</option>
+        </select>
+    </div>
+    <div class="col-sm-6">
         <label for="sltServicio">Servicio</label>
         <select id="sltServicio" class="form-control"
             ng-options="servicio as servicio.descripcion for servicio in servicios"

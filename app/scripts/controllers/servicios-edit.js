@@ -9,11 +9,18 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('ServiciosEditCtrl', function ($scope, $uibModalInstance, 
-    $utilsViewService, serviciosservice, servicio_id) {
+    $utilsViewService, serviciosservice, tiposservice, servicio_id, $q) {
 
     $scope.init = function() {
-        serviciosservice.get({id: servicio_id}, function(data) {
-            $scope.servicio = data.servicio;
+        $scope.loading = true;
+        
+        $q.all([
+            serviciosservice.get({id: servicio_id}).$promise,
+            tiposservice.get().$promise
+        ]).then(function(data) {
+            $scope.servicio = data[0].servicio;
+            $scope.tipos = data[1].tipos;
+            $scope.loading = false;
         });
     };
     
@@ -24,6 +31,7 @@ angular.module('pagoServiciosFrontendApp')
     $scope.saveServicio = function(servicio, boton) {
         $utilsViewService.disable('#' + boton);
         
+        delete servicio.tipo;
         serviciosservice.save(servicio, function (data) {
             $uibModalInstance.close(data);
         }, function (err) {

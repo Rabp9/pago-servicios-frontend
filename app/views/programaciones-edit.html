@@ -8,6 +8,11 @@
             <label for="txtServicio">Servicio</label>
             <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.descripcion"
                 name="programacionServicioDescripcion" readonly />
+        </div>      
+        <div class="form-group">
+            <label for="dtFecha">Fecha</label>             
+            <input id="dtFecha" type="date" class="form-control" ng-model="fecha_pre" 
+                ng-value="programacion.fecha" name="programacionServicioFecha" required-message="'Este campo es requerido'" validate-on="blur" >
         </div>
         <div class="form-group">
             <label for="nmMonto">Monto</label>

@@ -13,6 +13,10 @@ angular.module('pagoServiciosFrontendApp')
         getPendientesPago: {
             method: 'GET',
             url: envservice.getHost() + 'servicios/getPendientesPago/.json'
+        },     
+        getByTipo: {
+            method: 'GET',
+            url: envservice.getHost() + 'servicios/getByTipo/:tipo_id.json'
         }
     });
 });

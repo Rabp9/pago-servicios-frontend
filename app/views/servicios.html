@@ -31,15 +31,19 @@
                     <tr>
                         <th sortable-header col="id">Código</th>
                         <th sortable-header col="descripcion">Descripciòn</th>
+                        <th sortable-header col="tipo.descripcion">Tipo de Servicio</th>
+                        <th sortable-header col="detalle">Detalle</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-hide="!loading"><td colspan="3">Cargando...</td></tr>
-                    <tr ng-show="!loading && servicios.length === 0"><td colspan="3">No hay registros</td></tr>
+                    <tr ng-hide="!loading"><td colspan="5">Cargando...</td></tr>
+                    <tr ng-show="!loading && servicios.length === 0"><td colspan="5">No hay registros</td></tr>
                     <tr ng-hide="loading" ng-class="{'danger': servicio.estado_id === 2}" ng-repeat="servicio in servicios | toArray:false | filter:search" row-id="{{ servicio.id }}">
                         <td>{{ servicio.id }}</td>
                         <td>{{ servicio.descripcion }}</td>
+                        <td>{{ servicio.tipo.descripcion }}</td>
+                        <td>{{ servicio.detalle }}</td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm" ng-click="showServiciosEdit(servicio)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
                             <button ng-show="servicio.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showServiciosDelete(servicio)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>

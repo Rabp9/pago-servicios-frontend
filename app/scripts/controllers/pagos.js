@@ -8,10 +8,18 @@
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-  .controller('PagosCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+.controller('PagosCtrl', function ($scope, pagosservice) {
+    
+    $scope.search = {};
+    $scope.search.estado_id = "";
+    
+    $scope.init = function() {
+        $scope.loading = true;
+        pagosservice.get(function(data) {
+            $scope.pagos = data.pagos;
+            $scope.loading = false;
+        });
+    };
+    
+    $scope.init();
+});

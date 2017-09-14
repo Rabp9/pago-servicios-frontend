@@ -9,8 +9,16 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('ServiciosAddCtrl', function ($scope, $uibModalInstance, 
-    $utilsViewService, serviciosservice) {
+    $utilsViewService, serviciosservice, tiposservice) {
 
+    $scope.init = function() {
+        $scope.loading = true;
+        tiposservice.get(function(data) {
+            $scope.tipos = data.tipos;
+            $scope.loading = false;
+        });
+    };
+    
     $scope.cancel = function() {
         $uibModalInstance.dismiss('cancel');
     };
@@ -24,4 +32,6 @@ angular.module('pagoServiciosFrontendApp')
             $uibModalInstance.close(err.data);
         });
     };
+    
+    $scope.init();
 });

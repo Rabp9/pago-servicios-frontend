@@ -9,13 +9,21 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('ProgramacionesCtrl', function ($scope, serviciosservice, programacionesservice,
-    $uibModal) {
+    $uibModal, tiposservice) {
     
     $scope.search = {};
     $scope.search.estado_id = "";
     
     $scope.init = function() {
-        serviciosservice.get(function(data) {
+        tiposservice.get(function(data) {
+            $scope.tipos = data.tipos;
+        });
+    };
+    
+    $scope.onChangeTipo = function(tipo_id) {
+        $scope.loading = true;
+        serviciosservice.getByTipo({tipo_id: tipo_id}, function(data) {
+            $scope.loading = false;
             $scope.servicios = data.servicios;
         });
     };

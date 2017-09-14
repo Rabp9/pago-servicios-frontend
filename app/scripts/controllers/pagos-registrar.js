@@ -8,10 +8,6 @@
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-  .controller('PagosRegistrarCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+.controller('PagosRegistrarCtrl', function ($scope, ) {
+    
+});

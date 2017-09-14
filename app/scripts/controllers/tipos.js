@@ -30,18 +30,18 @@ angular.module('pagoServiciosFrontendApp')
 
         modalInstanceAdd.result.then(function (data) {
             $scope.message = data;
-            $scope.tipos.push(data.servicio);
+            $scope.tipos.push(data.tipo);
         });
     };
     
-    $scope.showTiposEdit = function(servicio) {
+    $scope.showTiposEdit = function(tipo) {
         var modalInstanceEdit = $uibModal.open({
             templateUrl: 'views/tipos-edit.html',
             controller: 'TiposEditCtrl',
             backdrop: false,
             resolve: {
-                servicio_id: function() {
-                    return servicio.id;
+                tipo_id: function() {
+                    return tipo.id;
                 } 
             }
         });
@@ -52,24 +52,24 @@ angular.module('pagoServiciosFrontendApp')
         });
     };
     
-    $scope.showTiposDelete = function(servicio) {
-        if (confirm('¿Está seguro de deshabilitar el servicio?')) {
-            servicio.estado_id = 2;
-            tiposservice.save(servicio, function(data) {
+    $scope.showTiposDelete = function(tipo) {
+        if (confirm('¿Está seguro de deshabilitar el tipo?')) {
+            tipo.estado_id = 2;
+            tiposservice.save(tipo, function(data) {
                 $scope.message = data;
             }, function(error) {
-                servicio.estado_id = 1;
+                tipo.estado_id = 1;
             });
         }
     };
     
-    $scope.showTiposActivate = function(servicio) {
-        if (confirm('¿Está seguro de activar el servicio?')) {
-            servicio.estado_id = 1;
-            tiposservice.save(servicio, function(data) {
+    $scope.showTiposActivate = function(tipo) {
+        if (confirm('¿Está seguro de activar el tipo?')) {
+            tipo.estado_id = 1;
+            tiposservice.save(tipo, function(data) {
                 $scope.message = data;
             }, function(error) {
-                servicio.estado_id = 2;
+                tipo.estado_id = 2;
             });
         }
     };

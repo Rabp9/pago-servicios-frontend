@@ -60,7 +60,7 @@ angular
     
     var pagosState = {
         name: 'pagos',
-        url: '/',
+        url: '/pagos',
         templateUrl: 'views/pagos.html',
         controller: 'PagosCtrl',
         controllerAs: 'pagos',

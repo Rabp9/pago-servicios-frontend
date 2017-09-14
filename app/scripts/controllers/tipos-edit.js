@@ -5,9 +5,9 @@
  * @name pagoTiposFrontendApp.controller:TiposEditCtrl
  * @description
  * # TiposEditCtrl
- * Controller of the pagoTiposFrontendApp
+ * Controller of the pagoServiciosFrontendApp
  */
-angular.module('pagoTiposFrontendApp')
+angular.module('pagoServiciosFrontendApp')
 .controller('TiposEditCtrl', function ($scope, $uibModalInstance, 
     $utilsViewService, tiposservice, tipo_id) {
 

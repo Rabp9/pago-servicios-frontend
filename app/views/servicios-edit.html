@@ -9,6 +9,19 @@
             <input id="txtDescripcion" class="form-control" type="text" ng-model="servicio.descripcion"
                 name="servicioDescripcion" required required-message="'Este campo es requerido'" validate-on="blur" />
         </div>
+        <div class="form-group">
+            <label for="sltTipo">Tipo</label>
+            <select id="sltTipo" class="form-control"
+                ng-options="tipo.id as tipo.descripcion for tipo in tipos"
+                ng-model="servicio.tipo_id" name="servicioTipo">
+                <option value="">Selecciona un Tipo</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="txtDetalle">Detalle</label>
+            <input id="txtDetalle" class="form-control" type="text" ng-model="servicio.detalle"
+                name="servicioDetalle" required required-message="'Este campo es requerido'" validate-on="blur" />
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="cancel()">Cerrar</button>

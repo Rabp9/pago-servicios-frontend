@@ -1,1 +1,61 @@
-<p>This is the pagos view.</p>
+<div class="alert alert-dismissible" ng-class="{'alert-success': message.code === 200, 'alert-danger': message.code !== 200 }" role="alert" ng-show="message.code !== undefined">
+    <button type="button" class="close" ng-click="message.code = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ message.message }} 
+</div>
+<ol class="breadcrumb">
+    <li><a ui-sref="administrar">Home</a></li>
+    <li>Pagos</li>
+</ol>
+<h2>Pagos</h2>
+<hr>
+<div class="row">
+    <div class="col-sm-12"> 
+        <button type="button" class="btn btn-primary" ng-click="showPagosRegistrar()"><span class="glyphicon glyphicon-plus"></span> Registrar Pago</button>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="search.estado_id" value=""> 
+                Todos
+            </label>
+            <label>
+                <input type="radio" ng-model="search.estado_id" value="1"> 
+                Activos
+            </label>
+            <label>
+                <input type="radio" ng-model="search.estado_id" value="2"> 
+                Inactivos
+            </label>
+        </div>
+        <scrollable-table watch="pagos" class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th sortable-header col="id">Código</th>
+                        <th sortable-header col="programacion.servicio.tipo.descripcion">Tipo de Servicio</th>
+                        <th sortable-header col="programacion.servicio.descripcion">Servicio</th>
+                        <th sortable-header col="programacion.servicio.detalle">Detalle</th>
+                        <th sortable-header col="fecha">Fecha de Pago</th>
+                        <th sortable-header col="programacion.fecha">Fecha Programada</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-hide="!loading"><td colspan="7">Cargando...</td></tr>
+                    <tr ng-show="!loading && pagos.length === 0"><td colspan="7">No hay registros</td></tr>
+                    <tr ng-hide="loading" ng-class="{'danger': servicio.estado_id === 2}" ng-repeat="pago in pagos | toArray:false | filter:search" row-id="{{ pago.id }}">
+                        <td>{{ pago.id }}</td>
+                        <td>{{ pago.programacion.tipo.descripcion }}</td>
+                        <td>{{ pago.servicio.descripcion }}</td>
+                        <td>{{ pago.servicio.detalle }}</td>
+                        <td>{{ fecha }}</td>
+                        <td>{{ programacion.fecha }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="showPagosEdit(pago)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button ng-show="servicio.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showPagosDelete(pago)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button ng-show="servicio.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showPagosActivate(pago)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </scrollable-table>
+    </div>
+</div>

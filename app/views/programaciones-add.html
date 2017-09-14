@@ -10,6 +10,11 @@
                 name="programacionServicioDescripcion" readonly />
         </div>
         <div class="form-group">
+            <label for="dtFecha">Fecha</label>
+            <input id="dtFecha" class="form-control" type="date" ng-model="programacion.fecha"
+                name="programacionFecha" required required-message="'Este campo es requerido'" validate-on="blur" />
+        </div>
+        <div class="form-group">
             <label for="nmMonto">Monto</label>
             <input id="nmMonto" class="form-control" type="number" ng-model="programacion.monto"
                 name="programacionMonto" required min="0" required-message="'Este campo es requerido'" validate-on="blur" />
