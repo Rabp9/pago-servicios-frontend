@@ -8,7 +8,7 @@
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('PagosCtrl', function ($scope, pagosservice) {
+.controller('PagosCtrl', function ($scope, pagosservice, $uibModal) {
     
     $scope.search = {};
     $scope.search.estado_id = "";
@@ -18,6 +18,19 @@ angular.module('pagoServiciosFrontendApp')
         pagosservice.get(function(data) {
             $scope.pagos = data.pagos;
             $scope.loading = false;
+        });
+    };
+    
+    $scope.showPagosRegistrar = function() {
+        var modalInstanceRegistrar = $uibModal.open({
+            templateUrl: 'views/pagos-registrar.html',
+            controller: 'PagosRegistrarCtrl',
+            backdrop: false
+        });
+
+        modalInstanceRegistrar.result.then(function (data) {
+            $scope.message = data;
+            $scope.pagos.push(data.pago);
         });
     };
     

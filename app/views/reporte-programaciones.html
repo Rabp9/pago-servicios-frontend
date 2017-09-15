@@ -1,0 +1,76 @@
+<div class="alert alert-dismissible" ng-class="{'alert-success': message.code === 200, 'alert-danger': message.code !== 200 }" role="alert" ng-show="message.code !== undefined">
+    <button type="button" class="close" ng-click="message.code = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ message.message }} 
+</div>
+<ol class="breadcrumb">
+    <li><a ui-sref="administrar">Home</a></li>
+    <li>Programaciones</li>
+</ol>
+<h2>Programaciones</h2>
+<hr>
+<div class="row">
+    <div class="col-sm-6">
+        <label for="sltTipo">Tipo</label>
+        <select id="sltTipo" class="form-control"
+            ng-options="tipo as tipo.descripcion for tipo in tipos"
+            ng-model="tipo" ng-change="onChangeTipo(tipo.id)">
+            <option value="">Selecciona un Tipo</option>
+        </select>
+    </div>
+    <div class="col-sm-6">
+        <label for="sltServicio">Servicio</label>
+        <select id="sltServicio" class="form-control"
+            ng-options="servicio as servicio.descripcion for servicio in servicios"
+            ng-model="servicio" ng-change="onChangeServicio(servicio.id)">
+            <option value="">Selecciona un Servicio</option>
+        </select>
+    </div>
+    <div class="col-sm-12"> 
+        <button ng-disabled="servicio === null || servicio === undefined" type="button" class="btn btn-primary" ng-click="showProgramacionesAdd(servicio)"><span class="glyphicon glyphicon-plus"></span> Nueva Programación</button>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="search.estado_id" value=""> 
+                Todos
+            </label>
+            <label>
+                <input type="radio" ng-model="search.estado_id" value="4"> 
+                No pagados
+            </label>
+            <label>
+                <input type="radio" ng-model="search.estado_id" value="3"> 
+                Pagados
+            </label>
+            <label>
+                <input type="radio" ng-model="search.estado_id" value="2"> 
+                Inactivos
+            </label>
+        </div>
+        <scrollable-table watch="servicios" class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th sortable-header col="id">Código</th>
+                        <th sortable-header col="monto">Monto</th>
+                        <th sortable-header col="fecha">Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-hide="!loading"><td colspan="4">Cargando...</td></tr>
+                    <tr ng-show="!loading && programaciones.length === 0"><td colspan="4">No hay registros</td></tr>
+                    <tr ng-hide="loading" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones | toArray:false | filter:search" row-id="{{ programacion.id }}">
+                        <td>{{ programacion.id }}</td>
+                        <td>{{ programacion.monto }}</td>
+                        <td>{{ programacion.fecha }}</td>
+                        <td>
+                            <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showProgramacionesEdit(programacion)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button ng-show="programacion.estado_id === 3" type="button" class="btn btn-warning btn-sm" ng-click="showProgramacionesCancelar(programacion)" title="Cancelar Pago"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-danger btn-sm" ng-click="showProgramacionesDelete(programacion)" title="Eliminar Programación"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button ng-show="programacion.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showProgramacionesActivate(programacion)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </scrollable-table>
+    </div>
+</div>

@@ -13,6 +13,10 @@ angular.module('pagoServiciosFrontendApp')
         getByServicio: {
             method: 'GET',
             url: envservice.getHost() + 'programaciones/getByServicio/:servicio_id.json'
+        },
+        getByServicioNoPagados: {
+            method: 'GET',
+            url: envservice.getHost() + 'programaciones/getByServicioNoPagados/:servicio_id.json'
         }
     });
 });

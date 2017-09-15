@@ -67,10 +67,40 @@ angular
         title: 'Pagos'
     };
 
+    var reporteServiciosState = {
+        name: 'reporteServicios',
+        url: '/reporte-servicios',
+        templateUrl: 'views/reporte-servicios.html',
+        controller: 'ReporteServiciosCtrl',
+        controllerAs: 'reporteServicios',
+        title: 'Reporte de Servicios'
+    };
+
+    var reporteProgramacionesState = {
+        name: 'reporteProgramaciones',
+        url: '/reporte-programaciones',
+        templateUrl: 'views/reporte-programaciones.html',
+        controller: 'ReporteProgramacionesCtrl',
+        controllerAs: 'reporteProgramaciones',
+        title: 'Reporte de Programaciones de Pagos'
+    };
+
+    var reportePagosState = {
+        name: 'reportePagos',
+        url: '/reporte-pagos',
+        templateUrl: 'views/reporte-pagos.html',
+        controller: 'ReportePagosCtrl',
+        controllerAs: 'reportePagos',
+        title: 'Reporte de Pagos'
+    };
+
     $stateProvider.state(mainState);
     $stateProvider.state(serviciosState);
     $stateProvider.state(tiposState);
     $stateProvider.state(programacionesState);
     $stateProvider.state(pagosState);
+    $stateProvider.state(reporteServiciosState);
+    $stateProvider.state(reporteProgramacionesState);
+    $stateProvider.state(reportePagosState);
     $urlRouterProvider.when('', '/');
 });
