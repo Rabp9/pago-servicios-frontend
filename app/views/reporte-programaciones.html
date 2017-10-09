@@ -4,70 +4,56 @@
 </div>
 <ol class="breadcrumb">
     <li><a ui-sref="administrar">Home</a></li>
-    <li>Programaciones</li>
+    <li>Reportes</li>
+    <li>Reporte de Programaciones de Pagos</li>
 </ol>
-<h2>Programaciones</h2>
+<h2>Reporte de Programaciones de Pagos</h2>
 <hr>
 <div class="row">
     <div class="col-sm-6">
-        <label for="sltTipo">Tipo</label>
-        <select id="sltTipo" class="form-control"
-            ng-options="tipo as tipo.descripcion for tipo in tipos"
-            ng-model="tipo" ng-change="onChangeTipo(tipo.id)">
-            <option value="">Selecciona un Tipo</option>
-        </select>
+        <label for="dtFechaInicio">Fecha de Inicio</label>
+        <input id="dtFechaInicio" type="date" class="form-control" ng-model="fecha_inicio" ng-change="changeDates(fecha_inicio, fecha_cierre)">
     </div>
     <div class="col-sm-6">
-        <label for="sltServicio">Servicio</label>
-        <select id="sltServicio" class="form-control"
-            ng-options="servicio as servicio.descripcion for servicio in servicios"
-            ng-model="servicio" ng-change="onChangeServicio(servicio.id)">
-            <option value="">Selecciona un Servicio</option>
-        </select>
+        <label for="dtFechaCierre">Fecha de Cierre</label>
+        <input id="dtFechaCierre" type="date" class="form-control" ng-model="fecha_cierre" ng-change="changeDates(fecha_inicio, fecha_cierre)">
     </div>
-    <div class="col-sm-12"> 
-        <button ng-disabled="servicio === null || servicio === undefined" type="button" class="btn btn-primary" ng-click="showProgramacionesAdd(servicio)"><span class="glyphicon glyphicon-plus"></span> Nueva Programación</button>
-        <div class="radio">
-            <label>
-                <input type="radio" ng-model="search.estado_id" value=""> 
-                Todos
-            </label>
-            <label>
-                <input type="radio" ng-model="search.estado_id" value="4"> 
-                No pagados
-            </label>
-            <label>
-                <input type="radio" ng-model="search.estado_id" value="3"> 
-                Pagados
-            </label>
-            <label>
-                <input type="radio" ng-model="search.estado_id" value="2"> 
-                Inactivos
-            </label>
-        </div>
-        <scrollable-table watch="servicios" class="table-responsive">
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <button type="btn" class="btn btn-primary" ng-click="exportData('excel')" title="Exportar a Excel">
+            <img src="../images/excel-icon.svg" alt="Exportar a Excel" class="img-icon">
+        </button>
+        <button type="btn" class="btn btn-primary" ng-click="exportData('txt')" title="Exportar a TXT">
+            <img src="../images/txt-icon.svg" alt="Exportar a TXT" class="img-icon">
+        </button>
+        <button type="btn" class="btn btn-primary" ng-click="exportData('csv')" title="Exportar a CSV">
+            <img src="../images/csv-icon.svg" alt="Exportar a CSV" class="img-icon">
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <scrollable-table watch="programaciones" class="table-responsive" id="exportable">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th sortable-header col="id">Código</th>
+                        <th sortable-header col="servicio.descripcion">Servicio</th>
                         <th sortable-header col="monto">Monto</th>
                         <th sortable-header col="fecha">Fecha</th>
-                        <th>Acciones</th>
+                        <th sortable-header col="estado.descripcion">Estado</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-hide="!loading"><td colspan="4">Cargando...</td></tr>
-                    <tr ng-show="!loading && programaciones.length === 0"><td colspan="4">No hay registros</td></tr>
-                    <tr ng-hide="loading" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones | toArray:false | filter:search" row-id="{{ programacion.id }}">
+                    <tr id="trCargando" ng-hide="!loading"><td colspan="5">Cargando...</td></tr>
+                    <tr id="trNoHayRegistros" ng-show="!loading && programaciones.length === 0"><td colspan="5">No hay registros</td></tr>
+                    <tr ng-hide="loading" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones | toArray:false" row-id="{{ programacion.id }}">
                         <td>{{ programacion.id }}</td>
+                        <td>{{ programacion.servicio.descripcion }}</td>
                         <td>{{ programacion.monto }}</td>
                         <td>{{ programacion.fecha }}</td>
-                        <td>
-                            <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showProgramacionesEdit(programacion)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button ng-show="programacion.estado_id === 3" type="button" class="btn btn-warning btn-sm" ng-click="showProgramacionesCancelar(programacion)" title="Cancelar Pago"><span class="glyphicon glyphicon-remove"></span></button>
-                            <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-danger btn-sm" ng-click="showProgramacionesDelete(programacion)" title="Eliminar Programación"><span class="glyphicon glyphicon-remove"></span></button>
-                            <button ng-show="programacion.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showProgramacionesActivate(programacion)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
-                        </td>
+                        <td>{{ programacion.estado.descripcion }}</td>
                     </tr>
                 </tbody>
             </table>

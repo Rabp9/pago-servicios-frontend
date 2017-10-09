@@ -9,11 +9,12 @@
     "angular-resource": "1.5.8",
     "angular-sanitize": "1.5.8",
     "angular-touch": "1.5.8",
-    "angular-ui-router": "^1.0.6",
+    "angular-ui-router": "0.4.2",
     "angular-bootstrap": "^2.5.0",
     "angular-scrollable-table": "^1.1.2",
     "tg-angular-validator": "^1.2.10",
-    "angular-toArrayFilter": "^1.0.1"
+    "angular-toArrayFilter": "^1.0.1",
+    "table-export": "*"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

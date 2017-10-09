@@ -12,14 +12,18 @@ angular.module('pagoServiciosFrontendApp')
     $scope.loading = false;
     
     $scope.changeDates = function(fecha_inicio, fecha_cierre) {
-        $scope.loading = true;
-        pagosservice.getByDates({
-            fecha_inicio: formatDate(fecha_inicio), 
-            fecha_cierre: formatDate(fecha_cierre)
-        }, function(data) {
-            $scope.pagos = data.pagos;
-            $scope.loading = false;
-        });
+        if (fecha_inicio === undefined || fecha_cierre === undefined) {
+            return;
+        } else {
+            $scope.loading = true;
+            pagosservice.getByDates({
+                fecha_inicio: formatDate(fecha_inicio), 
+                fecha_cierre: formatDate(fecha_cierre)
+            }, function(data) {
+                $scope.pagos = data.pagos;
+                $scope.loading = false;
+            });
+        }
     };
     
     function formatDate(fecha) {
@@ -33,10 +37,16 @@ angular.module('pagoServiciosFrontendApp')
         return pad.substring(0, (pad.length - str.toString().length)) + str;
     }
     
-    $scope.exportData = function () {
-        var blob = new Blob([document.getElementById('exportable').innerHTML], {
-            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
-        });
-        saveAs(blob, "Report.xls");
+    $scope.exportData = function (option) {
+        var cargando = $( "#trCargando" ).detach();
+        var no_hay_registros = $( "#trNoHayRegistros" ).detach();
+
+        $('#exportable').tableExport({ type: option, escape: false });
+        
+        cargando.appendTo("#exportable tbody");
+        no_hay_registros.appendTo("#exportable tbody");
+        
+        no_hay_registros = null;
+        cargando = null;
     };
 });

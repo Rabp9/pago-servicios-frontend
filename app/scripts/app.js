@@ -103,4 +103,32 @@ angular
     $stateProvider.state(reporteProgramacionesState);
     $stateProvider.state(reportePagosState);
     $urlRouterProvider.when('', '/');
+})
+.run(function($rootScope, $state, $window, $interval, programacionesservice, $timeout) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toParams, fromState, fromParams) {
+        $rootScope.title = $state.current.title;
+        $window.scrollTo(0, 0);
+    });
+    
+    if (Notification.permission !== "granted") {
+        Notification.requestPermission()
+    }
+    
+    $interval(function() {
+        programacionesservice.getPendientesPago(function(data) {
+            var programaciones = data.programaciones;
+            angular.forEach(programaciones, function(value, key) {
+                var title = value.servicio.descripcion;
+                var extra = {
+                    icon: 'images/icono.png',
+                    body: 'Deuda de: ' + value.descripcion_detallada
+                };
+                // Lanzamos la notificación
+                var notification = new Notification(title, extra);
+                $timeout(function() {
+                    notification.close();
+                }, 6000);
+            });
+        });
+    }, 8000);
 });
