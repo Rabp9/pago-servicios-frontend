@@ -9,12 +9,13 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('ProgramacionesAddCtrl', function ($scope, $uibModalInstance, 
-    $utilsViewService, programacionesservice, servicio) {
+    $utilsViewService, programacionesservice, servicio, tipo) {
  
     $scope.programacion = {};
     $scope.programacion.monto = 0;
     $scope.programacion.servicio = servicio;
-
+    $scope.programacion.servicio.tipo = tipo;
+console.log(tipo);
     $scope.cancel = function() {
         $uibModalInstance.dismiss('cancel');
     };

@@ -27,13 +27,13 @@ angular.module('pagoServiciosFrontendApp')
     };
     
     $scope.exportData = function (option) {
-        var cargando = $( "#trCargando" ).detach();
-        var no_hay_registros = $( "#trNoHayRegistros" ).detach();
+        var cargando = $( '#trCargando' ).detach();
+        var no_hay_registros = $( '#trNoHayRegistros' ).detach();
 
         $('#exportable').tableExport({ type: option, escape: false });
         
-        cargando.appendTo("#exportable tbody");
-        no_hay_registros.appendTo("#exportable tbody");
+        cargando.appendTo('#exportable tbody');
+        no_hay_registros.appendTo('#exportable tbody');
         
         no_hay_registros = null;
         cargando = null;

@@ -110,8 +110,8 @@ angular
         $window.scrollTo(0, 0);
     });
     
-    if (Notification.permission !== "granted") {
-        Notification.requestPermission()
+    if (Notification.permission !== 'granted') {
+        Notification.requestPermission();
     }
     
     $interval(function() {

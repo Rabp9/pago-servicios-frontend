@@ -5,8 +5,13 @@
     </div>
     <div class="modal-body">
         <div class="form-group">
+            <label for="txtServicio">Tipo</label>
+            <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.tipo.descripcion"
+                name="programacionServicioDescripcion" readonly />
+        </div>
+        <div class="form-group">
             <label for="txtServicio">Servicio</label>
-            <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.descripcion"
+            <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.descripcion_detallada"
                 name="programacionServicioDescripcion" readonly />
         </div>
         <div class="form-group">

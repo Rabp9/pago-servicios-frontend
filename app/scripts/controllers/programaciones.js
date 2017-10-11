@@ -12,7 +12,7 @@ angular.module('pagoServiciosFrontendApp')
     $uibModal, tiposservice) {
     
     $scope.search = {};
-    $scope.search.estado_id = "";
+    $scope.search.estado_id = '';
     
     $scope.init = function() {
         tiposservice.get(function(data) {
@@ -36,7 +36,7 @@ angular.module('pagoServiciosFrontendApp')
         });
     };
     
-    $scope.showProgramacionesAdd = function(servicio) {
+    $scope.showProgramacionesAdd = function(servicio, tipo) {
         var modalInstanceAdd = $uibModal.open({
             templateUrl: 'views/programaciones-add.html',
             controller: 'ProgramacionesAddCtrl',
@@ -44,7 +44,10 @@ angular.module('pagoServiciosFrontendApp')
             resolve: {
                 servicio: function() {
                     return servicio;
-                }
+                },
+                tipo: function() {
+                    return tipo;
+                },
             }
         });
 

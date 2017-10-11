@@ -41,7 +41,7 @@
                 <tbody>
                     <tr ng-hide="!loading"><td colspan="7">Cargando...</td></tr>
                     <tr ng-show="!loading && pagos.length === 0"><td colspan="7">No hay registros</td></tr>
-                    <tr ng-hide="loading" ng-class="{'danger': servicio.estado_id === 2}" ng-repeat="pago in pagos | toArray:false | filter:search" row-id="{{ pago.id }}">
+                    <tr ng-hide="loading" ng-class="{'danger': pago.estado_id === 2}" ng-repeat="pago in pagos | toArray:false | filter:search" row-id="{{ pago.id }}">
                         <td>{{ pago.id }}</td>
                         <td>{{ pago.programacion.servicio.tipo.descripcion }}</td>
                         <td>{{ pago.programacion.servicio.descripcion }}</td>
@@ -49,9 +49,8 @@
                         <td>{{ pago.fecha }}</td>
                         <td>{{ pago.programacion.fecha }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="showPagosEdit(pago)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button ng-show="servicio.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showPagosDelete(pago)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
-                            <button ng-show="servicio.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showPagosActivate(pago)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
+                            <button ng-show="pago.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showPagosDelete(pago)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button ng-show="pago.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showPagosActivate(pago)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
                         </td>
                     </tr>
                 </tbody>

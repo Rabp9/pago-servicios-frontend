@@ -11,7 +11,7 @@ angular.module('pagoServiciosFrontendApp')
 .controller('PagosCtrl', function ($scope, pagosservice, $uibModal) {
     
     $scope.search = {};
-    $scope.search.estado_id = "";
+    $scope.search.estado_id = '1';
     
     $scope.init = function() {
         $scope.loading = true;
@@ -32,6 +32,28 @@ angular.module('pagoServiciosFrontendApp')
             $scope.message = data;
             $scope.pagos.push(data.pago);
         });
+    };
+    
+    $scope.showPagosDelete = function(pago) {
+        if (confirm('¿Está seguro de eliminar el pago?')) {
+            pago.estado_id = 2;
+            pagosservice.save(pago, function(data) {
+                $scope.message = data;
+            }, function(error) {
+                pago.estado_id = 3;
+            });
+        }
+    };
+    
+    $scope.showPagosActivate = function(pago) {
+        if (confirm('¿Está seguro de activar el pago?')) {
+            pago.estado_id = 1;
+            pagosservice.save(pago, function(data) {
+                $scope.message = data;
+            }, function(error) {
+                pago.estado_id = 3;
+            });
+        }
     };
     
     $scope.init();

@@ -10,8 +10,10 @@
 angular.module('pagoServiciosFrontendApp')
 .controller('ReporteServiciosCtrl', function ($scope, serviciosservice) {
     $scope.search = {};
-    $scope.search.condicion = "";
+    $scope.search.condicion = '';
     $scope.loading = false;
+    var today = new Date();
+    $scope.today = formatDate(today);
     
     $scope.init = function() {
         $scope.loading = true;
@@ -22,17 +24,28 @@ angular.module('pagoServiciosFrontendApp')
     };
     
     $scope.exportData = function (option) {
-        var cargando = $( "#trCargando" ).detach();
-        var no_hay_registros = $( "#trNoHayRegistros" ).detach();
+        var cargando = $( '#trCargando' ).detach();
+        var no_hay_registros = $( '#trNoHayRegistros' ).detach();
 
         $('#exportable').tableExport({ type: option, escape: false });
         
-        cargando.appendTo("#exportable tbody");
-        no_hay_registros.appendTo("#exportable tbody");
+        cargando.appendTo('#exportable tbody');
+        no_hay_registros.appendTo('#exportable tbody');
         
         no_hay_registros = null;
         cargando = null;
     };
+    
+    function formatDate(fecha) {
+        if (fecha === undefined) {
+            return undefined;
+        }
+        return fecha.getFullYear() + '-' + str_pad((fecha.getMonth() + 1), '00') + '-' + str_pad(fecha.getDate(), '00');
+    }
+    
+    function str_pad(str, pad) {
+        return pad.substring(0, (pad.length - str.toString().length)) + str;
+    }
     
     $scope.init();
 });

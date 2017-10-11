@@ -11,7 +11,7 @@ angular.module('pagoServiciosFrontendApp')
 .controller('TiposCtrl', function ($scope, tiposservice, $uibModal) {
 
     $scope.search = {};
-    $scope.search.estado_id = "";
+    $scope.search.estado_id = '1';
 
     $scope.init = function() {
         $scope.loading = true;
