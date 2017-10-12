@@ -9,6 +9,17 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('ReporteServiciosCtrl', function ($scope, serviciosservice) {
+    function formatDate(fecha) {
+        if (fecha === undefined) {
+            return undefined;
+        }
+        return fecha.getFullYear() + '-' + str_pad((fecha.getMonth() + 1), '00') + '-' + str_pad(fecha.getDate(), '00');
+    }
+    
+    function str_pad(str, pad) {
+        return pad.substring(0, (pad.length - str.toString().length)) + str;
+    }
+    
     $scope.search = {};
     $scope.search.condicion = '';
     $scope.loading = false;
@@ -35,17 +46,6 @@ angular.module('pagoServiciosFrontendApp')
         no_hay_registros = null;
         cargando = null;
     };
-    
-    function formatDate(fecha) {
-        if (fecha === undefined) {
-            return undefined;
-        }
-        return fecha.getFullYear() + '-' + str_pad((fecha.getMonth() + 1), '00') + '-' + str_pad(fecha.getDate(), '00');
-    }
-    
-    function str_pad(str, pad) {
-        return pad.substring(0, (pad.length - str.toString().length)) + str;
-    }
     
     $scope.init();
 });
