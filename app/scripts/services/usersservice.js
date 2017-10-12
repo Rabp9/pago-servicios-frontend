@@ -8,16 +8,19 @@
  * Factory in the pagoServiciosFrontendApp.
  */
 angular.module('pagoServiciosFrontendApp')
-  .factory('usersservice', function () {
-    // Service logic
-    // ...
-
-    var meaningOfLife = 42;
-
-    // Public API here
-    return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
-    };
-  });
+.factory('usersservice', function ($resource, envservice) {
+    return $resource(envservice.getHost() + 'users/:id.json', {}, {
+        getPersonas: {
+            method: 'GET',
+            url: envservice.getHost() + 'users/getPersonas/.json'
+        },
+        login: {
+            method: 'POST',
+            url: envservice.getHost() + 'users/token/.json',
+        },
+        getAdmin: {
+            method: 'GET',
+            url: envservice.getHost() + 'users/getAdmin/.json',
+        }
+    });
+});

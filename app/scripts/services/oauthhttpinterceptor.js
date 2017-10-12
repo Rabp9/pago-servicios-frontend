@@ -8,16 +8,11 @@
  * Factory in the pagoServiciosFrontendApp.
  */
 angular.module('pagoServiciosFrontendApp')
-  .factory('oauthHttpInterceptor', function () {
-    // Service logic
-    // ...
-
-    var meaningOfLife = 42;
-
-    // Public API here
+  .factory('oauthHttpInterceptor', function ($cookies) {
     return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
+        request: function (config) {
+            config.headers.Authorization = 'Bearer ' + $cookies.get('pago-servicios-tmt-token');
+            return config;
+        }
     };
-  });
+});

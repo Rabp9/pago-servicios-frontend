@@ -53,14 +53,14 @@
                                 <li ui-sref-active="active"><a ui-sref="reportePagos">Reporte de Pagos Realizados</a></li>
                             </ul>
                         </li>
+                        <li ng-if="user.rol_user.rol.descripcion === 'Administrador'" ui-sref-active="active"><a ui-sref="roles">Roles</a></li>
+                        <li ng-if="user.rol_user.rol.descripcion === 'Administrador'" ui-sref-active="active"><a ui-sref="users">Usuarios</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                           <li><a style="cursor: pointer;" ng-click="logout()">Log out</a></li>
                           <li><a href="#">{{ user.persona.full_name }}</a></li>
                     </ul>
-                    <li ng-if="user.rol_user.rol.descripcion === 'Administrador'" ui-sref-active="active"><a ui-sref="roles">Roles</a></li>
-                    <li ng-if="user.rol_user.rol.descripcion === 'Administrador'" ui-sref-active="active"><a ui-sref="users">Usuarios</a></li>
-              </div>
+                </div>
             </div>
         </div>
     </div>
@@ -133,6 +133,9 @@
     <script src="scripts/services/controllers.js"></script>
     <script src="scripts/services/usersservice.js"></script>
     <script src="scripts/services/oauthhttpinterceptor.js"></script>
+    <script src="scripts/services/rolesservice.js"></script>
+    <script src="scripts/services/controllersservice.js"></script>
+    <script src="scripts/services/rolusersservice.js"></script>
     <!-- endbuild -->
 </body>
 </html>
