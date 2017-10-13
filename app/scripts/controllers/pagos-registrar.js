@@ -11,6 +11,17 @@ angular.module('pagoServiciosFrontendApp')
 .controller('PagosRegistrarCtrl', function ($scope, tiposservice, $uibModalInstance,
     serviciosservice, programacionesservice, $utilsViewService, pagosservice) {
     
+    function formatDate(fecha) {
+        if (fecha === undefined) {
+            return undefined;
+        }
+        return fecha.getFullYear() + '-' + str_pad((fecha.getMonth() + 1), '00') + '-' + str_pad(fecha.getDate(), '00');
+    }
+    
+    function str_pad(str, pad) {
+        return pad.substring(0, (pad.length - str.toString().length)) + str;
+    }
+    
     $scope.init = function() {
         $scope.loading = true;
         tiposservice.get(function(data) {
@@ -42,7 +53,8 @@ angular.module('pagoServiciosFrontendApp')
     $scope.registrarPago = function(pago, boton) {
         $utilsViewService.disable('#' + boton);
         
-        pagosservice.save(pago, function (data) {
+        pago.fecha = formatDate(pago.fecha);
+        pagosservice.save(pago, function(data) {
             $uibModalInstance.close(data);
         }, function (err) {
             $uibModalInstance.close(err.data);

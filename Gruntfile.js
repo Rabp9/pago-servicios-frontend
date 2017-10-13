@@ -334,7 +334,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          src: '{,*/}*.{png,jpg,jpeg,gif,ico}',
           dest: '<%= yeoman.dist %>/images'
         }]
       }
@@ -429,11 +429,6 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.',
           src: 'bower_components/table-export/**',
-          dest: '<%= yeoman.dist %>'
-        }, {
-          expand: true,
-          cwd: '.',
-          src: 'images/icono.ico',
           dest: '<%= yeoman.dist %>'
         }]
       },

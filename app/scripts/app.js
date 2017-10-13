@@ -158,23 +158,21 @@ $timeout, $cookies, $location) {
     }
     
     $interval(function() {
-        if ($rootScope.logged) {
-            programacionesservice.getPendientesPago(function(data) {
-                var programaciones = data.programaciones;
-                angular.forEach(programaciones, function(value, key) {
-                    var title = value.servicio.descripcion;
-                    var extra = {
-                        icon: 'images/icono.png',
-                        body: 'Deuda de: ' + value.descripcion_detallada
-                    };
-                    // Lanzamos la notificación
-                    var notification = new Notification(title, extra);
-                    $timeout(function() {
-                        notification.close();
-                    }, 6000);
-                });
+        programacionesservice.getPendientesPago(function(data) {
+            var programaciones = data.programaciones;
+            angular.forEach(programaciones, function(value, key) {
+                var title = value.servicio.descripcion;
+                var extra = {
+                    icon: 'images/icono.png',
+                    body: 'Deuda de: ' + value.descripcion_detallada
+                };
+                // Lanzamos la notificación
+                var notification = new Notification(title, extra);
+                $timeout(function() {
+                    notification.close();
+                }, 6000);
             });
-        }
+        });
     }, 8000);
     
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {

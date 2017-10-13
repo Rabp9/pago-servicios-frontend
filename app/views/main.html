@@ -1,1 +1,11 @@
-<img class="center-block center-image-vertical" src="images/logo.jpg" alt="Logo Transportes Metropolitanos de Trujillo">
+<h1>Dashboard</h1>
+<hr>
+<div class="row">
+    <div class="col-sm-4 dv-servicio" ng-repeat="servicio in servicios" >
+        <div class="dv-servicio-child" ng-class="{'btn-danger': servicio.condicion === 'DEUDA', 'btn-primary': servicio.condicion === 'PAGADO'}">
+            <h2>{{ servicio.descripcion_detallada }}</h2>
+            <p>{{ servicio.condicion }}</p>
+            <p><span ng-show="servicio.condicion === 'DEUDA'">S/ {{ servicio.deuda_acumulada }}</span>&nbsp;</p>
+        </div>
+    </div>
+</div>
