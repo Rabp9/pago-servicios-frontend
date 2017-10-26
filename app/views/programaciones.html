@@ -14,7 +14,7 @@
         <select id="sltTipo" class="form-control"
             ng-options="tipo as tipo.descripcion for tipo in tipos"
             ng-model="tipo" ng-change="onChangeTipo(tipo.id)">
-            <option value="">Selecciona un Tipo</option>
+            <option value="">{{ loading_tipos }}</option>
         </select>
     </div>
     <div class="col-sm-6">
@@ -22,7 +22,7 @@
         <select id="sltServicio" class="form-control"
             ng-options="servicio as servicio.descripcion for servicio in servicios"
             ng-model="servicio" ng-change="onChangeServicio(servicio.id)">
-            <option value="">Selecciona un Servicio</option>
+            <option value="">{{ loading_servicios }}</option>
         </select>
     </div>
     <div class="col-sm-12"> 
@@ -50,18 +50,20 @@
                 <thead>
                     <tr>
                         <th sortable-header col="id">Código</th>
+                        <th sortable-header col="servicio.descripcion">Servicio</th>
                         <th sortable-header col="monto">Monto</th>
-                        <th sortable-header col="fecha">Fecha</th>
+                        <th sortable-header col="fecha_vencimiento">Fecha de Vencimiento</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-hide="!loading"><td colspan="4">Cargando...</td></tr>
-                    <tr ng-show="!loading && programaciones.length === 0"><td colspan="4">No hay registros</td></tr>
+                    <tr ng-hide="!loading"><td colspan="5">Cargando...</td></tr>
+                    <tr ng-show="!loading && programaciones.length === 0"><td colspan="5">No hay registros</td></tr>
                     <tr ng-hide="loading" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones | toArray:false | filter:search" row-id="{{ programacion.id }}">
                         <td>{{ programacion.id }}</td>
+                        <td>{{ programacion.servicio.descripcion }}</td>
                         <td>{{ programacion.monto }}</td>
-                        <td>{{ programacion.fecha }}</td>
+                        <td>{{ programacion.fecha_vencimiento }}</td>
                         <td>
                             <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showProgramacionesEdit(programacion)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
                             <button ng-show="programacion.estado_id === 3" type="button" class="btn btn-warning btn-sm" ng-click="showProgramacionesCancelar(programacion)" title="Cancelar Pago"><span class="glyphicon glyphicon-remove"></span></button>

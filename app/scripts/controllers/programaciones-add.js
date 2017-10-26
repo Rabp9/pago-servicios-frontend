@@ -15,7 +15,8 @@ angular.module('pagoServiciosFrontendApp')
     $scope.programacion.monto = 0;
     $scope.programacion.servicio = servicio;
     $scope.programacion.servicio.tipo = tipo;
-console.log(tipo);
+    $scope.programacion.dias_mensaje = 5;
+    
     $scope.cancel = function() {
         $uibModalInstance.dismiss('cancel');
     };
@@ -23,7 +24,7 @@ console.log(tipo);
     $scope.saveProgramacion = function(programacion, boton) {
         $utilsViewService.disable('#' + boton);
         
-        programacion.fecha = formatDate(programacion.fecha);
+        programacion.fecha_vencimiento = formatDate(programacion.fecha_vencimiento);
         programacionesservice.save(programacion, function (data) {
             $uibModalInstance.close(data);
         }, function (err) {

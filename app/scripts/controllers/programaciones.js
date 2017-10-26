@@ -13,19 +13,29 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.search = {};
     $scope.search.estado_id = '';
+    $scope.loading_servicios = 'Seleccione un servicio';
     
     $scope.init = function() {
+        $scope.loading_tipos = 'Cargando...';
         tiposservice.get(function(data) {
+            $scope.loading_tipos = 'Selecciona un Tipo';
             $scope.tipos = data.tipos;
         });
     };
     
     $scope.onChangeTipo = function(tipo_id) {
+        $scope.servicios = [];
         $scope.loading = true;
-        serviciosservice.getByTipo({tipo_id: tipo_id}, function(data) {
-            $scope.loading = false;
-            $scope.servicios = data.servicios;
-        });
+        $scope.loading_servicios = 'Cargando...';
+        if (tipo_id === undefined) {
+            $scope.loading_servicios = 'Seleccione un servicio';
+        } else {
+            serviciosservice.getByTipo({tipo_id: tipo_id}, function(data) {
+                $scope.loading = false;
+                $scope.loading_servicios = 'Seleccione un servicio';
+                $scope.servicios = data.servicios;
+            });
+        }
     };
     
     $scope.onChangeServicio = function(servicio_id) {

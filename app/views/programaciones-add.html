@@ -4,21 +4,23 @@
         <h4 class="modal-title">Nueva Programación</h4>
     </div>
     <div class="modal-body">
-        <div class="form-group">
-            <label for="txtServicio">Tipo</label>
-            <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.tipo.descripcion"
-                name="programacionServicioDescripcion" readonly />
-        </div>
-        <div class="form-group">
-            <label for="txtServicio">Servicio</label>
-            <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.descripcion_detallada"
-                name="programacionServicioDescripcion" readonly />
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label for="txtServicio">Tipo</label>
+                <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.tipo.descripcion"
+                    name="programacionServicioDescripcion" readonly />
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="txtServicio">Servicio</label>
+                <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.descripcion_detallada"
+                    name="programacionServicioDescripcion" readonly />
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="dtFecha">Fecha</label>
-                    <input id="dtFecha" class="form-control" type="date" ng-model="programacion.fecha"
+                    <label for="dtFecha">Fecha de Vencimiento</label>
+                    <input id="dtFecha" class="form-control" type="date" ng-model="programacion.fecha_vencimiento"
                         name="programacionFecha" required required-message="'Este campo es requerido'" validate-on="blur" />
                 </div>
             </div>
@@ -33,9 +35,21 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="txtNroDocumento">Nro. Documento</label>
-                    <input id="txtNroDocumento" class="form-control" type="text" ng-model="programacion.nro_documento"
-                        name="programacionNroDocumento" />
+                    <label for="txtNroRecibo">Nro. Recibo</label>
+                    <input id="txtNroRecibo" class="form-control" type="text" ng-model="programacion.nro_recibo"
+                        name="programacionNroRecibo" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    Avisar 
+                    <select class="form-control" style="width: 60px; display: inline;"
+                        name="programacionDiasMensaje" ng-model="programacion.dias_mensaje" 
+                        ng-options="option for option in [5, 10, 15, 30, 60]">
+                    </select>
+                    días antes de la Fecha de Vencimiento
                 </div>
             </div>
         </div>

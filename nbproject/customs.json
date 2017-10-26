@@ -11,6 +11,9 @@
         "angular-validator": {
             "context": "form"
         },
+        "sortable-header": {
+            "context": "th"
+        },
         "ui-sref-active": {
             "context": "li"
         },
