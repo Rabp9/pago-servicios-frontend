@@ -9,11 +9,13 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('ProgramacionesEditCtrl', function ($scope, $uibModalInstance, 
-    $utilsViewService, programacionesservice, programacion) {
+    $utilsViewService, programacionesservice, programacion, tipo, servicio) {
  
     $scope.init = function() {
         programacionesservice.get({id: programacion.id}, function(data) {
             $scope.programacion = data.programacion;
+            $scope.tipo = tipo;
+            $scope.servicio = servicio;
         });
     };
 

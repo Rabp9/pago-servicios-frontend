@@ -51,21 +51,27 @@
                     <tr>
                         <th sortable-header col="id">Código</th>
                         <th sortable-header col="servicio.descripcion">Servicio</th>
+                        <th sortable-header col="servicio.detalle">Detalle</th>
                         <th sortable-header col="monto">Monto</th>
                         <th sortable-header col="fecha_vencimiento">Fecha de Vencimiento</th>
+                        <th sortable-header col="fecha_pago">Fecha de Pago</th>
+                        <th sortable-header col="nro_recibo">Nª de Recibo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-hide="!loading"><td colspan="5">Cargando...</td></tr>
-                    <tr ng-show="!loading && programaciones.length === 0"><td colspan="5">No hay registros</td></tr>
+                    <tr ng-hide="!loading"><td colspan="8">Cargando...</td></tr>
+                    <tr ng-show="!loading && programaciones.length === 0"><td colspan="8">No hay registros</td></tr>
                     <tr ng-hide="loading" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones | toArray:false | filter:search" row-id="{{ programacion.id }}">
                         <td>{{ programacion.id }}</td>
                         <td>{{ programacion.servicio.descripcion }}</td>
+                        <td>{{ programacion.servicio.detalle }}</td>
                         <td>{{ programacion.monto }}</td>
                         <td>{{ programacion.fecha_vencimiento }}</td>
+                        <td>{{ programacion.fecha_pago }}</td>
+                        <td>{{ programacion.nro_recibo }}</td>
                         <td>
-                            <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showProgramacionesEdit(programacion)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showProgramacionesEdit(programacion, servicio, tipo)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
                             <button ng-show="programacion.estado_id === 3" type="button" class="btn btn-warning btn-sm" ng-click="showProgramacionesCancelar(programacion)" title="Cancelar Pago"><span class="glyphicon glyphicon-remove"></span></button>
                             <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-danger btn-sm" ng-click="showProgramacionesDelete(programacion)" title="Eliminar Programación"><span class="glyphicon glyphicon-remove"></span></button>
                             <button ng-show="programacion.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showProgramacionesActivate(programacion)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>

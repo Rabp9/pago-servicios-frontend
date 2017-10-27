@@ -59,15 +59,6 @@ angular
         title: 'Programaciones'
     };  
     
-    var pagosState = {
-        name: 'pagos',
-        url: '/pagos',
-        templateUrl: 'views/pagos.html',
-        controller: 'PagosCtrl',
-        controllerAs: 'pagos',
-        title: 'Pagos'
-    };
-
     var reporteServiciosState = {
         name: 'reporteServicios',
         url: '/reporte-servicios',
@@ -126,7 +117,6 @@ angular
     $stateProvider.state(serviciosState);
     $stateProvider.state(tiposState);
     $stateProvider.state(programacionesState);
-    $stateProvider.state(pagosState);
     $stateProvider.state(reporteServiciosState);
     $stateProvider.state(reporteProgramacionesState);
     $stateProvider.state(reportePagosState);
@@ -170,10 +160,10 @@ $timeout, $cookies, $location) {
                 var notification = new Notification(title, extra);
                 $timeout(function() {
                     notification.close();
-                }, 6000);
+                }, 30000);
             });
         });
-    }, 8000);
+    }, 300000);
     
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         if (!$rootScope.logged) {

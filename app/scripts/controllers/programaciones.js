@@ -100,7 +100,7 @@ angular.module('pagoServiciosFrontendApp')
         }
     };
     
-    $scope.showProgramacionesEdit = function(programacion, servicio) {
+    $scope.showProgramacionesEdit = function(programacion, servicio, tipo) {
         var modalInstanceAdd = $uibModal.open({
             templateUrl: 'views/programaciones-edit.html',
             controller: 'ProgramacionesEditCtrl',
@@ -108,6 +108,12 @@ angular.module('pagoServiciosFrontendApp')
             resolve: {
                 programacion: function() {
                     return programacion;
+                },
+                servicio: function() {
+                    return servicio;
+                },
+                tipo: function() {
+                    return tipo;
                 }
             }
         });

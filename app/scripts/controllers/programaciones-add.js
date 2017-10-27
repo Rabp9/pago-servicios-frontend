@@ -24,7 +24,9 @@ angular.module('pagoServiciosFrontendApp')
     $scope.saveProgramacion = function(programacion, boton) {
         $utilsViewService.disable('#' + boton);
         
-        programacion.fecha_vencimiento = formatDate(programacion.fecha_vencimiento);
+        if ($scope.fecha_pre !== null) {
+            programacion.fecha_vencimiento = formatDate($scope.fecha_pre);
+        }
         programacionesservice.save(programacion, function (data) {
             $uibModalInstance.close(data);
         }, function (err) {
