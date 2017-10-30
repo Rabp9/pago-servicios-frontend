@@ -19,37 +19,16 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="dtFechaVencimiento">Fecha de Vencimiento</label>
-                    <input id="dtFechaVencimiento" class="form-control" type="date" ng-model="fecha_pre" ng-value="programacion.fecha_vencimiento"
-                        name="programacionFechaVencimiento" />
+                    <label for="dtFechaPago">Fecha de Pago</label>
+                    <input id="dtFechaPago" class="form-control" type="date" ng-model="fecha_pre"
+                        name="programacionFechaPago" required required-message="'Este campo es requerido'" validate-on="blur" />
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="nmMonto">Monto</label>
-                    <input id="nmMonto" class="form-control" type="number" ng-model="programacion.monto"
-                        name="programacionMonto" required min="0" required-message="'Este campo es requerido'" validate-on="blur" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <label for="txtNroRecibo">Nro. Recibo</label>
-                    <input id="txtNroRecibo" class="form-control" type="text" ng-model="programacion.nro_recibo"
-                        name="pagoNroRecibo" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group">
-                    Avisar 
-                    <select class="form-control" style="width: 60px; display: inline;"
-                        name="programacionDiasMensaje" ng-model="programacion.dias_mensaje" 
-                        ng-options="option for option in [5, 10, 15, 30, 60]">
-                    </select>
-                    días antes de la Fecha de Vencimiento
+                    <label for="txtNroDocumento">Nro. Documento</label>
+                    <input id="txtNroDocumento" class="form-control" type="text" ng-model="programacion.nro_documento"
+                        name="pagoNroDocumento" />
                 </div>
             </div>
         </div>

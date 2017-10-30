@@ -27,6 +27,7 @@ angular.module('pagoServiciosFrontendApp')
         if ($scope.fecha_pre !== null) {
             programacion.fecha_vencimiento = formatDate($scope.fecha_pre);
         }
+        programacion.estado_id = 4;
         programacionesservice.save(programacion, function (data) {
             $uibModalInstance.close(data);
         }, function (err) {

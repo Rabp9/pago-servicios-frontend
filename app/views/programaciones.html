@@ -72,6 +72,7 @@
                         <td>{{ programacion.nro_recibo }}</td>
                         <td>
                             <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showProgramacionesEdit(programacion, servicio, tipo)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-default btn-sm" ng-click="showProgramacionesPagar(programacion, servicio, tipo)" title="Pagar"><span class="glyphicon glyphicon-check"></span></button>
                             <button ng-show="programacion.estado_id === 3" type="button" class="btn btn-warning btn-sm" ng-click="showProgramacionesCancelar(programacion)" title="Cancelar Pago"><span class="glyphicon glyphicon-remove"></span></button>
                             <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-danger btn-sm" ng-click="showProgramacionesDelete(programacion)" title="Eliminar Programación"><span class="glyphicon glyphicon-remove"></span></button>
                             <button ng-show="programacion.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showProgramacionesActivate(programacion)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>

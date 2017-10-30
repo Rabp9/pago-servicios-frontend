@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name pagoServiciosFrontendApp.controller:ProgramacionesEditCtrl
+ * @name pagoServiciosFrontendApp.controller:ProgramacionesPagarCtrl
  * @description
- * # ProgramacionesEditCtrl
+ * # ProgramacionesPagarCtrl
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('ProgramacionesEditCtrl', function ($scope, $uibModalInstance, 
+.controller('ProgramacionesPagarCtrl', function ($scope, $uibModalInstance, 
     $utilsViewService, programacionesservice, programacion, tipo, servicio) {
  
     $scope.init = function() {
@@ -27,8 +27,9 @@ angular.module('pagoServiciosFrontendApp')
         $utilsViewService.disable('#' + boton);
                 
         if ($scope.fecha_pre !== null) {
-            programacion.fecha_vencimiento = formatDate($scope.fecha_pre);
+            programacion.fecha_pago = formatDate($scope.fecha_pre);
         }
+        programacion.estado_id = 3;
         programacionesservice.save(programacion, function (data) {
             $uibModalInstance.close(data);
         }, function (err) {

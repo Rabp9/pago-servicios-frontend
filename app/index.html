@@ -48,13 +48,13 @@
                         <li ui-sref-active="active"><a ui-sref="main">Home</a></li>
                         <li ui-sref-active="active"><a ui-sref="tipos">Tipos</a></li>
                         <li ui-sref-active="active"><a ui-sref="servicios">Servicios</a></li>
-                        <li ui-sref-active="active"><a ui-sref="programaciones">Programaciones</a></li>
+                        <li ui-sref-active="active"><a ui-sref="programaciones">Programaciones y Pagos</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li ui-sref-active="active"><a ui-sref="reporteServicios">Reporte de Servicios</a></li>
-                                <li ui-sref-active="active"><a ui-sref="reporteProgramaciones">Reporte de Programaciones de Pagos</a></li>
-                                <li ui-sref-active="active"><a ui-sref="reportePagos">Reporte de Pagos Realizados</a></li>
+                                <li ui-sref-active="active"><a ui-sref="reporteProgramaciones">Reporte de Programaciones sin Pagar</a></li>
+                                <li ui-sref-active="active"><a ui-sref="reportePagos">Reporte de Programaciones Pagadas</a></li>
                             </ul>
                         </li>
                         <li ng-if="user.rol_user.rol.descripcion === 'Administrador'" ui-sref-active="active"><a ui-sref="roles">Roles</a></li>
@@ -140,6 +140,7 @@
     <script src="scripts/services/rolesservice.js"></script>
     <script src="scripts/services/controllersservice.js"></script>
     <script src="scripts/services/rolusersservice.js"></script>
+    <script src="scripts/controllers/programaciones-pagar.js"></script>
     <!-- endbuild -->
 </body>
 </html>

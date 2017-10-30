@@ -20,11 +20,15 @@ angular.module('pagoServiciosFrontendApp')
         },
         getByDates: {
             method: 'GET',
-            url: envservice.getHost() + 'programaciones/getByDates/:fecha_inicio/:fecha_cierre/.json'
+            url: envservice.getHost() + 'programaciones/getByDates/:fecha_inicio/:fecha_cierre/:estado_id.json'
         },
         getPendientesPago: {
             method: 'GET',
             url: envservice.getHost() + 'programaciones/getPendientesPago/.json'
+        },
+        cancelarPago: {
+            method: 'POST',
+            url: envservice.getHost() + 'programaciones/cancelarPago/.json'
         }
     });
 });

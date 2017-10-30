@@ -5,9 +5,9 @@
 <ol class="breadcrumb">
     <li><a ui-sref="administrar">Home</a></li>
     <li>Reportes</li>
-    <li>Reporte de Programaciones de Pagos</li>
+    <li>Reporte de Programaciones sin Pagar</li>
 </ol>
-<h2>Reporte de Programaciones de Pagos</h2>
+<h2>Reporte de Programaciones sin Pagar</h2>
 <hr>
 <div class="row">
     <div class="col-sm-6">
@@ -41,7 +41,7 @@
                         <th sortable-header col="id">Código</th>
                         <th sortable-header col="servicio.descripcion">Servicio</th>
                         <th sortable-header col="monto">Monto</th>
-                        <th sortable-header col="fecha">Fecha</th>
+                        <th sortable-header col="fecha_vencimiento">Fecha de Vencimiento</th>
                         <th sortable-header col="estado.descripcion">Estado</th>
                     </tr>
                 </thead>
@@ -52,7 +52,7 @@
                         <td>{{ programacion.id }}</td>
                         <td>{{ programacion.servicio.descripcion }}</td>
                         <td>{{ programacion.monto }}</td>
-                        <td>{{ programacion.fecha }}</td>
+                        <td>{{ programacion.fecha_vencimiento }}</td>
                         <td>{{ programacion.estado.descripcion }}</td>
                     </tr>
                 </tbody>

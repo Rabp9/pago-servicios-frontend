@@ -8,7 +8,7 @@
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('ReporteServiciosCtrl', function ($scope, serviciosservice) {
+.controller('ReporteServiciosCtrl', function ($scope, serviciosservice, tiposservice) {
     function formatDate(fecha) {
         if (fecha === undefined) {
             return undefined;
@@ -28,9 +28,26 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.init = function() {
         $scope.loading = true;
-        serviciosservice.getReport(function(data) {
-            $scope.servicios = data.servicios;
+        $scope.loading_tipos = 'Cargando...';
+        tiposservice.get(function(data) {
+            $scope.loading_tipos = 'Selecciona un Tipo';
+            $scope.tipos = data.tipos;
+            serviciosservice.getReport({tipo_id: 0}, function(data) {
+                $scope.servicios = data.servicios;
+                $scope.loading = false;
+            });
+        });
+    };
+    
+    $scope.onChangeTipo = function(tipo_id) {
+        if (tipo_id === undefined) {
+            tipo_id = 0;
+        }
+        $scope.loading = true;
+        serviciosservice.getReport({tipo_id: tipo_id}, function(data) {
             $scope.loading = false;
+            $scope.loading_servicios = 'Seleccione un servicio';
+            $scope.servicios = data.servicios;
         });
     };
     

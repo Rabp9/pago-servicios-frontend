@@ -23,6 +23,13 @@ angular.module('pagoServiciosFrontendApp')
         });
     };
     
+    $scope.getProgramacionesByServicio = function(servicio_id) {
+        programacionesservice.getByServicio({servicio_id: servicio_id}, function(data) {
+            $scope.loading = false;
+            $scope.programaciones = data.programaciones;
+        });
+    };
+    
     $scope.onChangeTipo = function(tipo_id) {
         $scope.servicios = [];
         $scope.loading = true;
@@ -40,10 +47,7 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.onChangeServicio = function(servicio_id) {
         $scope.loading = true;
-        programacionesservice.getByServicio({servicio_id: servicio_id}, function(data) {
-            $scope.loading = false;
-            $scope.programaciones = data.programaciones;
-        });
+        $scope.getProgramacionesByServicio(servicio_id);
     };
     
     $scope.showProgramacionesAdd = function(servicio, tipo) {
@@ -70,7 +74,9 @@ angular.module('pagoServiciosFrontendApp')
     $scope.showProgramacionesCancelar = function(programacion) {
         if (confirm('¿Está seguro de cancelar el pago?')) {
             programacion.estado_id = 4;
-            programacionesservice.save(programacion, function(data) {
+            programacion.fecha_pago = null;
+            programacion.nro_documento = null;
+            programacionesservice.cancelarPago(programacion, function(data) {
                 $scope.message = data;
             }, function(error) {
                 programacion.estado_id = 3;
@@ -121,6 +127,30 @@ angular.module('pagoServiciosFrontendApp')
         modalInstanceAdd.result.then(function (data) {
             $scope.message = data;
             $scope.onChangeServicio($scope.servicio.id);
+        });
+    };
+    
+    $scope.showProgramacionesPagar = function(programacion, servicio, tipo) {
+        var modalInstancePagar = $uibModal.open({
+            templateUrl: 'views/programaciones-pagar.html',
+            controller: 'ProgramacionesPagarCtrl',
+            backdrop: false,
+            resolve: {
+                programacion: function() {
+                    return programacion;
+                },
+                servicio: function() {
+                    return servicio;
+                },
+                tipo: function() {
+                    return tipo;
+                }
+            }
+        });
+
+        modalInstancePagar.result.then(function (data) {
+            $scope.message = data;
+            $scope.getProgramacionesByServicio(servicio.id);
         });
     };
     

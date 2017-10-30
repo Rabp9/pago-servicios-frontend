@@ -8,7 +8,7 @@
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('ReportePagosCtrl', function ($scope, pagosservice) {
+.controller('ReportePagosCtrl', function ($scope, programacionesservice) {
     $scope.loading = false;
     
     $scope.changeDates = function(fecha_inicio, fecha_cierre) {
@@ -16,26 +16,16 @@ angular.module('pagoServiciosFrontendApp')
             return;
         } else {
             $scope.loading = true;
-            pagosservice.getByDates({
+            programacionesservice.getByDates({
                 fecha_inicio: formatDate(fecha_inicio), 
-                fecha_cierre: formatDate(fecha_cierre)
+                fecha_cierre: formatDate(fecha_cierre),
+                estado_id: 3
             }, function(data) {
-                $scope.pagos = data.pagos;
+                $scope.programaciones = data.programaciones;
                 $scope.loading = false;
             });
         }
     };
-    
-    function formatDate(fecha) {
-        if (fecha === undefined) {
-            return undefined;
-        }
-        return fecha.getFullYear() + '-' + str_pad((fecha.getMonth() + 1), '00') + '-' + str_pad(fecha.getDate(), '00');
-    }
-    
-    function str_pad(str, pad) {
-        return pad.substring(0, (pad.length - str.toString().length)) + str;
-    }
     
     $scope.exportData = function (option) {
         var cargando = $( '#trCargando').detach();
@@ -49,4 +39,15 @@ angular.module('pagoServiciosFrontendApp')
         no_hay_registros = null;
         cargando = null;
     };
+    
+    function formatDate(fecha) {
+        if (fecha === undefined) {
+            return undefined;
+        }
+        return fecha.getFullYear() + '-' + str_pad((fecha.getMonth() + 1), '00') + '-' + str_pad(fecha.getDate(), '00');
+    }
+    
+    function str_pad(str, pad) {
+        return pad.substring(0, (pad.length - str.toString().length)) + str;
+    }
 });

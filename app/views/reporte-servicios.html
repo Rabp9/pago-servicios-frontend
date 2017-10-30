@@ -10,6 +10,16 @@
 <h2>Reporte de Servicios</h2>
 <hr>
 <div class="row">
+    <div class="col-sm-6">
+        <label for="sltTipo">Tipo</label>
+        <select id="sltTipo" class="form-control"
+            ng-options="tipo as tipo.descripcion for tipo in tipos"
+            ng-model="tipo" ng-change="onChangeTipo(tipo.id)">
+            <option value="">{{ loading_tipos }}</option>
+        </select>
+    </div>
+</div>
+<div class="row">
     <div class="col-sm-12">
         <div class="radio">
             <label>
