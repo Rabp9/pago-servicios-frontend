@@ -9,7 +9,7 @@
 <h2>Programaciones</h2>
 <hr>
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label for="sltTipo">Tipo</label>
         <select id="sltTipo" class="form-control"
             ng-options="tipo as tipo.descripcion for tipo in tipos"
@@ -17,13 +17,17 @@
             <option value="">{{ loading_tipos }}</option>
         </select>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label for="sltServicio">Servicio</label>
         <select id="sltServicio" class="form-control"
             ng-options="servicio as servicio.descripcion for servicio in servicios"
             ng-model="servicio" ng-change="onChangeServicio(servicio.id)">
             <option value="">{{ loading_servicios }}</option>
         </select>
+    </div>
+    <div class="col-sm-4">
+        <label for="txtBuscar">Buscar</label>
+        <input id="txtBuscar" type="text" class="form-control" ng-model="search.text" placeholder="Buscar">
     </div>
     <div class="col-sm-12"> 
         <button ng-disabled="servicio === null || servicio === undefined" type="button" class="btn btn-primary" ng-click="showProgramacionesAdd(servicio, tipo)"><span class="glyphicon glyphicon-plus"></span> Nueva Programación</button>
@@ -51,10 +55,11 @@
                     <tr>
                         <th sortable-header col="id">Código</th>
                         <th sortable-header col="servicio.descripcion">Servicio</th>
+                        <th sortable-header col="servicio.tipo.descripcion">Tipo</th>
                         <th sortable-header col="servicio.detalle">Detalle</th>
-                        <th sortable-header col="monto">Monto</th>
                         <th sortable-header col="fecha_vencimiento">Fecha de Vencimiento</th>
                         <th sortable-header col="fecha_pago">Fecha de Pago</th>
+                        <th sortable-header col="monto">Monto</th>
                         <th sortable-header col="nro_recibo">Nª de Recibo</th>
                         <th>Acciones</th>
                     </tr>
@@ -62,13 +67,14 @@
                 <tbody>
                     <tr ng-hide="!loading"><td colspan="8">Cargando...</td></tr>
                     <tr ng-show="!loading && programaciones.length === 0"><td colspan="8">No hay registros</td></tr>
-                    <tr ng-hide="loading" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones | toArray:false | filter:search" row-id="{{ programacion.id }}">
+                    <tr ng-hide="loading" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones" row-id="{{ programacion.id }}">
                         <td>{{ programacion.id }}</td>
                         <td>{{ programacion.servicio.descripcion }}</td>
+                        <td>{{ programacion.servicio.tipo.descripcion }}</td>
                         <td>{{ programacion.servicio.detalle }}</td>
-                        <td>{{ programacion.monto }}</td>
                         <td>{{ programacion.fecha_vencimiento }}</td>
                         <td>{{ programacion.fecha_pago }}</td>
+                        <td>{{ programacion.monto }}</td>
                         <td>{{ programacion.nro_recibo }}</td>
                         <td>
                             <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showProgramacionesEdit(programacion, servicio, tipo)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -81,5 +87,11 @@
                 </tbody>
             </table>
         </scrollable-table>
+        
+        <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
+            last-text="Último" next-text="Siguiente" previous-text="Anterior"
+            items-per-page="pagination.itemsPerPage" ng-model="page" 
+            class="pagination-sm" boundary-links="true" force-ellipses="true"
+            ng-change="pageChanged()"></ul>
     </div>
 </div>

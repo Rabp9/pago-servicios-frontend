@@ -30,29 +30,31 @@
         </button>
     </div>
     <div class="col-sm-12">
-        <scrollable-table watch="pagos" class="table-responsive" id="exportable">
+        <scrollable-table watch="programaciones" class="table-responsive" id="exportable">
             <meta charset="UTF-8">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th sortable-header col="id">Código</th>
-                        <th sortable-header col="programacion.servicio.tipo.descripcion">Tipo de Servicio</th>
-                        <th sortable-header col="programacion.servicio.descripcion">Servicio</th>
-                        <th sortable-header col="programacion.servicio.detalle">Detalle</th>
-                        <th sortable-header col="fecha">Fecha de Pago</th>
-                        <th sortable-header col="programacion.fecha">Fecha Programada</th>
+                        <th sortable-header col="servicio.tipo.descripcion">Tipos</th>
+                        <th sortable-header col="servicio.descripcion">Servicio</th>
+                        <th sortable-header col="servicio.detalle">Detalle</th>
+                        <th sortable-header col="monto">Monto</th>
+                        <th sortable-header col="fecha_pago">Fecha de Pago</th>
+                        <th sortable-header col="fecha_vencimiento">Fecha Programada</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr id="trCargando" ng-hide="!loading"><td colspan="6">Cargando...</td></tr>
                     <tr id="trNoHayRegistros" ng-show="!loading && pagos.length === 0"><td colspan="6">No hay registros</td></tr>
-                    <tr ng-hide="loading" ng-class="{'danger': servicio.estado_id === 2}" ng-repeat="pago in pagos | toArray:false | filter:search" row-id="{{ pago.id }}">
-                        <td>{{ pago.id }}</td>
-                        <td>{{ pago.programacion.servicio.tipo.descripcion }}</td>
-                        <td>{{ pago.programacion.servicio.descripcion }}</td>
-                        <td>{{ pago.programacion.servicio.detalle }}</td>
-                        <td>{{ pago.fecha }}</td>
-                        <td>{{ pago.programacion.fecha }}</td>
+                    <tr ng-hide="loading" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones | toArray:false " row-id="{{ programacion.id }}">
+                        <td>{{ programacion.id }}</td>
+                        <td>{{ programacion.servicio.tipo.descripcion }}</td>
+                        <td>{{ programacion.servicio.descripcion }}</td>
+                        <td>{{ programacion.servicio.detalle }}</td>
+                        <td>{{ programacion.monto }}</td>
+                        <td>{{ programacion.fecha_pago }}</td>
+                        <td>{{ programacion.fecha_vencimiento }}</td>
                     </tr>
                 </tbody>
             </table>

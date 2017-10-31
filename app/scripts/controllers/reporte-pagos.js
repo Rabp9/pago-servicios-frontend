@@ -16,10 +16,9 @@ angular.module('pagoServiciosFrontendApp')
             return;
         } else {
             $scope.loading = true;
-            programacionesservice.getByDates({
+            programacionesservice.getByDatesPagos({
                 fecha_inicio: formatDate(fecha_inicio), 
-                fecha_cierre: formatDate(fecha_cierre),
-                estado_id: 3
+                fecha_cierre: formatDate(fecha_cierre)
             }, function(data) {
                 $scope.programaciones = data.programaciones;
                 $scope.loading = false;

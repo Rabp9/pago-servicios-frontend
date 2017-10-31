@@ -20,7 +20,11 @@ angular.module('pagoServiciosFrontendApp')
         },
         getByDates: {
             method: 'GET',
-            url: envservice.getHost() + 'programaciones/getByDates/:fecha_inicio/:fecha_cierre/:estado_id.json'
+            url: envservice.getHost() + 'programaciones/getByDates/:fecha_inicio/:fecha_cierre.json'
+        },
+        getByDatesPagos: {
+            method: 'GET',
+            url: envservice.getHost() + 'programaciones/getByDatesPagos/:fecha_inicio/:fecha_cierre.json'
         },
         getPendientesPago: {
             method: 'GET',

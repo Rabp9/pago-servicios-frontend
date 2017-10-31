@@ -18,8 +18,7 @@ angular.module('pagoServiciosFrontendApp')
             $scope.loading = true;
             programacionesservice.getByDates({
                 fecha_inicio: formatDate(fecha_inicio), 
-                fecha_cierre: formatDate(fecha_cierre),
-                estado_id: 4
+                fecha_cierre: formatDate(fecha_cierre)
             }, function(data) {
                 $scope.programaciones = data.programaciones;
                 $scope.loading = false;

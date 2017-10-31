@@ -39,21 +39,23 @@
                 <thead>
                     <tr>
                         <th sortable-header col="id">Código</th>
+                        <th sortable-header col="servicio.tipo.descripcion">Tipos</th>
                         <th sortable-header col="servicio.descripcion">Servicio</th>
+                        <th sortable-header col="servicio.detalle">Detalle</th>
                         <th sortable-header col="monto">Monto</th>
-                        <th sortable-header col="fecha_vencimiento">Fecha de Vencimiento</th>
-                        <th sortable-header col="estado.descripcion">Estado</th>
+                        <th sortable-header col="fecha_vencimiento">Fecha Programada</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr id="trCargando" ng-hide="!loading"><td colspan="5">Cargando...</td></tr>
-                    <tr id="trNoHayRegistros" ng-show="!loading && programaciones.length === 0"><td colspan="5">No hay registros</td></tr>
+                    <tr id="trCargando" ng-hide="!loading"><td colspan="6">Cargando...</td></tr>
+                    <tr id="trNoHayRegistros" ng-show="!loading && programaciones.length === 0"><td colspan="6">No hay registros</td></tr>
                     <tr ng-hide="loading" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones | toArray:false" row-id="{{ programacion.id }}">
                         <td>{{ programacion.id }}</td>
+                        <td>{{ programacion.servicio.tipo.descripcion }}</td>
                         <td>{{ programacion.servicio.descripcion }}</td>
+                        <td>{{ programacion.servicio.detalle }}</td>
                         <td>{{ programacion.monto }}</td>
                         <td>{{ programacion.fecha_vencimiento }}</td>
-                        <td>{{ programacion.estado.descripcion }}</td>
                     </tr>
                 </tbody>
             </table>
