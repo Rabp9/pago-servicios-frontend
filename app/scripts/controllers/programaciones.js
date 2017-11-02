@@ -20,6 +20,11 @@ angular.module('pagoServiciosFrontendApp')
     $scope.search.estado_id = '';
     $scope.page = 1;
     $scope.loading_servicios = 'Seleccione un servicio';
+    $scope.programaciones_selected = [];
+    $scope.items_per_page = 10;
+    $scope.check_all_list = {
+        value: false
+    };
     
     $scope.init = function() {
         $scope.loading_tipos = 'Cargando...';
@@ -36,6 +41,8 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.getProgramaciones = function() {
         $scope.programaciones = [];
+        $scope.programaciones_selected.length = 0;
+        $scope.check_all_list.value = false;
         $scope.loading = true;
         if ($scope.servicio === null) {
             $scope.servicio = {};
@@ -51,7 +58,8 @@ angular.module('pagoServiciosFrontendApp')
             search: $scope.search.text,
             page: $scope.page,
             estado_id: $scope.search.estado_id,
-            text: $scope.search.text
+            text: $scope.search.text,
+            items_per_page: $scope.items_per_page
         }, function(data) {
             $scope.programaciones = data.programaciones;
             $scope.loading = false;
@@ -145,7 +153,7 @@ angular.module('pagoServiciosFrontendApp')
         }
     };
     
-    $scope.showProgramacionesEdit = function(programacion, servicio, tipo) {
+    $scope.showProgramacionesEdit = function(programacion) {
         var modalInstanceAdd = $uibModal.open({
             templateUrl: 'views/programaciones-edit.html',
             controller: 'ProgramacionesEditCtrl',
@@ -153,12 +161,6 @@ angular.module('pagoServiciosFrontendApp')
             resolve: {
                 programacion: function() {
                     return programacion;
-                },
-                servicio: function() {
-                    return servicio;
-                },
-                tipo: function() {
-                    return tipo;
                 }
             }
         });
@@ -169,7 +171,7 @@ angular.module('pagoServiciosFrontendApp')
         });
     };
     
-    $scope.showProgramacionesPagar = function(programacion, servicio, tipo) {
+    $scope.showProgramacionesPagar = function(programacion) {
         var modalInstancePagar = $uibModal.open({
             templateUrl: 'views/programaciones-pagar.html',
             controller: 'ProgramacionesPagarCtrl',
@@ -177,20 +179,49 @@ angular.module('pagoServiciosFrontendApp')
             resolve: {
                 programacion: function() {
                     return programacion;
-                },
-                servicio: function() {
-                    return servicio;
-                },
-                tipo: function() {
-                    return tipo;
                 }
             }
         });
 
         modalInstancePagar.result.then(function (data) {
             $scope.message = data;
-            $scope.getProgramacionesByServicio(servicio.id);
+            $scope.getProgramaciones();
         });
+    };
+    
+    
+    $scope.showProgramacionesPagarMany = function(programaciones_id) {
+        var modalInstancePagar = $uibModal.open({
+            templateUrl: 'views/programaciones-pagar-many.html',
+            controller: 'ProgramacionesPagarManyCtrl',
+            backdrop: false,
+            resolve: {
+                programaciones_id: function() {
+                    return programaciones_id;
+                }
+            }
+        });
+
+        modalInstancePagar.result.then(function (data) {
+            $scope.message = data;
+            $scope.getProgramaciones();
+        });
+    };
+    
+    $scope.check_all_list_event = function() {
+        if ($scope.check_all_list.value) {
+            angular.forEach($scope.programaciones, function(value, key) {
+                if ($scope.programaciones_selected.indexOf(value.id) === -1) {
+                    $scope.programaciones_selected.push(value.id);
+                }
+            });
+        } else {
+            $scope.programaciones_selected.length = 0;
+        }
+    };
+    
+    $scope.onChangeItemsPerPage = function() {
+        $scope.getProgramaciones();
     };
     
     $scope.init();

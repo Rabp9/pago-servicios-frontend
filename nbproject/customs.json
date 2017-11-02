@@ -8,6 +8,9 @@
         }
     },
     "attributes": {
+        "checklist-model": {
+            "context": "input"
+        },
         "angular-validator": {
             "context": "form"
         },

@@ -19,7 +19,8 @@ angular
     'ui.bootstrap',
     'scrollable-table',
     'angularValidator',
-    'angular-toArrayFilter'
+    'angular-toArrayFilter',
+    'checklist-model'
 ])
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     $httpProvider.interceptors.push('oauthHttpInterceptor');

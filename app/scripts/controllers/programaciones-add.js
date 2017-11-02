@@ -9,7 +9,7 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('ProgramacionesAddCtrl', function ($scope, $uibModalInstance, 
-    $utilsViewService, programacionesservice, servicio, tipo) {
+    $utilsViewService, programacionesservice, servicio, tipo, tiposservice) {
  
     $scope.programacion = {};
     $scope.programacion.monto = 0;
@@ -19,6 +19,15 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.cancel = function() {
         $uibModalInstance.dismiss('cancel');
+    };
+    
+    $scope.init = function() {
+        $scope.loading_tipos = 'Cargando...';
+        tiposservice.get(function(data) {
+            $scope.loading_tipos = 'Selecciona un Tipo';
+            $scope.tipos = data.tipos;
+            $scope.getProgramaciones();
+        });
     };
     
     $scope.saveProgramacion = function(programacion, boton) {

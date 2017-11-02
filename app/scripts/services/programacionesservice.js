@@ -33,6 +33,10 @@ angular.module('pagoServiciosFrontendApp')
         cancelarPago: {
             method: 'POST',
             url: envservice.getHost() + 'programaciones/cancelarPago/.json'
+        },
+        pagarMany: {
+            method: 'POST',
+            url: envservice.getHost() + 'programaciones/pagarMany/.json'
         }
     });
 });
