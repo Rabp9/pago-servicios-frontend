@@ -17,6 +17,10 @@ angular.module('pagoServiciosFrontendApp')
         getReport: {
             method: 'GET',
             url: envservice.getHost() + 'servicios/getReport/:tipo_id.json'
+        },
+        search: {
+            method: 'GET',
+            url: envservice.getHost() + 'servicios/search/:texto.json'
         }
     });
 });

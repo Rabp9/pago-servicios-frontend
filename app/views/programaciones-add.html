@@ -5,6 +5,14 @@
     </div>
     <div class="modal-body">
         <div class="row">
+            <div class="col-sm-12">
+                <label for="txtBuscar">Buscar</label>
+                <input id="txtBuscar" type="search" class="form-control" name="buscar"
+                       ng-model="buscar" placeholder="Buscar Servicio" ng-change="searchServicio(buscar)">
+            </div>
+        </div>
+        <p ng-show="loading_search">Buscando...</p>
+        <div class="row">
             <div class="form-group col-sm-6">
                 <label for="txtServicio">Tipo</label>
                 <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.tipo.descripcion"
@@ -13,7 +21,7 @@
             <div class="form-group col-sm-6">
                 <label for="txtServicio">Servicio</label>
                 <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.descripcion_detallada"
-                    name="programacionServicioDescripcion" readonly />
+                    name="programacionServicioDescripcion" readonly required/>
             </div>
         </div>
         <div class="row">

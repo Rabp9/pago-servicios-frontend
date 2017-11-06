@@ -9,7 +9,7 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('ProgramacionesAddCtrl', function ($scope, $uibModalInstance, 
-    $utilsViewService, programacionesservice, servicio, tipo, tiposservice) {
+    $utilsViewService, programacionesservice, servicio, tipo, tiposservice, serviciosservice) {
  
     $scope.programacion = {};
     $scope.programacion.monto = 0;
@@ -19,15 +19,6 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.cancel = function() {
         $uibModalInstance.dismiss('cancel');
-    };
-    
-    $scope.init = function() {
-        $scope.loading_tipos = 'Cargando...';
-        tiposservice.get(function(data) {
-            $scope.loading_tipos = 'Selecciona un Tipo';
-            $scope.tipos = data.tipos;
-            $scope.getProgramaciones();
-        });
     };
     
     $scope.saveProgramacion = function(programacion, boton) {
@@ -42,6 +33,17 @@ angular.module('pagoServiciosFrontendApp')
         }, function (err) {
             $uibModalInstance.close(err.data);
         });
+    };
+    
+    $scope.searchServicio = function(buscar) {
+        if (buscar !== '') {
+            $scope.loading_search = true;
+            serviciosservice.search({texto: buscar}, function (data) {
+                $scope.loading_search = false;
+                $scope.programacion.servicio = data.servicio;
+                $scope.programacion.servicio.tipo = data.servicio.tipo;
+            });
+        }
     };
     
     function formatDate(fecha) {

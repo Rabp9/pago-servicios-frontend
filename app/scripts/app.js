@@ -57,7 +57,7 @@ angular
         templateUrl: 'views/programaciones.html',
         controller: 'ProgramacionesCtrl',
         controllerAs: 'programaciones',
-        title: 'Programaciones'
+        title: 'Programaciones y Pagos'
     };  
     
     var reporteServiciosState = {

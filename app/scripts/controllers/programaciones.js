@@ -11,6 +11,17 @@ angular.module('pagoServiciosFrontendApp')
 .controller('ProgramacionesCtrl', function ($scope, serviciosservice, programacionesservice,
     $uibModal, tiposservice) {
     
+    $scope.wCheckBox = '1%';
+    $scope.wCodigo = '2%';
+    $scope.wServicio = '20%';
+    $scope.wTipo = '20%';
+    $scope.wDetalle = '11%';
+    $scope.wFechaVencimiento = '8%';
+    $scope.wFechaPago = '8%';
+    $scope.wMonto = '5%';
+    $scope.wNroRecibo = '12%';
+    $scope.wAcciones = '13%';
+    
     $scope.search = {};
     $scope.search.text = '';
     $scope.servicio = {};
