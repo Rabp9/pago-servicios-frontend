@@ -1,5 +1,6 @@
 {
     "elements": {
+        "ui-view": {},
         "scrollable-table": {
             "attributes": {
                 "watch": {},

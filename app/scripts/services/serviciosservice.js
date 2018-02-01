@@ -21,6 +21,10 @@ angular.module('pagoServiciosFrontendApp')
         search: {
             method: 'GET',
             url: envservice.getHost() + 'servicios/search/:texto.json'
+        },
+        searchMany: {
+            method: 'GET',
+            url: envservice.getHost() + 'servicios/searchMany/:search.json'
         }
     });
 });

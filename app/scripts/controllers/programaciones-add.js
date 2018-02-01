@@ -9,13 +9,15 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('ProgramacionesAddCtrl', function ($scope, $uibModalInstance, 
-    $utilsViewService, programacionesservice, servicio, tipo, tiposservice, serviciosservice) {
+    $utilsViewService, programacionesservice, servicio_id, serviciosservice) {
  
     $scope.programacion = {};
     $scope.programacion.monto = 0;
-    $scope.programacion.servicio = servicio;
-    $scope.programacion.servicio.tipo = tipo;
+    $scope.programacion.servicio_id = servicio_id;
     $scope.programacion.dias_mensaje = 5;
+    
+    $scope.search = {};
+    $scope.search.servicio_id = '';
     
     $scope.cancel = function() {
         $uibModalInstance.dismiss('cancel');
@@ -35,15 +37,10 @@ angular.module('pagoServiciosFrontendApp')
         });
     };
     
-    $scope.searchServicio = function(buscar) {
-        if (buscar !== '') {
-            $scope.loading_search = true;
-            serviciosservice.search({texto: buscar}, function (data) {
-                $scope.loading_search = false;
-                $scope.programacion.servicio = data.servicio;
-                $scope.programacion.servicio.tipo = data.servicio.tipo;
-            });
-        }
+    $scope.init = function() {
+        serviciosservice.get({id: $scope.programacion.servicio_id}, function(data) {
+            $scope.programacion.servicio = data.servicio;
+        });
     };
     
     function formatDate(fecha) {
@@ -56,4 +53,26 @@ angular.module('pagoServiciosFrontendApp')
     function str_pad(str, pad) {
         return pad.substring(0, (pad.length - str.toString().length)) + str;
     }
+    
+    $scope.$watch('search.servicio_id', function(oldValue, newValue) {
+        $scope.loading_search = true;
+        serviciosservice.get({id: $scope.search.servicio_id}, function(data) {
+            $scope.programacion.servicio = data.servicio;
+            $scope.loading_search = false;
+        });
+    });
+    
+    $scope.refreshServicios = function(servicio) {
+        if (servicio !== '') {
+            serviciosservice.searchMany({search: servicio}, function(data) {
+                $scope.servicios = data.servicios;
+            });
+        }
+    };
+  
+    $scope.setSelectServicioFocus = function() {
+        $scope.$broadcast('UiSelectServicios');
+    };
+    
+    $scope.init();
 });

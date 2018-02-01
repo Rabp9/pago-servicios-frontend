@@ -21,9 +21,11 @@
             <input class="form-control" placeholder="Buscar" ng-model="search.text" />
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-sm-12">
         <button type="button" class="btn btn-primary" ng-click="showServiciosAdd()"><span class="glyphicon glyphicon-plus"></span> Nuevo Servicio</button>
-        <div class="radio">
+        <div class="radio pull-left">
             <label>
                 <input type="radio" ng-model="search.estado_id" value=""> 
                 Todos
@@ -37,39 +39,52 @@
                 Inactivos
             </label>
         </div>
-        <scrollable-table watch="servicios" class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th sortable-header col="id">Código</th>
-                        <th sortable-header col="descripcion">Descripciòn</th>
-                        <th sortable-header col="tipo.descripcion">Tipo de Servicio</th>
-                        <th sortable-header col="detalle">Detalle</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-hide="!loading"><td colspan="5">Cargando...</td></tr>
-                    <tr ng-show="!loading && servicios.length === 0"><td colspan="5">No hay registros</td></tr>
-                    <tr ng-hide="loading" ng-class="{'danger': servicio.estado_id === 2}" ng-repeat="servicio in servicios " row-id="{{ servicio.id }}">
-                        <td>{{ servicio.id }}</td>
-                        <td>{{ servicio.descripcion }}</td>
-                        <td>{{ servicio.tipo.descripcion }}</td>
-                        <td>{{ servicio.detalle }}</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="showServiciosEdit(servicio)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button ng-show="servicio.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showServiciosDelete(servicio)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
-                            <button ng-show="servicio.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showServiciosActivate(servicio)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </scrollable-table>
-        
-        <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
-            last-text="Último" next-text="Siguiente" previous-text="Anterior"
-            items-per-page="pagination.itemsPerPage" ng-model="page" 
-            class="pagination-sm" boundary-links="true" force-ellipses="true"
-            ng-change="pageChanged()"></ul>
+        <div class="pull-right">
+            Mostrando 
+            <select class="form-control" style="width: 60px; display: inline;" ng-change="onChangeItemsPerPage()"
+                ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
+            </select> 
+            resultados por página
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div>
+            <scrollable-table watch="servicios" class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th sortable-header col="id">Código</th>
+                            <th sortable-header col="descripcion">Descripciòn</th>
+                            <th sortable-header col="tipo.descripcion">Tipo de Servicio</th>
+                            <th sortable-header col="detalle">Detalle</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-hide="!loading"><td colspan="5">Cargando...</td></tr>
+                        <tr ng-show="!loading && servicios.length === 0"><td colspan="5">No hay registros</td></tr>
+                        <tr ng-hide="loading" ng-class="{'danger': servicio.estado_id === 2}" ng-repeat="servicio in servicios " row-id="{{ servicio.id }}">
+                            <td>{{ servicio.id }}</td>
+                            <td>{{ servicio.descripcion }}</td>
+                            <td>{{ servicio.tipo.descripcion }}</td>
+                            <td>{{ servicio.detalle }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="showServiciosEdit(servicio)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button ng-show="servicio.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showServiciosDelete(servicio)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
+                                <button ng-show="servicio.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showServiciosActivate(servicio)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </scrollable-table>
+
+            <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
+                last-text="Último" next-text="Siguiente" previous-text="Anterior"
+                items-per-page="pagination.itemsPerPage" ng-model="page" 
+                class="pagination-sm" boundary-links="true" force-ellipses="true"
+                ng-change="pageChanged()"></ul>
+        </div>
     </div>
 </div>

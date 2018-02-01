@@ -10,6 +10,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-scrollable-table/scrollable-table.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -46,8 +47,13 @@
 
                     <ul class="nav navbar-nav">
                         <li ui-sref-active="active"><a ui-sref="main">Home</a></li>
-                        <li ui-sref-active="active"><a ui-sref="tipos">Tipos</a></li>
-                        <li ui-sref-active="active"><a ui-sref="servicios">Servicios</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenedores <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li ui-sref-active="active"><a ui-sref="tipos">Tipos</a></li>
+                                <li ui-sref-active="active"><a ui-sref="servicios">Servicios</a></li>
+                            </ul>
+                        </li>
                         <li ui-sref-active="active"><a ui-sref="programaciones">Programaciones y Pagos</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
@@ -96,6 +102,7 @@
     <script src="bower_components/tg-angular-validator/dist/angular-validator.js"></script>
     <script src="bower_components/angular-toArrayFilter/toArrayFilter.js"></script>
     <script src="bower_components/checklist-model/checklist-model.js"></script>
+    <script src="bower_components/angular-ui-select/dist/select.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     

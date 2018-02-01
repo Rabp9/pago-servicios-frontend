@@ -17,6 +17,7 @@ angular
     'ngTouch',
     'ui.router',
     'ui.bootstrap',
+    'ui.select',
     'scrollable-table',
     'angularValidator',
     'angular-toArrayFilter',

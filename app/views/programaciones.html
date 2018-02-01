@@ -6,112 +6,157 @@
     <li><a ui-sref="administrar">Home</a></li>
     <li>Programaciones y Pagos</li>
 </ol>
-<h2>Programaciones y Pagos</h2>
-<hr>
-<div class="row">
-    <div class="col-sm-4">
-        <label for="sltTipo">Tipo</label>
-        <select id="sltTipo" class="form-control"
-            ng-options="tipo as tipo.descripcion for tipo in tipos"
-            ng-model="tipo" ng-change="onChangeTipo(tipo.id)">
-            <option value="">{{ loading_tipos }}</option>
-        </select>
-    </div>
-    <div class="col-sm-4">
-        <label for="sltServicio">Servicio</label>
-        <select id="sltServicio" class="form-control"
-            ng-options="servicio as servicio.descripcion for servicio in servicios"
-            ng-model="servicio" ng-change="onChangeServicio(servicio.id)">
-            <option value="">{{ loading_servicios }}</option>
-        </select>
-    </div>
-    <div class="col-sm-4">
-        <label for="txtBuscar">Buscar</label>
-        <input id="txtBuscar" type="text" class="form-control" ng-model="search.text" placeholder="Buscar">
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <button type="button" class="btn btn-primary" ng-click="showProgramacionesAdd(servicio, tipo)"><span class="glyphicon glyphicon-plus"></span> Nueva Programación</button>
-        <button class="btn btn-primary" ng-click="showProgramacionesPagarMany(programaciones_selected)"><span class="glyphicon glyphicon-check"></span> Registrar Pago</button>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <div class="radio pull-left">
-            <label>
-                <input type="radio" ng-model="search.estado_id" value=""> 
-                Todos
-            </label>
-            <label>
-                <input type="radio" ng-model="search.estado_id" value="4"> 
-                No pagados
-            </label>
-            <label>
-                <input type="radio" ng-model="search.estado_id" value="3"> 
-                Pagados
-            </label>
-            <label>
-                <input type="radio" ng-model="search.estado_id" value="2"> 
-                Inactivos
-            </label>
+<div>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>Servicios</h3>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Buscar" ng-model="search.servicio_text" />
+                    </div>
+                </div>
+            </div>
+            <div class="radio pull-left">
+                <label>
+                    <input type="radio" ng-model="search.servicio_estado_id" value=""> 
+                    Todos
+                </label>
+                <label>
+                    <input type="radio" ng-model="search.servicio_estado_id" value="1"> 
+                    Activos
+                </label>
+                <label>
+                    <input type="radio" ng-model="search.servicio_estado_id" value="2"> 
+                    Inactivos
+                </label>
+            </div>
+            <div class="pull-right">
+                Mostrando 
+                <select class="form-control" style="width: 60px; display: inline;" ng-change="onChangeItemsPerPageServicios()"
+                    ng-model="items_per_page_servicios" ng-options="option for option in [10, 50, 100, 150]">
+                </select>
+            </div>
         </div>
-        <div class="pull-right">
-            Mostrando 
-            <select class="form-control" style="width: 60px; display: inline;" ng-change="onChangeItemsPerPage()"
-                ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
-            </select> 
-            resultados por página
+        <div class="col-sm-8">
+            <h3>Programaciones y Pagos</h3>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-primary" ng-click="showProgramacionesAdd(search)"><span class="glyphicon glyphicon-plus"></span> Nueva Programación</button>
+                    <button class="btn btn-primary" ng-click="showProgramacionesPagarMany(programaciones_selected)"><span class="glyphicon glyphicon-check"></span> Registrar Pago</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="radio pull-left">
+                        <label>
+                            <input type="radio" ng-model="search.programacion_estado_id" value=""> 
+                            Todos
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="search.programacion_estado_id" value="4"> 
+                            No pagados
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="search.programacion_estado_id" value="3"> 
+                            Pagados
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="search.programacion_estado_id" value="2"> 
+                            Inactivos
+                        </label>
+                    </div>
+                    <div class="pull-right">
+                        Mostrando 
+                        <select class="form-control" style="width: 60px; display: inline;" ng-change="onChangeItemsPerPageProgramaciones()"
+                            ng-model="items_per_page_programaciones" ng-options="option for option in [10, 50, 100, 150]">
+                        </select> 
+                        resultados por página
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <scrollable-table watch="servicios" class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th ng-style="{'width': wCheckBox}"><input type="checkbox" ng-model="check_all_list.value" ng-click="check_all_list_event()" /></th>
-                        <th ng-style="{'width': wCodigo}" sortable-header col="id">Código</th>
-                        <th ng-style="{'width': wServicio}" sortable-header col="servicio.descripcion">Servicio</th>
-                        <th ng-style="{'width': wTipo}" sortable-header col="servicio.tipo.descripcion">Tipo</th>
-                        <th ng-style="{'width': wDetalle}" sortable-header col="servicio.detalle">Detalle</th>
-                        <th ng-style="{'width': wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Vencimiento</th>
-                        <th ng-style="{'width': wFechaPago}" sortable-header col="fecha_pago">F. de Pago</th>
-                        <th ng-style="{'width': wMonto}" sortable-header col="monto">Monto</th>
-                        <th ng-style="{'width': wNroRecibo}" sortable-header col="nro_recibo">Nª de Recibo</th>
-                        <th ng-style="{'width': wAcciones}">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-hide="!loading"><td colspan="10">Cargando...</td></tr>
-                    <tr ng-show="!loading && programaciones.length === 0"><td colspan="10">No hay registros</td></tr>
-                    <tr ng-hide="loading" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones" row-id="{{ programacion.id }}">
-                        <td ng-style="{'width': wCheckBox}"><input type="checkbox" class="programaciones_selected" checklist-model="programaciones_selected" checklist-value="programacion.id"/></td>
-                        <td ng-style="{'width': wCodigo}">{{ programacion.id }}</td>
-                        <td ng-style="{'width': wServicio}">{{ programacion.servicio.descripcion }}</td>
-                        <td ng-style="{'width': wTipo}">{{ programacion.servicio.tipo.descripcion }}</td>
-                        <td ng-style="{'width': wDetalle}">{{ programacion.servicio.detalle }}</td>
-                        <td ng-style="{'width': wFechaVencimiento}">{{ programacion.fecha_vencimiento }}</td>
-                        <td ng-style="{'width': wFechaPago}">{{ programacion.fecha_pago }}</td>
-                        <td ng-style="{'width': wMonto}">{{ programacion.monto }}</td>
-                        <td ng-style="{'width': wNroRecibo}">{{ programacion.nro_recibo }}</td>
-                        <td ng-style="{'width': wAcciones}">
-                            <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showProgramacionesEdit(programacion)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-default btn-sm" ng-click="showProgramacionesPagar(programacion)" title="Pagar"><span class="glyphicon glyphicon-check"></span></button>
-                            <button ng-show="programacion.estado_id === 3" type="button" class="btn btn-warning btn-sm" ng-click="showProgramacionesCancelar(programacion)" title="Cancelar Pago"><span class="glyphicon glyphicon-remove"></span></button>
-                            <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-danger btn-sm" ng-click="showProgramacionesDelete(programacion)" title="Eliminar Programación"><span class="glyphicon glyphicon-remove"></span></button>
-                            <button ng-show="programacion.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showProgramacionesActivate(programacion)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </scrollable-table>
-        
-        <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
-            last-text="Último" next-text="Siguiente" previous-text="Anterior"
-            items-per-page="pagination.itemsPerPage" ng-model="page" 
-            class="pagination-sm" boundary-links="true" force-ellipses="true"
-            ng-change="pageChanged()"></ul>
+    <div class="row">
+        <div class="col-sm-4">
+            <scrollable-table watch="servicios" class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th sortable-header col="id">Código</th>
+                            <th sortable-header col="descripcion">Descripciòn</th>
+                            <th sortable-header col="detalle">Detalle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-hide="!loading_servicios"><td colspan="4">Cargando...</td></tr>
+                        <tr ng-show="!loading_servicios && servicios.length === 0"><td colspan="4">No hay registros</td></tr>
+                        <tr ng-hide="loading_servicios" ng-class="{'danger': servicio.estado_id === 2}" 
+                            ng-repeat="servicio in servicios " row-id="{{ servicio.id }}" ng-click="selected.servicio_id = servicio.id">
+                            <td><input type="radio" ng-model="selected.servicio_id" ng-value="servicio.id" name="servicioIdSelected" /></td>
+                            <td>{{ servicio.id }}</td>
+                            <td>{{ servicio.descripcion }}</td>
+                            <td>{{ servicio.detalle }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </scrollable-table>
+            <ul uib-pagination total-items="pagination_servicios.totalItems" first-text="Primero" 
+                last-text="Último" next-text="Siguiente" previous-text="Anterior"
+                items-per-page="pagination_servicios.itemsPerPage" ng-model="page_servicios" 
+                class="pagination-sm" boundary-links="true" force-ellipses="true"
+                ng-change="pageServiciosChanged()"></ul>
+        </div>
+        <div class="col-sm-8">
+            <scrollable-table watch="programaciones" class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th ng-style="{'width': wCheckBox}"><input type="checkbox" ng-model="check_all_list.value" ng-click="check_all_list_event()" /></th>
+                            <th ng-style="{'width': wCodigo}" sortable-header col="id">Código</th>
+                            <th ng-style="{'width': wServicio}" sortable-header col="servicio.descripcion">Servicio</th>
+                            <th ng-style="{'width': wTipo}" sortable-header col="servicio.tipo.descripcion">Tipo</th>
+                            <th ng-style="{'width': wDetalle}" sortable-header col="servicio.detalle">Detalle</th>
+                            <th ng-style="{'width': wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Vencimiento</th>
+                            <th ng-style="{'width': wFechaPago}" sortable-header col="fecha_pago">F. de Pago</th>
+                            <th ng-style="{'width': wMonto}" sortable-header col="monto">Monto</th>
+                            <th ng-style="{'width': wNroRecibo}" sortable-header col="nro_recibo">Nª de Recibo</th>
+                            <th ng-style="{'width': wAcciones}">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-hide="!loading_programaciones"><td colspan="10">Cargando...</td></tr>
+                        <tr ng-show="!loading_programaciones && programaciones.length === 0"><td colspan="10">No hay registros</td></tr>
+                        <tr ng-hide="loading_programaciones" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones" row-id="{{ programacion.id }}">
+                            <td ng-style="{'width': wCheckBox}"><input type="checkbox" class="programaciones_selected" checklist-model="programaciones_selected" checklist-value="programacion.id"/></td>
+                            <td ng-style="{'width': wCodigo}">{{ programacion.id }}</td>
+                            <td ng-style="{'width': wServicio}">{{ programacion.servicio.descripcion }}</td>
+                            <td ng-style="{'width': wTipo}">{{ programacion.servicio.tipo.descripcion }}</td>
+                            <td ng-style="{'width': wDetalle}">{{ programacion.servicio.detalle }}</td>
+                            <td ng-style="{'width': wFechaVencimiento}">{{ programacion.fecha_vencimiento }}</td>
+                            <td ng-style="{'width': wFechaPago}">{{ programacion.fecha_pago }}</td>
+                            <td ng-style="{'width': wMonto}">{{ programacion.monto }}</td>
+                            <td ng-style="{'width': wNroRecibo}">{{ programacion.nro_recibo }}</td>
+                            <td ng-style="{'width': wAcciones}">
+                                <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showProgramacionesEdit(programacion)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-default btn-sm" ng-click="showProgramacionesPagar(programacion)" title="Pagar"><span class="glyphicon glyphicon-check"></span></button>
+                                <button ng-show="programacion.estado_id === 3" type="button" class="btn btn-warning btn-sm" ng-click="showProgramacionesCancelar(programacion)" title="Cancelar Pago"><span class="glyphicon glyphicon-remove"></span></button>
+                                <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-danger btn-sm" ng-click="showProgramacionesDelete(programacion)" title="Eliminar Programación"><span class="glyphicon glyphicon-remove"></span></button>
+                                <button ng-show="programacion.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showProgramacionesActivate(programacion)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </scrollable-table>
+
+            <ul uib-pagination total-items="pagination_programaciones.totalItems" first-text="Primero" 
+                last-text="Último" next-text="Siguiente" previous-text="Anterior"
+                items-per-page="pagination_programaciones.itemsPerPage" ng-model="page_programaciones" 
+                class="pagination-sm" boundary-links="true" force-ellipses="true"
+                ng-change="pageProgramacionesChanged()"></ul>
+        </div>
     </div>
 </div>

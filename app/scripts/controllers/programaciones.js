@@ -9,7 +9,7 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('ProgramacionesCtrl', function ($scope, serviciosservice, programacionesservice,
-    $uibModal, tiposservice) {
+    $uibModal) {
     
     $scope.wCheckBox = '1%';
     $scope.wCodigo = '2%';
@@ -23,102 +23,90 @@ angular.module('pagoServiciosFrontendApp')
     $scope.wAcciones = '13%';
     
     $scope.search = {};
-    $scope.search.text = '';
-    $scope.servicio = {};
-    $scope.servicio.id = '';
-    $scope.tipo = {};
-    $scope.tipo.id = '';
-    $scope.search.estado_id = '';
-    $scope.page = 1;
-    $scope.loading_servicios = 'Seleccione un servicio';
+    $scope.search.servicio_estado_id = 1;
+    $scope.search.programacion_estado_id = 4;
+    $scope.search.servicio_text = '';
+    $scope.selected = {};
+    $scope.selected.servicio_id = '';
+    $scope.page_servicios = 1;
+    $scope.page_programaciones = 1;
     $scope.programaciones_selected = [];
-    $scope.items_per_page = 10;
+    $scope.items_per_page_programaciones = 10;
+    $scope.items_per_page_servicios = 10;
     $scope.check_all_list = {
         value: false
     };
     
     $scope.init = function() {
-        $scope.loading_tipos = 'Cargando...';
-        tiposservice.get(function(data) {
-            $scope.loading_tipos = 'Selecciona un Tipo';
-            $scope.tipos = data.tipos;
-            $scope.getProgramaciones();
+        $scope.getServicios();
+    };
+    
+    $scope.getServicios = function() {
+        $scope.loading_servicios = true;
+        serviciosservice.get({
+            page: $scope.page_servicios,
+            estado_id: $scope.search.servicio_estado_id,
+            text: $scope.search.servicio_text,
+            items_per_page: $scope.items_per_page_servicios
+        }, function(data) {
+            $scope.servicios = data.servicios;
+            $scope.pagination_servicios = data.pagination;
+            $scope.loading_servicios = false;
         });
     };
     
-    $scope.pageChanged = function() {
+    $scope.pageServiciosChanged = function() {
+        $scope.getServicios();
+    };
+    
+    $scope.pageServiciosProgramaciones = function() {
+        alert('dsada');
         $scope.getProgramaciones();
     };
     
     $scope.getProgramaciones = function() {
+        if ($scope.selected.servicio_id === '') {
+            return;
+        }
         $scope.programaciones = [];
         $scope.programaciones_selected.length = 0;
         $scope.check_all_list.value = false;
-        $scope.loading = true;
-        if ($scope.servicio === null) {
-            $scope.servicio = {};
-            $scope.servicio.id = '';
-        }
-        if ($scope.tipo === null) {
-            $scope.tipo = {};
-            $scope.tipo.id = '';
-        }
+        $scope.loading_programaciones = true;
         programacionesservice.get({
-            tipo_id: $scope.tipo.id,
-            servicio_id: $scope.servicio.id,
-            search: $scope.search.text,
-            page: $scope.page,
+            servicio_id: $scope.selected.servicio_id,
+            page: $scope.page_programaciones,
             estado_id: $scope.search.estado_id,
-            text: $scope.search.text,
-            items_per_page: $scope.items_per_page
+            items_per_page: $scope.items_per_page_programaciones
         }, function(data) {
             $scope.programaciones = data.programaciones;
-            $scope.loading = false;
-            $scope.pagination = data.pagination;
+            $scope.loading_programaciones = false;
+            $scope.pagination_programaciones = data.pagination;
         });
     };
     
-    $scope.$watch('search.estado_id', function(oldValue, newValue) {
+    $scope.$watch('search.servicio_estado_id', function(oldValue, newValue) {
         $scope.page = 1;
-        $scope.getProgramaciones();
+        $scope.getServicios();
+    });
+        
+    $scope.$watch('search.servicio_text', function(oldValue, newValue) {
+        $scope.page_servicios = 1;
+        $scope.getServicios();
     });
     
-    $scope.$watch('search.text', function(oldValue, newValue) {
-        $scope.page = 1;
-        $scope.getProgramaciones();
+    $scope.$watch('selected.servicio_id', function(oldValue, newValue) {
+        $scope.page_programaciones = 1;
+        $scope.getProgramaciones()();
     });
     
-    $scope.onChangeTipo = function(tipo_id) {
-        $scope.servicios = [];
-        $scope.loading_servicios = 'Cargando...';
-        if (tipo_id === undefined) {
-            $scope.loading_servicios = 'Seleccione un servicio';
-            $scope.getProgramaciones();
-        } else {
-            serviciosservice.getByTipo({tipo_id: tipo_id}, function(data) {
-                $scope.loading_servicios = 'Seleccione un servicio';
-                $scope.servicios = data.servicios;
-                $scope.getProgramaciones();
-            });
-        }
-    };
-    
-    $scope.onChangeServicio = function(servicio_id) {
-        $scope.loading = true;
-        $scope.getProgramaciones();
-    };
-    
-    $scope.showProgramacionesAdd = function(servicio, tipo) {
+    $scope.showProgramacionesAdd = function(search) {
         var modalInstanceAdd = $uibModal.open({
             templateUrl: 'views/programaciones-add.html',
             controller: 'ProgramacionesAddCtrl',
             backdrop: false,
             resolve: {
-                servicio: function() {
-                    return servicio;
-                },
-                tipo: function() {
-                    return tipo;
+                servicio_id: function() {
+                    return search.servicio_id;
                 }
             }
         });
@@ -231,8 +219,26 @@ angular.module('pagoServiciosFrontendApp')
         }
     };
     
-    $scope.onChangeItemsPerPage = function() {
+    $scope.onChangeItemsPerPageServicios = function() {
+        $scope.page_servicios = 1;
+        $scope.getServicios();
+    };
+    
+    $scope.onChangeItemsPerPageProgramaciones = function() {
+        $scope.page_programaciones = 1;
         $scope.getProgramaciones();
+    };
+    
+    $scope.refreshServicios = function(servicio) {
+        if (servicio !== '') {
+            serviciosservice.searchMany({search: servicio}, function(data) {
+                $scope.servicios = data.servicios;
+            });
+        }
+    };
+  
+    $scope.setSelectServicioFocus = function() {
+        $scope.$broadcast('UiSelectServicios');
     };
     
     $scope.init();
