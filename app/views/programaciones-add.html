@@ -5,26 +5,6 @@
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <label ng-click="setSelectServicioFocus()">Buscar Servicio</label>
-                    <ui-select focus-on="UiSelectServicios" ng-model="search.servicio_id"
-                        theme="bootstrap"
-                        reset-search-input="false"
-                        title="Selecciona un Servicio"
-                        append-to-body="false">
-                        <ui-select-match placeholder="Ingresa un Servicio...">{{$select.selected.descripcion}}</ui-select-match>
-                        <ui-select-choices repeat="servicio.id as servicio in servicios track by $index"
-                            refresh="refreshServicios($select.search)"
-                            refresh-delay="0">
-                            <div ng-bind-html="servicio.descripcion | highlight: $select.search"></div>
-                        </ui-select-choices>
-                    </ui-select>
-                </div>
-            </div>
-        </div>
-        <p ng-show="loading_search">Buscando...</p>
-        <div class="row">
             <div class="form-group col-sm-6">
                 <label for="txtServicio">Tipo</label>
                 <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.tipo.descripcion"
@@ -46,29 +26,33 @@
                         name="programacionFechaVencimiento" required required-message="'Este campo es requerido'" validate-on="blur" />
                 </div>
             </div>
-            <div class="col-sm-8">
-                <div class="form-group">
-                    <label><input type="checkbox" name="programacionMesesPosteriores" ng-model="chMesesPosteriores"> Generar programaciones para meses posteriores</label>
-                    <select class="form-control"
-                        name="programacionDiasMensaje" ng-model="programacion.dias_mensaje" 
-                        ng-options="option for option in [3, 6, 9, 12]">
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-3">
                 <div class="form-group">
                     <label for="nmMonto">Monto</label>
                     <input id="nmMonto" class="form-control" type="number" ng-model="programacion.monto"
                         name="programacionMonto" required min="0" required-message="'Este campo es requerido'" validate-on="blur" />
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <div class="form-group">
                     <label for="txtNroRecibo">Nro. Recibo</label>
                     <input id="txtNroRecibo" class="form-control" type="text" ng-model="programacion.nro_recibo"
-                        name="programacionNroRecibo" />
+                        name="programacionNroRecibo" required required-message="'Este campo es requerido'" validate-on='blur'/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label><input type="checkbox" name="programacionMesesPosteriores" ng-model="chMesesPosteriores"> Generar programaciones para meses posteriores hasta la Fecha:</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="chMesesPosteriores">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input id="dtFechaVencimientoUltimo" class="form-control" type="date" ng-model="fecha_pre_ultimo"
+                        name="programacionFechaVencimientoUltimo" required required-message="'Este campo es requerido'" validate-on="blur" />
                 </div>
             </div>
         </div>

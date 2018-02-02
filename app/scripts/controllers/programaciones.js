@@ -12,15 +12,12 @@ angular.module('pagoServiciosFrontendApp')
     $uibModal) {
     
     $scope.wCheckBox = '1%';
-    $scope.wCodigo = '2%';
-    $scope.wServicio = '20%';
-    $scope.wTipo = '20%';
-    $scope.wDetalle = '11%';
-    $scope.wFechaVencimiento = '8%';
-    $scope.wFechaPago = '8%';
-    $scope.wMonto = '5%';
-    $scope.wNroRecibo = '12%';
-    $scope.wAcciones = '13%';
+    $scope.wCodigo = '4%';
+    $scope.wFechaVencimiento = '18%';
+    $scope.wFechaPago = '18%';
+    $scope.wMonto = '14%';
+    $scope.wNroRecibo = '22%';
+    $scope.wAcciones = '23%';
     
     $scope.search = {};
     $scope.search.servicio_estado_id = 1;
@@ -60,7 +57,6 @@ angular.module('pagoServiciosFrontendApp')
     };
     
     $scope.pageServiciosProgramaciones = function() {
-        alert('dsada');
         $scope.getProgramaciones();
     };
     
@@ -96,17 +92,17 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.$watch('selected.servicio_id', function(oldValue, newValue) {
         $scope.page_programaciones = 1;
-        $scope.getProgramaciones()();
+        $scope.getProgramaciones();
     });
     
-    $scope.showProgramacionesAdd = function(search) {
+    $scope.showProgramacionesAdd = function(selected) {
         var modalInstanceAdd = $uibModal.open({
             templateUrl: 'views/programaciones-add.html',
             controller: 'ProgramacionesAddCtrl',
             backdrop: false,
             resolve: {
                 servicio_id: function() {
-                    return search.servicio_id;
+                    return selected.servicio_id;
                 }
             }
         });
