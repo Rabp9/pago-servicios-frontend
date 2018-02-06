@@ -33,38 +33,82 @@ angular.module('pagoServiciosFrontendApp')
             var final_month = $scope.fecha_pre_ultimo.getMonth() + 1;
             var final_day = $scope.fecha_pre_ultimo.getDate();
             
-            var begin_date = begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + "-" + str_pad(begin_day.toString(), '00');
-            var final_date = final_year.toString() + '-' + str_pad(final_month.toString(), '00') + "-" + str_pad(final_day.toString(), '00');
-            
-            console.log('begin_date: ' + begin_date);
-            console.log('final_date: ' + final_date);
-            
+            var begin_date = begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + str_pad(begin_day.toString(), '00');
+            var final_date = final_year.toString() + '-' + str_pad(final_month.toString(), '00') + '-' + str_pad(final_day.toString(), '00');
+                        
             while (begin_date <= final_date) {
+                var programacion_aux = {};
                 if (begin_day === 31 && (begin_month === 4 || begin_month === 6 || begin_month === 9 || begin_month === 11)) {
-                    var programacion = {
-                        fecha_vencimiento: begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + "-" + '30',
+                    programacion_aux = {
+                        fecha_vencimiento: begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + '30',
                         estado_id: 4,
+                        servicio: programacion.servicio,
+                        monto: programacion.monto,
+                        dias_mensaje: programacion.dias_mensaje
                     };
                 } else if (begin_month === 2) {
-                    
+                    if ((begin_year % 4 === 0) && ((begin_year % 100 !== 0) || (begin_year % 400 === 0))) {
+                        // es bisiesto
+                        if (begin_day === 31 || begin_day === 30) {
+                            programacion_aux = {
+                                fecha_vencimiento: begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + '29',
+                                estado_id: 4,
+                                servicio: programacion.servicio,
+                                monto: programacion.monto,
+                                dias_mensaje: programacion.dias_mensaje
+                            };
+                        } else {
+                            programacion_aux = {
+                                fecha_vencimiento: begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + str_pad(begin_day.toString(), '00'),
+                                estado_id: 4,
+                                servicio: programacion.servicio,
+                                monto: programacion.monto,
+                                dias_mensaje: programacion.dias_mensaje
+                            };
+                        }
+                    } else {
+                        if (begin_day === 31 || begin_day === 30 || begin_day === 29) {
+                            programacion_aux = {
+                                fecha_vencimiento: begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + '28',
+                                estado_id: 4,
+                                servicio: programacion.servicio,
+                                monto: programacion.monto,
+                                dias_mensaje: programacion.dias_mensaje
+                            };
+                        } else {
+                            programacion_aux = {
+                                fecha_vencimiento: begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + str_pad(begin_day.toString(), '00'),
+                                estado_id: 4,
+                                servicio: programacion.servicio,
+                                monto: programacion.monto,
+                                dias_mensaje: programacion.dias_mensaje
+                            };
+                        }
+                    }
                 } else {
-                    var programacion = {
+                    programacion_aux = {
                         fecha_vencimiento: begin_date,
                         estado_id: 4,
+                        servicio: programacion.servicio,
+                        monto: programacion.monto,
+                        dias_mensaje: programacion.dias_mensaje
                     };
                 }
-                programaciones.push(programacion);
+                programaciones.push(programacion_aux);
                 if (begin_month !== 12) {
                     begin_month += 1;
                 } else {
                     begin_month = 1;
                     begin_year += 1;
                 }
-                begin_date = begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + "-" + str_pad(begin_day.toString(), '00');
-                final_date = final_year.toString() + '-' + str_pad(final_month.toString(), '00') + "-" + str_pad(final_day.toString(), '00');
+                begin_date = begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + str_pad(begin_day.toString(), '00');
+                final_date = final_year.toString() + '-' + str_pad(final_month.toString(), '00') + '-' + str_pad(final_day.toString(), '00');
             }
-            console.log(programaciones);
-            
+            programacionesservice.saveMany({programaciones: programaciones}, function(data) {
+                $uibModalInstance.close(data);
+            }, function (err) {
+                $uibModalInstance.close(err.data);
+            });
         } else {
             if ($scope.fecha_pre !== null) {
                 programacion.fecha_vencimiento = formatDate($scope.fecha_pre);

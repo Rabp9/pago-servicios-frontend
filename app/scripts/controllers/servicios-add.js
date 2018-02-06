@@ -16,6 +16,7 @@ angular.module('pagoServiciosFrontendApp')
         tiposservice.get(function(data) {
             $scope.tipos = data.tipos;
             $scope.loading = false;
+            $('#txtDescripcion').focus();
         });
     };
     

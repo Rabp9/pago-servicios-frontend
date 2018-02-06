@@ -10,42 +10,46 @@
 <hr>
 <div class="row">
     <div class="col-sm-6">
-        <select id="sltTipo" class="form-control"
-            ng-options="tipo.id as tipo.descripcion for tipo in tipos"
-            ng-model="tipo_id" ng-change="onChangeTipo()">
-            <option value="">{{ loading_tipos }}</option>
-        </select>
     </div>
     <div class="col-sm-6"> 
         <div class="form-group">
-            <input class="form-control" placeholder="Buscar" ng-model="search.text" />
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <button type="button" class="btn btn-primary" ng-click="showServiciosAdd()"><span class="glyphicon glyphicon-plus"></span> Nuevo Servicio</button>
-        <div class="radio pull-left">
-            <label>
-                <input type="radio" ng-model="search.estado_id" value=""> 
-                Todos
-            </label>
-            <label>
-                <input type="radio" ng-model="search.estado_id" value="1"> 
-                Activos
-            </label>
-            <label>
-                <input type="radio" ng-model="search.estado_id" value="2"> 
-                Inactivos
-            </label>
-        </div>
-        <div class="pull-right">
-            Mostrando 
-            <select class="form-control" style="width: 60px; display: inline;" ng-change="onChangeItemsPerPage()"
-                ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
-            </select> 
-            resultados por página
-        </div>
+        <form class="form-inline">
+            <div class="pull-left">
+                <button type="button" class="btn btn-primary" ng-click="showServiciosAdd()"><span class="glyphicon glyphicon-plus"></span> Nuevo Servicio</button>
+                <select id="sltTipo" class="form-control"
+                    ng-options="tipo.id as tipo.descripcion for tipo in tipos"
+                    ng-model="tipo_id" ng-change="onChangeTipo()">
+                    <option value="">{{ loading_tipos }}</option>
+                </select>
+                <input class="form-control" placeholder="Buscar" ng-model="search.text" />&nbsp;&nbsp;
+            </div>
+            <div class="radio pull-left">
+                <label>
+                    <input type="radio" ng-model="search.estado_id" value=""> 
+                    Todos
+                </label>
+                <label>
+                    <input type="radio" ng-model="search.estado_id" value="1"> 
+                    Activos
+                </label>
+                <label>
+                    <input type="radio" ng-model="search.estado_id" value="2"> 
+                    Inactivos
+                </label>
+            </div>
+            <div class="pull-right">
+                Mostrando 
+                <select class="form-control" style="width: 60px; display: inline;" ng-change="onChangeItemsPerPage()"
+                    ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
+                </select> 
+                resultados por página
+            </div>
+        </form>
     </div>
 </div>
 <div class="row">

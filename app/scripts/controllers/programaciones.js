@@ -109,7 +109,7 @@ angular.module('pagoServiciosFrontendApp')
 
         modalInstanceAdd.result.then(function (data) {
             $scope.message = data;
-            $scope.programaciones.push(data.programacion);
+            $scope.getProgramaciones();
         });
     };
     

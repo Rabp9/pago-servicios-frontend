@@ -37,6 +37,10 @@ angular.module('pagoServiciosFrontendApp')
         pagarMany: {
             method: 'POST',
             url: envservice.getHost() + 'programaciones/pagarMany/.json'
+        },
+        saveMany: {
+            method: 'POST',
+            url: envservice.getHost() + 'programaciones/saveMany/.json'
         }
     });
 });
