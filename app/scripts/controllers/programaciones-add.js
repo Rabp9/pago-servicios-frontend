@@ -24,6 +24,16 @@ angular.module('pagoServiciosFrontendApp')
         $utilsViewService.disable('#' + boton);
         
         if ($scope.chMesesPosteriores) {
+            if ($scope.fecha_pre_ultimo === null) {
+                alert('Ingrese una fecha');
+                $utilsViewService.enable('#' + boton);
+                return;
+            }
+            if ($scope.fecha_pre_ultimo < $scope.fecha_pre) {
+                alert('Ingrese una fecha posterior para los meses posteriores');
+                $utilsViewService.enable('#' + boton);
+                return;
+            }
             var programaciones = [];
             
             var begin_year = $scope.fecha_pre.getFullYear();
@@ -110,7 +120,7 @@ angular.module('pagoServiciosFrontendApp')
                 begin_date = begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + str_pad(begin_day.toString(), '00');
                 final_date = final_year.toString() + '-' + str_pad(final_month.toString(), '00') + '-' + str_pad(final_day.toString(), '00');
                 programacion.monto = 0;
-                programacion.nro_recibo = 0;
+                programacion.nro_recibo = null;
             }
             programacionesservice.saveMany({programaciones: programaciones}, function(data) {
                 $uibModalInstance.close(data);

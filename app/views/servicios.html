@@ -19,7 +19,7 @@
 <div class="row">
     <div class="col-sm-12">
         <form class="form-inline">
-            <div class="pull-left">
+            <div>
                 <button type="button" class="btn btn-primary" ng-click="showServiciosAdd()"><span class="glyphicon glyphicon-plus"></span> Nuevo Servicio</button>
                 <select id="sltTipo" class="form-control"
                     ng-options="tipo.id as tipo.descripcion for tipo in tipos"
@@ -28,26 +28,28 @@
                 </select>
                 <input class="form-control" placeholder="Buscar" ng-model="search.text" />&nbsp;&nbsp;
             </div>
-            <div class="radio pull-left">
-                <label>
-                    <input type="radio" ng-model="search.estado_id" value=""> 
-                    Todos
-                </label>
-                <label>
-                    <input type="radio" ng-model="search.estado_id" value="1"> 
-                    Activos
-                </label>
-                <label>
-                    <input type="radio" ng-model="search.estado_id" value="2"> 
-                    Inactivos
-                </label>
-            </div>
-            <div class="pull-right">
-                Mostrando 
-                <select class="form-control" style="width: 60px; display: inline;" ng-change="onChangeItemsPerPage()"
-                    ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
-                </select> 
-                resultados por página
+            <div>
+                <div class="radio pull-left">
+                    <label>
+                        <input type="radio" ng-model="search.estado_id" value=""> 
+                        Todos
+                    </label>
+                    <label>
+                        <input type="radio" ng-model="search.estado_id" value="1"> 
+                        Activos
+                    </label>
+                    <label>
+                        <input type="radio" ng-model="search.estado_id" value="2"> 
+                        Inactivos
+                    </label>
+                </div>
+                <div class="pull-right">
+                    Mostrando 
+                    <select class="form-control" style="width: 60px; display: inline;" ng-change="onChangeItemsPerPage()"
+                        ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
+                    </select> 
+                    resultados por página
+                </div>
             </div>
         </form>
     </div>

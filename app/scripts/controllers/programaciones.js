@@ -9,7 +9,7 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('ProgramacionesCtrl', function ($scope, serviciosservice, programacionesservice,
-    $uibModal) {
+    $uibModal, tiposservice) {
     
     $scope.wCheckBox = '1%';
     $scope.wCodigo = '4%';
@@ -35,7 +35,16 @@ angular.module('pagoServiciosFrontendApp')
     };
     
     $scope.init = function() {
+        $scope.getTipos();
         $scope.getServicios();
+    };
+    
+    $scope.getTipos = function() {
+        $scope.loading_tipos = 'Cargando...';
+        tiposservice.get(function(data) {
+            $scope.loading_tipos = 'Selecciona un Tipo';
+            $scope.tipos = data.tipos;
+        });  
     };
     
     $scope.getServicios = function() {
@@ -44,7 +53,8 @@ angular.module('pagoServiciosFrontendApp')
             page: $scope.page_servicios,
             estado_id: $scope.search.servicio_estado_id,
             text: $scope.search.servicio_text,
-            items_per_page: $scope.items_per_page_servicios
+            items_per_page: $scope.items_per_page_servicios,
+            tipo_id: $scope.tipo_id
         }, function(data) {
             $scope.servicios = data.servicios;
             $scope.pagination_servicios = data.pagination;
@@ -54,6 +64,10 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.pageServiciosChanged = function() {
         $scope.getServicios();
+    };
+    
+    $scope.pageProgramacionesChanged = function() {
+        $scope.getProgramaciones();
     };
     
     $scope.pageServiciosProgramaciones = function() {
@@ -78,6 +92,10 @@ angular.module('pagoServiciosFrontendApp')
             $scope.loading_programaciones = false;
             $scope.pagination_programaciones = data.pagination;
         });
+    };
+    
+    $scope.onChangeTipo = function() {
+        $scope.getServicios();
     };
     
     $scope.$watch('search.servicio_estado_id', function(oldValue, newValue) {
