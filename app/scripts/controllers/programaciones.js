@@ -71,7 +71,7 @@ angular.module('pagoServiciosFrontendApp')
         programacionesservice.get({
             servicio_id: $scope.selected.servicio_id,
             page: $scope.page_programaciones,
-            estado_id: $scope.search.estado_id,
+            estado_id: $scope.search.programacion_estado_id,
             items_per_page: $scope.items_per_page_programaciones
         }, function(data) {
             $scope.programaciones = data.programaciones;
@@ -83,6 +83,11 @@ angular.module('pagoServiciosFrontendApp')
     $scope.$watch('search.servicio_estado_id', function(oldValue, newValue) {
         $scope.page = 1;
         $scope.getServicios();
+    });
+        
+    $scope.$watch('search.programacion_estado_id', function(oldValue, newValue) {
+        $scope.page = 1;
+        $scope.getProgramaciones();
     });
         
     $scope.$watch('search.servicio_text', function(oldValue, newValue) {

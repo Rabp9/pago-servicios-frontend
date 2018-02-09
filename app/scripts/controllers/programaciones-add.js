@@ -44,7 +44,8 @@ angular.module('pagoServiciosFrontendApp')
                         estado_id: 4,
                         servicio: programacion.servicio,
                         monto: programacion.monto,
-                        dias_mensaje: programacion.dias_mensaje
+                        dias_mensaje: programacion.dias_mensaje,
+                        nro_recibo: programacion.nro_recibo
                     };
                 } else if (begin_month === 2) {
                     if ((begin_year % 4 === 0) && ((begin_year % 100 !== 0) || (begin_year % 400 === 0))) {
@@ -55,7 +56,8 @@ angular.module('pagoServiciosFrontendApp')
                                 estado_id: 4,
                                 servicio: programacion.servicio,
                                 monto: programacion.monto,
-                                dias_mensaje: programacion.dias_mensaje
+                                dias_mensaje: programacion.dias_mensaje,
+                                nro_recibo: programacion.nro_recibo
                             };
                         } else {
                             programacion_aux = {
@@ -63,7 +65,8 @@ angular.module('pagoServiciosFrontendApp')
                                 estado_id: 4,
                                 servicio: programacion.servicio,
                                 monto: programacion.monto,
-                                dias_mensaje: programacion.dias_mensaje
+                                dias_mensaje: programacion.dias_mensaje,
+                                nro_recibo: programacion.nro_recibo
                             };
                         }
                     } else {
@@ -73,7 +76,8 @@ angular.module('pagoServiciosFrontendApp')
                                 estado_id: 4,
                                 servicio: programacion.servicio,
                                 monto: programacion.monto,
-                                dias_mensaje: programacion.dias_mensaje
+                                dias_mensaje: programacion.dias_mensaje,
+                                nro_recibo: programacion.nro_recibo
                             };
                         } else {
                             programacion_aux = {
@@ -81,7 +85,8 @@ angular.module('pagoServiciosFrontendApp')
                                 estado_id: 4,
                                 servicio: programacion.servicio,
                                 monto: programacion.monto,
-                                dias_mensaje: programacion.dias_mensaje
+                                dias_mensaje: programacion.dias_mensaje,
+                                nro_recibo: programacion.nro_recibo
                             };
                         }
                     }
@@ -91,7 +96,8 @@ angular.module('pagoServiciosFrontendApp')
                         estado_id: 4,
                         servicio: programacion.servicio,
                         monto: programacion.monto,
-                        dias_mensaje: programacion.dias_mensaje
+                        dias_mensaje: programacion.dias_mensaje,
+                        nro_recibo: programacion.nro_recibo
                     };
                 }
                 programaciones.push(programacion_aux);
@@ -103,6 +109,8 @@ angular.module('pagoServiciosFrontendApp')
                 }
                 begin_date = begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + str_pad(begin_day.toString(), '00');
                 final_date = final_year.toString() + '-' + str_pad(final_month.toString(), '00') + '-' + str_pad(final_day.toString(), '00');
+                programacion.monto = 0;
+                programacion.nro_recibo = 0;
             }
             programacionesservice.saveMany({programaciones: programaciones}, function(data) {
                 $uibModalInstance.close(data);
