@@ -34,7 +34,6 @@
             <div class="row">
                 <div class="col-sm-12">
                     <button type="button" class="btn btn-primary" ng-disabled="selected.servicio_id === ''" ng-click="showProgramacionesAdd(selected)"><span class="glyphicon glyphicon-plus"></span> Nueva Programación</button>
-                    <button type="button" class="btn btn-primary" ng-disabled="selected.servicio_id === ''" ng-click="showProgramacionesPagarMany(programaciones_selected)"><span class="glyphicon glyphicon-check"></span> Registrar Pago</button>
                 </div>
             </div>
         </div>
@@ -121,7 +120,7 @@
                     </div>
                     <div class="pull-right">
                         Mostrando 
-                        <select class="form-control" style="width: 60px; display: inline;" ng-change="onChangeItemsPerPageProgramaciones()"
+                        <select class="form-control" style="width: 70px; display: inline;" ng-change="onChangeItemsPerPageProgramaciones()"
                             ng-model="items_per_page_programaciones" ng-options="option for option in [10, 50, 100, 150]">
                         </select> 
                         resultados por página
@@ -134,7 +133,6 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th ng-style="{'width': wCheckBox}"><input type="checkbox" ng-model="check_all_list.value" ng-click="check_all_list_event()" /></th>
                                     <th ng-style="{'width': wCodigo}" sortable-header col="id">Código</th>
                                     <th ng-style="{'width': wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Vencimiento</th>
                                     <th ng-style="{'width': wFechaPago}" sortable-header col="fecha_pago">F. de Pago</th>
@@ -144,10 +142,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-hide="!loading_programaciones"><td colspan="10">Cargando...</td></tr>
-                                <tr ng-show="!loading_programaciones && programaciones.length === 0"><td colspan="10">No hay registros</td></tr>
+                                <tr ng-hide="!loading_programaciones"><td colspan="9">Cargando...</td></tr>
+                                <tr ng-show="!loading_programaciones && programaciones.length === 0"><td colspan="9">No hay registros</td></tr>
                                 <tr ng-hide="loading_programaciones" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones" row-id="{{ programacion.id }}">
-                                    <td ng-style="{'width': wCheckBox}"><input type="checkbox" class="programaciones_selected" checklist-model="programaciones_selected" checklist-value="programacion.id"/></td>
                                     <td ng-style="{'width': wCodigo}">{{ programacion.id }}</td>
                                     <td ng-style="{'width': wFechaVencimiento}">{{ programacion.fecha_vencimiento }}</td>
                                     <td ng-style="{'width': wFechaPago}">{{ programacion.fecha_pago }}</td>
