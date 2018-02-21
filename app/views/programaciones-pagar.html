@@ -6,14 +6,12 @@
     <div class="modal-body">
         <div class="row">
             <div class="form-group col-sm-6">
-                <label for="txtServicio">Tipo</label>
-                <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.tipo.descripcion"
-                    name="programacionServicioTipoDescripcion" readonly />
+                <label class="control-label" >Tipo</label>
+                <p class="form-control-static">{{ programacion.servicio.tipo.descripcion }}</p>
             </div>
             <div class="form-group col-sm-6">
-                <label for="txtServicio">Servicio</label>
-                <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.descripcion_detallada"
-                    name="programacionServicioDescripcion" readonly />
+                <label class="control-label">Servicio</label>
+                <p class="form-control-static">{{ programacion.servicio.descripcion_detallada }}</p>
             </div>
         </div>
         <div class="row">

@@ -30,7 +30,6 @@ angular.module('pagoServiciosFrontendApp')
     $scope.getServicios = function() {
         $scope.loading = true;
         serviciosservice.get({
-            search: $scope.search.text,
             tipo_id: $scope.tipo_id,
             page: $scope.page,
             estado_id: $scope.search.estado_id,
