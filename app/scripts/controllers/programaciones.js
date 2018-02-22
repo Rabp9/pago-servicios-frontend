@@ -13,10 +13,11 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.wCheckBox = '1%';
     $scope.wCodigo = '4%';
-    $scope.wFechaVencimiento = '18%';
-    $scope.wFechaPago = '18%';
-    $scope.wMonto = '14%';
-    $scope.wNroRecibo = '22%';
+    $scope.wFechaVencimiento = '16%';
+    $scope.wFechaPago = '16%';
+    $scope.wMonto = '10%';
+    $scope.wNroRecibo = '20%';
+    $scope.wNroDocumento = '10%';
     $scope.wAcciones = '23%';
     
     $scope.search = {};

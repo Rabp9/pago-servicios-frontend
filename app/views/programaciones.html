@@ -134,10 +134,11 @@
                             <thead>
                                 <tr>
                                     <th ng-style="{'width': wCodigo}" sortable-header col="id">Código</th>
-                                    <th ng-style="{'width': wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Vencimiento</th>
+                                    <th ng-style="{'width': wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Venc.</th>
                                     <th ng-style="{'width': wFechaPago}" sortable-header col="fecha_pago">F. de Pago</th>
                                     <th ng-style="{'width': wMonto}" sortable-header col="monto">Monto</th>
                                     <th ng-style="{'width': wNroRecibo}" sortable-header col="nro_recibo">Nª de Recibo</th>
+                                    <th ng-style="{'width': wNroDocumento}" sortable-header col="nro_recibo">Nª de Doc. (Pago)</th>
                                     <th ng-style="{'width': wAcciones}">Acciones</th>
                                 </tr>
                             </thead>
@@ -150,6 +151,7 @@
                                     <td ng-style="{'width': wFechaPago}">{{ programacion.fecha_pago }}</td>
                                     <td ng-style="{'width': wMonto}">{{ programacion.monto }}</td>
                                     <td ng-style="{'width': wNroRecibo}">{{ programacion.nro_recibo }}</td>
+                                    <td ng-style="{'width': wNroDocumento}">{{ programacion.nro_documento }}</td>
                                     <td ng-style="{'width': wAcciones}">
                                         <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showProgramacionesEdit(programacion)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
                                         <button ng-show="programacion.estado_id === 4" type="button" class="btn btn-default btn-sm" ng-click="showProgramacionesPagar(programacion)" title="Pagar"><span class="glyphicon glyphicon-check"></span></button>
