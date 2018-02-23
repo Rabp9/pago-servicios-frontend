@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name pagoServiciosFrontendApp.controller:ReporteProgramacionesCtrl
+ * @name pagoServiciosFrontendApp.controller:ReporteRecibosCtrl
  * @description
- * # ReporteProgramacionesCtrl
+ * # ReporteRecibosCtrl
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('ReporteProgramacionesCtrl', function ($scope, programacionesservice) {
+.controller('ReporteRecibosCtrl', function ($scope, recibosservice) {
     $scope.loading = false;
     
     $scope.changeDates = function(fecha_inicio, fecha_cierre) {
@@ -16,11 +16,11 @@ angular.module('pagoServiciosFrontendApp')
             return;
         } else {
             $scope.loading = true;
-            programacionesservice.getByDates({
+            recibosservice.getByDates({
                 fecha_inicio: formatDate(fecha_inicio), 
                 fecha_cierre: formatDate(fecha_cierre)
             }, function(data) {
-                $scope.programaciones = data.programaciones;
+                $scope.recibos = data.recibos;
                 $scope.loading = false;
             });
         }

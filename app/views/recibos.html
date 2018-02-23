@@ -1,0 +1,178 @@
+<div class="alert alert-dismissible" ng-class="{'alert-success': message.code === 200, 'alert-danger': message.code !== 200 }" role="alert" ng-show="message.code !== undefined">
+    <button type="button" class="close" ng-click="message.code = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ message.message }} 
+</div>
+<ol class="breadcrumb">
+    <li><a ui-sref="administrar">Home</a></li>
+    <li>Recibos y Pagos</li>
+</ol>
+<div>
+    <div class="row">
+        <div class="col-sm-5">
+            <h3>Servicios</h3>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <select id="sltTipo" class="form-control"
+                        ng-options="tipo.id as tipo.descripcion for tipo in tipos"
+                        ng-model="tipo_id" ng-change="onChangeTipo()">
+                        <option value="">{{ loading_tipos }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Buscar" ng-model="search.servicio_text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <h3>Recibos y Pagos</h3>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-primary" ng-disabled="selected.servicio_id === ''" ng-click="showRecibosAdd(selected)"><span class="glyphicon glyphicon-plus"></span> Nueva Recibo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="radio pull-left">
+                        <label>
+                            <input type="radio" ng-model="search.servicio_estado_id" value=""> 
+                            Todos
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="search.servicio_estado_id" value="1"> 
+                            Activos
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="search.servicio_estado_id" value="2"> 
+                            Inactivos
+                        </label>
+                    </div>
+                    <div class="pull-right">
+                        Mostrando 
+                        <select class="form-control" style="width: 70px; display: inline;" ng-change="onChangeItemsPerPageServicios()"
+                            ng-model="items_per_page_servicios" ng-options="option for option in [10, 50, 100, 150]">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <scrollable-table watch="servicios" class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th ng-style="{'width': servicios_ws.wCheckbox}" ></th>
+                                    <th ng-style="{'width': servicios_ws.wCodigo}" sortable-header col="id">Código</th>
+                                    <th ng-style="{'width': servicios_ws.wDescripcion}" sortable-header col="descripcion">Descripciòn</th>
+                                    <th ng-style="{'width': servicios_ws.wTipo}" sortable-header col="descripcion">Tipo</th>
+                                    <th ng-style="{'width': servicios_ws.wDetalle}" sortable-header col="detalle">Detalle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-hide="!loading_servicios"><td colspan="4">Cargando...</td></tr>
+                                <tr ng-show="!loading_servicios && servicios.length === 0"><td colspan="4">No hay registros</td></tr>
+                                <tr ng-hide="loading_servicios" ng-class="{'danger': servicio.estado_id === 2}" 
+                                    ng-repeat="servicio in servicios " row-id="{{ servicio.id }}" ng-click="selected.servicio_id = servicio.id">
+                                    <td ng-style="{'width': servicios_ws.wCheckbox}"><input type="radio" ng-model="selected.servicio_id" ng-value="servicio.id" name="servicioIdSelected" /></td>
+                                    <td ng-style="{'width': servicios_ws.wCodigo}">{{ servicio.id }}</td>
+                                    <td ng-style="{'width': servicios_ws.wDescripcion}"><span ng-bind-html="servicio.descripcion | limitTo: 17"></span><span ng-if="servicio.descripcion.length > 17">...</span></td>
+                                    <td ng-style="{'width': servicios_ws.wTipo}"><span ng-bind-html="servicio.tipo.descripcion | limitTo: 17"></span><span ng-if="servicio.tipo.descripcion.length > 17">...</span></td>
+                                    <td ng-style="{'width': servicios_ws.wDetalle}">{{ servicio.detalle }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </scrollable-table>
+                    <ul uib-pagination total-items="pagination_servicios.totalItems" first-text="Primero" 
+                        last-text="Último" next-text="Siguiente" previous-text="Anterior"
+                        items-per-page="pagination_servicios.itemsPerPage" ng-model="page_servicios" 
+                        class="pagination-sm" boundary-links="true" force-ellipses="true"
+                        ng-change="pageServiciosChanged()"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="radio pull-left">
+                        <label>
+                            <input type="radio" ng-model="search.recibo_estado_id" value=""> 
+                            Todos
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="search.recibo_estado_id" value="4"> 
+                            No pagados
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="search.recibo_estado_id" value="3"> 
+                            Pagados
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="search.recibo_estado_id" value="2"> 
+                            Inactivos
+                        </label>
+                    </div>
+                    <div class="pull-right">
+                        Mostrando 
+                        <select class="form-control" style="width: 70px; display: inline;" ng-change="onChangeItemsPerPageRecibos()"
+                            ng-model="items_per_page_recibos" ng-options="option for option in [10, 50, 100, 150]">
+                        </select> 
+                        resultados por página
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <scrollable-table watch="recibos" class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th ng-style="{'width': recibos_ws.wCodigo}" sortable-header col="id">Código</th>
+                                    <th ng-style="{'width': recibos_ws.wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Venc.</th>
+                                    <th ng-style="{'width': recibos_ws.wFechaPago}" sortable-header col="fecha_pago">F. de Pago</th>
+                                    <th ng-style="{'width': recibos_ws.wMonto}" sortable-header col="monto">Monto</th>
+                                    <th ng-style="{'width': recibos_ws.wNroRecibo}" sortable-header col="nro_recibo">Nª de Recibo</th>
+                                    <th ng-style="{'width': recibos_ws.wNroDocumento}" sortable-header col="nro_recibo">Nª de Doc. (Pago)</th>
+                                    <th ng-style="{'width': recibos_ws.wAcciones}">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-hide="!loading_recibos"><td colspan="9">Cargando...</td></tr>
+                                <tr ng-show="!loading_recibos && recibos.length === 0"><td colspan="9">No hay registros</td></tr>
+                                <tr ng-hide="loading_recibos" ng-class="{'warning': recibo.estado_id === 4, 'danger': recibo.estado_id === 2}" ng-repeat="recibo in recibos" row-id="{{ recibo.id }}">
+                                    <td ng-style="{'width': recibos_ws.wCodigo}">{{ recibo.id }}</td>
+                                    <td ng-style="{'width': recibos_ws.wFechaVencimiento}">{{ recibo.fecha_vencimiento }}</td>
+                                    <td ng-style="{'width': recibos_ws.wFechaPago}">{{ recibo.fecha_pago }}</td>
+                                    <td ng-style="{'width': recibos_ws.wMonto}">{{ recibo.monto }}</td>
+                                    <td ng-style="{'width': recibos_ws.wNroRecibo}">{{ recibo.nro_recibo }}</td>
+                                    <td ng-style="{'width': recibos_ws.wNroDocumento}">{{ recibo.nro_documento }}</td>
+                                    <td ng-style="{'width': recibos_ws.wAcciones}">
+                                        <button ng-show="recibo.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showRecibosEdit(recibo)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        <button ng-show="recibo.estado_id === 4" type="button" class="btn btn-default btn-sm" ng-click="showRecibosPagar(recibo)" title="Pagar"><span class="glyphicon glyphicon-check"></span></button>
+                                        <button ng-show="recibo.estado_id === 3" type="button" class="btn btn-warning btn-sm" ng-click="showRecibosCancelar(recibo)" title="Cancelar Pago"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button ng-show="recibo.estado_id === 4" type="button" class="btn btn-danger btn-sm" ng-click="showRecibosDelete(recibo)" title="Eliminar Recibo"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button ng-show="recibo.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showRecibosActivate(recibo)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </scrollable-table>
+
+                    <ul uib-pagination total-items="pagination_recibos.totalItems" first-text="Primero" 
+                        last-text="Último" next-text="Siguiente" previous-text="Anterior"
+                        items-per-page="pagination_recibos.itemsPerPage" ng-model="page_recibos" 
+                        class="pagination-sm" boundary-links="true" force-ellipses="true"
+                        ng-change="pageRecibosChanged()"></ul>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

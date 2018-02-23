@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: programacionesservice', function () {
+describe('Service: recibosservice', function () {
 
   // load the service's module
   beforeEach(module('pagoServiciosFrontendApp'));
 
   // instantiate service
-  var programacionesservice;
-  beforeEach(inject(function (_programacionesservice_) {
-    programacionesservice = _programacionesservice_;
+  var recibosservice;
+  beforeEach(inject(function (_recibosservice_) {
+    recibosservice = _recibosservice_;
   }));
 
   it('should do something', function () {
-    expect(!!programacionesservice).toBe(true);
+    expect(!!recibosservice).toBe(true);
   });
 
 });

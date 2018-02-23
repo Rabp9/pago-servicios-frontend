@@ -1,34 +1,34 @@
-<form novalidate angular-validator angular-validator-submit="saveProgramacion(programacion, 'btnSaveProgramacion')" name="ProgramacionEdit" angular-validator-quiet>
+<form novalidate angular-validator angular-validator-submit="saveRecibo(recibo, 'btnSaveRecibo')" name="ReciboEdit" angular-validator-quiet>
     <div class="modal-header">
         <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Modificar Programación</h4>
+        <h4 class="modal-title">Modificar Recibo</h4>
     </div>
     <div class="modal-body">
         <div class="row">
             <div class="form-group col-sm-6">
                 <label for="txtServicio">Tipo</label>
-                <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.tipo.descripcion"
-                    name="programacionServicioTipoDescripcion" readonly />
+                <input id="txtServicio" class="form-control" type="txt" ng-model="recibo.servicio.tipo.descripcion"
+                    name="reciboServicioTipoDescripcion" readonly />
             </div>
             <div class="form-group col-sm-6">
                 <label for="txtServicio">Servicio</label>
-                <input id="txtServicio" class="form-control" type="txt" ng-model="programacion.servicio.descripcion_detallada"
-                    name="programacionServicioDescripcion" readonly />
+                <input id="txtServicio" class="form-control" type="txt" ng-model="recibo.servicio.descripcion_detallada"
+                    name="reciboServicioDescripcion" readonly />
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="dtFechaVencimiento">Fecha de Vencimiento</label>
-                    <input id="dtFechaVencimiento" class="form-control" type="date" ng-model="fecha_pre" ng-value="programacion.fecha_vencimiento"
-                        name="programacionFechaVencimiento" />
+                    <input id="dtFechaVencimiento" class="form-control" type="date" ng-model="fecha_pre" ng-value="recibo.fecha_vencimiento"
+                        name="reciboFechaVencimiento" />
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="nmMonto">Monto</label>
-                    <input id="nmMonto" class="form-control" type="number" ng-model="programacion.monto"
-                        name="programacionMonto" required min="0" required-message="'Este campo es requerido'" validate-on="blur" />
+                    <input id="nmMonto" class="form-control" type="number" ng-model="recibo.monto"
+                        name="reciboMonto" required min="0" required-message="'Este campo es requerido'" validate-on="blur" />
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="txtNroRecibo">Nro. Recibo</label>
-                    <input id="txtNroRecibo" class="form-control" type="text" ng-model="programacion.nro_recibo"
+                    <input id="txtNroRecibo" class="form-control" type="text" ng-model="recibo.nro_recibo"
                         name="pagoNroRecibo" />
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     Avisar 
                     <select class="form-control" style="width: 60px; display: inline;"
-                        name="programacionDiasMensaje" ng-model="programacion.dias_mensaje" 
+                        name="reciboDiasMensaje" ng-model="recibo.dias_mensaje" 
                         ng-options="option for option in [5, 10, 15, 30, 60]">
                     </select>
                     días antes de la Fecha de Vencimiento
@@ -56,6 +56,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="cancel()">Cerrar</button>
-        <button id="btnSaveProgramacion" class="btn btn-success" type="submit">Guardar Programación</button>
+        <button id="btnSaveRecibo" class="btn btn-success" type="submit">Guardar Recibo</button>
     </div>
 </form>

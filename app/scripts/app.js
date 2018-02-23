@@ -52,14 +52,23 @@ angular
         title: 'Tipos'
     };  
     
-    var programacionesState = {
-        name: 'programaciones',
-        url: '/programaciones',
-        templateUrl: 'views/programaciones.html',
-        controller: 'ProgramacionesCtrl',
-        controllerAs: 'programaciones',
-        title: 'Programaciones y Pagos'
-    };  
+    var recibosState = {
+        name: 'recibos',
+        url: '/recibos',
+        templateUrl: 'views/recibos.html',
+        controller: 'RecibosCtrl',
+        controllerAs: 'recibos',
+        title: 'Recibos'
+    };
+    
+    var realizarPagosState = {
+        name: 'realizarPagos',
+        url: '/realizar-pagos',
+        templateUrl: 'views/realizar-pagos.html',
+        controller: 'RealizarPagosCtrl',
+        controllerAs: 'realizarPagos',
+        title: 'Realizar Pagos'
+    };
     
     var reporteServiciosState = {
         name: 'reporteServicios',
@@ -70,13 +79,13 @@ angular
         title: 'Reporte de Servicios'
     };
 
-    var reporteProgramacionesState = {
-        name: 'reporteProgramaciones',
-        url: '/reporte-programaciones',
-        templateUrl: 'views/reporte-programaciones.html',
-        controller: 'ReporteProgramacionesCtrl',
-        controllerAs: 'reporteProgramaciones',
-        title: 'Reporte de Programaciones de Pagos'
+    var reporteRecibosState = {
+        name: 'reporteRecibos',
+        url: '/reporte-recibos',
+        templateUrl: 'views/reporte-recibos.html',
+        controller: 'ReporteRecibosCtrl',
+        controllerAs: 'reporteRecibos',
+        title: 'Reporte de Recibos de Pagos'
     };
 
     var reportePagosState = {
@@ -118,16 +127,17 @@ angular
     $stateProvider.state(mainState);
     $stateProvider.state(serviciosState);
     $stateProvider.state(tiposState);
-    $stateProvider.state(programacionesState);
+    $stateProvider.state(recibosState);
+    $stateProvider.state(realizarPagosState);
     $stateProvider.state(reporteServiciosState);
-    $stateProvider.state(reporteProgramacionesState);
+    $stateProvider.state(reporteRecibosState);
     $stateProvider.state(reportePagosState);
     $stateProvider.state(rolesState);
     $stateProvider.state(usersState);
     $stateProvider.state(usersLoginState);
     $urlRouterProvider.when('', '/');
 })
-.run(function($rootScope, $state, $window, $interval, programacionesservice, 
+.run(function($rootScope, $state, $window, $interval, recibosservice, 
 $timeout, $cookies, $location) {
         
     $rootScope.logged = false;
@@ -150,9 +160,9 @@ $timeout, $cookies, $location) {
     }
     
     $interval(function() {
-        programacionesservice.getPendientesPago(function(data) {
-            var programaciones = data.programaciones;
-            angular.forEach(programaciones, function(value, key) {
+        recibosservice.getPendientesPago(function(data) {
+            var recibos = data.recibos;
+            angular.forEach(recibos, function(value, key) {
                 var title = value.servicio.descripcion;
                 var extra = {
                     icon: 'images/icono.png',

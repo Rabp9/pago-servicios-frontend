@@ -2,25 +2,25 @@
 
 /**
  * @ngdoc function
- * @name pagoServiciosFrontendApp.controller:ProgramacionesAddCtrl
+ * @name pagoServiciosFrontendApp.controller:RecibosAddCtrl
  * @description
- * # ProgramacionesAddCtrl
+ * # RecibosAddCtrl
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('ProgramacionesAddCtrl', function ($scope, $uibModalInstance, 
-    $utilsViewService, programacionesservice, servicio_id, serviciosservice) {
+.controller('RecibosAddCtrl', function ($scope, $uibModalInstance, 
+    $utilsViewService, recibosservice, servicio_id, serviciosservice) {
  
-    $scope.programacion = {};
-    $scope.programacion.monto = 0;
-    $scope.programacion.servicio_id = servicio_id;
-    $scope.programacion.dias_mensaje = 5;
+    $scope.recibo = {};
+    $scope.recibo.monto = 0;
+    $scope.recibo.servicio_id = servicio_id;
+    $scope.recibo.dias_mensaje = 5;
         
     $scope.cancel = function() {
         $uibModalInstance.dismiss('cancel');
     };
     
-    $scope.saveProgramacion = function(programacion, boton) {
+    $scope.saveRecibo = function(recibo, boton) {
         $utilsViewService.disable('#' + boton);
         
         if ($scope.chMesesPosteriores) {
@@ -34,7 +34,7 @@ angular.module('pagoServiciosFrontendApp')
                 $utilsViewService.enable('#' + boton);
                 return;
             }
-            var programaciones = [];
+            var recibos = [];
             
             var begin_year = $scope.fecha_pre.getFullYear();
             var begin_month = $scope.fecha_pre.getMonth() + 1;
@@ -47,70 +47,70 @@ angular.module('pagoServiciosFrontendApp')
             var final_date = final_year.toString() + '-' + str_pad(final_month.toString(), '00') + '-' + str_pad(final_day.toString(), '00');
                         
             while (begin_date <= final_date) {
-                var programacion_aux = {};
+                var recibo_aux = {};
                 if (begin_day === 31 && (begin_month === 4 || begin_month === 6 || begin_month === 9 || begin_month === 11)) {
-                    programacion_aux = {
+                    recibo_aux = {
                         fecha_vencimiento: begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + '30',
                         estado_id: 4,
-                        servicio: programacion.servicio,
-                        monto: programacion.monto,
-                        dias_mensaje: programacion.dias_mensaje,
-                        nro_recibo: programacion.nro_recibo
+                        servicio: recibo.servicio,
+                        monto: recibo.monto,
+                        dias_mensaje: recibo.dias_mensaje,
+                        nro_recibo: recibo.nro_recibo
                     };
                 } else if (begin_month === 2) {
                     if ((begin_year % 4 === 0) && ((begin_year % 100 !== 0) || (begin_year % 400 === 0))) {
                         // es bisiesto
                         if (begin_day === 31 || begin_day === 30) {
-                            programacion_aux = {
+                            recibo_aux = {
                                 fecha_vencimiento: begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + '29',
                                 estado_id: 4,
-                                servicio: programacion.servicio,
-                                monto: programacion.monto,
-                                dias_mensaje: programacion.dias_mensaje,
-                                nro_recibo: programacion.nro_recibo
+                                servicio: recibo.servicio,
+                                monto: recibo.monto,
+                                dias_mensaje: recibo.dias_mensaje,
+                                nro_recibo: recibo.nro_recibo
                             };
                         } else {
-                            programacion_aux = {
+                            recibo_aux = {
                                 fecha_vencimiento: begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + str_pad(begin_day.toString(), '00'),
                                 estado_id: 4,
-                                servicio: programacion.servicio,
-                                monto: programacion.monto,
-                                dias_mensaje: programacion.dias_mensaje,
-                                nro_recibo: programacion.nro_recibo
+                                servicio: recibo.servicio,
+                                monto: recibo.monto,
+                                dias_mensaje: recibo.dias_mensaje,
+                                nro_recibo: recibo.nro_recibo
                             };
                         }
                     } else {
                         if (begin_day === 31 || begin_day === 30 || begin_day === 29) {
-                            programacion_aux = {
+                            recibo_aux = {
                                 fecha_vencimiento: begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + '28',
                                 estado_id: 4,
-                                servicio: programacion.servicio,
-                                monto: programacion.monto,
-                                dias_mensaje: programacion.dias_mensaje,
-                                nro_recibo: programacion.nro_recibo
+                                servicio: recibo.servicio,
+                                monto: recibo.monto,
+                                dias_mensaje: recibo.dias_mensaje,
+                                nro_recibo: recibo.nro_recibo
                             };
                         } else {
-                            programacion_aux = {
+                            recibo_aux = {
                                 fecha_vencimiento: begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + str_pad(begin_day.toString(), '00'),
                                 estado_id: 4,
-                                servicio: programacion.servicio,
-                                monto: programacion.monto,
-                                dias_mensaje: programacion.dias_mensaje,
-                                nro_recibo: programacion.nro_recibo
+                                servicio: recibo.servicio,
+                                monto: recibo.monto,
+                                dias_mensaje: recibo.dias_mensaje,
+                                nro_recibo: recibo.nro_recibo
                             };
                         }
                     }
                 } else {
-                    programacion_aux = {
+                    recibo_aux = {
                         fecha_vencimiento: begin_date,
                         estado_id: 4,
-                        servicio: programacion.servicio,
-                        monto: programacion.monto,
-                        dias_mensaje: programacion.dias_mensaje,
-                        nro_recibo: programacion.nro_recibo
+                        servicio: recibo.servicio,
+                        monto: recibo.monto,
+                        dias_mensaje: recibo.dias_mensaje,
+                        nro_recibo: recibo.nro_recibo
                     };
                 }
-                programaciones.push(programacion_aux);
+                recibos.push(recibo_aux);
                 if (begin_month !== 12) {
                     begin_month += 1;
                 } else {
@@ -119,20 +119,20 @@ angular.module('pagoServiciosFrontendApp')
                 }
                 begin_date = begin_year.toString() + '-' + str_pad(begin_month.toString(), '00') + '-' + str_pad(begin_day.toString(), '00');
                 final_date = final_year.toString() + '-' + str_pad(final_month.toString(), '00') + '-' + str_pad(final_day.toString(), '00');
-                programacion.monto = 0;
-                programacion.nro_recibo = null;
+                recibo.monto = 0;
+                recibo.nro_recibo = null;
             }
-            programacionesservice.saveMany({programaciones: programaciones}, function(data) {
+            recibosservice.saveMany({recibos: recibos}, function(data) {
                 $uibModalInstance.close(data);
             }, function (err) {
                 $uibModalInstance.close(err.data);
             });
         } else {
             if ($scope.fecha_pre !== null) {
-                programacion.fecha_vencimiento = formatDate($scope.fecha_pre);
+                recibo.fecha_vencimiento = formatDate($scope.fecha_pre);
             }
-            programacion.estado_id = 4;
-            programacionesservice.save(programacion, function (data) {
+            recibo.estado_id = 4;
+            recibosservice.save(recibo, function (data) {
                 $uibModalInstance.close(data);
             }, function (err) {
                 $uibModalInstance.close(err.data);
@@ -141,8 +141,8 @@ angular.module('pagoServiciosFrontendApp')
     };
     
     $scope.init = function() {
-        serviciosservice.get({id: $scope.programacion.servicio_id}, function(data) {
-            $scope.programacion.servicio = data.servicio;
+        serviciosservice.get({id: $scope.recibo.servicio_id}, function(data) {
+            $scope.recibo.servicio = data.servicio;
         });
     };
     

@@ -9,7 +9,7 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('PagosRegistrarCtrl', function ($scope, tiposservice, $uibModalInstance,
-    serviciosservice, programacionesservice, $utilsViewService, pagosservice) {
+    serviciosservice, recibosservice, $utilsViewService, pagosservice) {
     
     function formatDate(fecha) {
         if (fecha === undefined) {
@@ -44,9 +44,9 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.onChangeServicio = function(servicio_id) {
         $scope.loading = true;
-        programacionesservice.getByServicioNoPagados({servicio_id: servicio_id}, function(data) {
+        recibosservice.getByServicioNoPagados({servicio_id: servicio_id}, function(data) {
             $scope.loading = false;
-            $scope.programaciones = data.programaciones;
+            $scope.recibos = data.recibos;
         });
     };
     

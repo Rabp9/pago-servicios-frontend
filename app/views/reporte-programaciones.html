@@ -5,9 +5,9 @@
 <ol class="breadcrumb">
     <li><a ui-sref="administrar">Home</a></li>
     <li>Reportes</li>
-    <li>Reporte de Programaciones sin Pagar</li>
+    <li>Reporte de Recibos sin Pagar</li>
 </ol>
-<h2>Reporte de Programaciones sin Pagar</h2>
+<h2>Reporte de Recibos sin Pagar</h2>
 <hr>
 <div class="row">
     <div class="col-sm-6">
@@ -34,7 +34,7 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <scrollable-table watch="programaciones" class="table-responsive" id="exportable">
+        <scrollable-table watch="recibos" class="table-responsive" id="exportable">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -48,14 +48,14 @@
                 </thead>
                 <tbody>
                     <tr id="trCargando" ng-hide="!loading"><td colspan="6">Cargando...</td></tr>
-                    <tr id="trNoHayRegistros" ng-show="!loading && programaciones.length === 0"><td colspan="6">No hay registros</td></tr>
-                    <tr ng-hide="loading" ng-class="{'warning': programacion.estado_id === 4, 'danger': programacion.estado_id === 2}" ng-repeat="programacion in programaciones | toArray:false" row-id="{{ programacion.id }}">
-                        <td>{{ programacion.id }}</td>
-                        <td>{{ programacion.servicio.tipo.descripcion }}</td>
-                        <td>{{ programacion.servicio.descripcion }}</td>
-                        <td>{{ programacion.servicio.detalle }}</td>
-                        <td>{{ programacion.monto }}</td>
-                        <td>{{ programacion.fecha_vencimiento }}</td>
+                    <tr id="trNoHayRegistros" ng-show="!loading && recibos.length === 0"><td colspan="6">No hay registros</td></tr>
+                    <tr ng-hide="loading" ng-class="{'warning': recibo.estado_id === 4, 'danger': recibo.estado_id === 2}" ng-repeat="recibo in recibos | toArray:false" row-id="{{ recibo.id }}">
+                        <td>{{ recibo.id }}</td>
+                        <td>{{ recibo.servicio.tipo.descripcion }}</td>
+                        <td>{{ recibo.servicio.descripcion }}</td>
+                        <td>{{ recibo.servicio.detalle }}</td>
+                        <td>{{ recibo.monto }}</td>
+                        <td>{{ recibo.fecha_vencimiento }}</td>
                     </tr>
                 </tbody>
             </table>

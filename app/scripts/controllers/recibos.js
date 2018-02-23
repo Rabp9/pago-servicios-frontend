@@ -2,33 +2,42 @@
 
 /**
  * @ngdoc function
- * @name pagoServiciosFrontendApp.controller:ProgramacionesCtrl
+ * @name pagoServiciosFrontendApp.controller:RecibosCtrl
  * @description
- * # ProgramacionesCtrl
+ * # RecibosCtrl
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('ProgramacionesCtrl', function ($scope, serviciosservice, programacionesservice,
+.controller('RecibosCtrl', function ($scope, serviciosservice, recibosservice,
     $uibModal, tiposservice) {
     
-    $scope.wCheckBox = '1%';
-    $scope.wCodigo = '4%';
-    $scope.wFechaVencimiento = '16%';
-    $scope.wFechaPago = '16%';
-    $scope.wMonto = '10%';
-    $scope.wNroRecibo = '20%';
-    $scope.wNroDocumento = '10%';
-    $scope.wAcciones = '23%';
+    $scope.servicios_ws = {
+       wCheckbox: '6%',
+       wCodigo: '8%',
+       wDescripcion: '34%',
+       wTipo: '32%',
+       wDetalle: '20%'
+   };
+    
+    $scope.recibos_ws = {
+       wCodigo: '6%',
+       wFechaVencimiento: '16%',
+       wFechaPago: '16%',
+       wMonto: '10%',
+       wNroRecibo: '21%',
+       wNroDocumento: '12%',
+       wAcciones: '19%'
+    };
     
     $scope.search = {};
     $scope.search.servicio_estado_id = 1;
-    $scope.search.programacion_estado_id = 4;
+    $scope.search.recibo_estado_id = 4;
     $scope.search.servicio_text = '';
     $scope.selected = {};
     $scope.selected.servicio_id = '';
     $scope.page_servicios = 1;
-    $scope.page_programaciones = 1;
-    $scope.items_per_page_programaciones = 10;
+    $scope.page_recibos = 1;
+    $scope.items_per_page_recibos = 10;
     $scope.items_per_page_servicios = 10;
     $scope.check_all_list = {
         value: false
@@ -66,29 +75,29 @@ angular.module('pagoServiciosFrontendApp')
         $scope.getServicios();
     };
     
-    $scope.pageProgramacionesChanged = function() {
-        $scope.getProgramaciones();
+    $scope.pageRecibosChanged = function() {
+        $scope.getRecibos();
     };
     
-    $scope.pageServiciosProgramaciones = function() {
-        $scope.getProgramaciones();
+    $scope.pageServiciosRecibos = function() {
+        $scope.getRecibos();
     };
     
-    $scope.getProgramaciones = function() {
+    $scope.getRecibos = function() {
         if ($scope.selected.servicio_id === '') {
             return;
         }
-        $scope.programaciones = [];
-        $scope.loading_programaciones = true;
-        programacionesservice.get({
+        $scope.recibos = [];
+        $scope.loading_recibos = true;
+        recibosservice.get({
             servicio_id: $scope.selected.servicio_id,
-            page: $scope.page_programaciones,
-            estado_id: $scope.search.programacion_estado_id,
-            items_per_page: $scope.items_per_page_programaciones
+            page: $scope.page_recibos,
+            estado_id: $scope.search.recibo_estado_id,
+            items_per_page: $scope.items_per_page_recibos
         }, function(data) {
-            $scope.programaciones = data.programaciones;
-            $scope.loading_programaciones = false;
-            $scope.pagination_programaciones = data.pagination;
+            $scope.recibos = data.recibos;
+            $scope.loading_recibos = false;
+            $scope.pagination_recibos = data.pagination;
         });
     };
     
@@ -101,9 +110,9 @@ angular.module('pagoServiciosFrontendApp')
         $scope.getServicios();
     });
         
-    $scope.$watch('search.programacion_estado_id', function(oldValue, newValue) {
+    $scope.$watch('search.recibo_estado_id', function(oldValue, newValue) {
         $scope.page = 1;
-        $scope.getProgramaciones();
+        $scope.getRecibos();
     });
         
     $scope.$watch('search.servicio_text', function(oldValue, newValue) {
@@ -112,14 +121,14 @@ angular.module('pagoServiciosFrontendApp')
     });
     
     $scope.$watch('selected.servicio_id', function(oldValue, newValue) {
-        $scope.page_programaciones = 1;
-        $scope.getProgramaciones();
+        $scope.page_recibos = 1;
+        $scope.getRecibos();
     });
     
-    $scope.showProgramacionesAdd = function(selected) {
+    $scope.showRecibosAdd = function(selected) {
         var modalInstanceAdd = $uibModal.open({
-            templateUrl: 'views/programaciones-add.html',
-            controller: 'ProgramacionesAddCtrl',
+            templateUrl: 'views/recibos-add.html',
+            controller: 'RecibosAddCtrl',
             backdrop: false,
             resolve: {
                 servicio_id: function() {
@@ -130,53 +139,53 @@ angular.module('pagoServiciosFrontendApp')
 
         modalInstanceAdd.result.then(function (data) {
             $scope.message = data;
-            $scope.getProgramaciones();
+            $scope.getRecibos();
         });
     };
     
-    $scope.showProgramacionesCancelar = function(programacion) {
+    $scope.showRecibosCancelar = function(recibo) {
         if (confirm('¿Está seguro de cancelar el pago?')) {
-            programacion.estado_id = 4;
-            programacion.fecha_pago = null;
-            programacion.nro_documento = null;
-            programacionesservice.cancelarPago(programacion, function(data) {
+            recibo.estado_id = 4;
+            recibo.fecha_pago = null;
+            recibo.nro_documento = null;
+            recibosservice.cancelarPago(recibo, function(data) {
                 $scope.message = data;
             }, function(error) {
-                programacion.estado_id = 3;
+                recibo.estado_id = 3;
             });
         }
     };
     
-    $scope.showProgramacionesDelete = function(programacion) {
-        if (confirm('¿Está seguro de eliminar la programación?')) {
-            programacion.estado_id = 2;
-            programacionesservice.save(programacion, function(data) {
+    $scope.showRecibosDelete = function(recibo) {
+        if (confirm('¿Está seguro de eliminar la recibo?')) {
+            recibo.estado_id = 2;
+            recibosservice.save(recibo, function(data) {
                 $scope.message = data;
             }, function(error) {
-                programacion.estado_id = 3;
+                recibo.estado_id = 3;
             });
         }
     };
     
-    $scope.showProgramacionesActivate = function(programacion) {
-        if (confirm('¿Está seguro de activar la programación?')) {
-            programacion.estado_id = 4;
-            programacionesservice.save(programacion, function(data) {
+    $scope.showRecibosActivate = function(recibo) {
+        if (confirm('¿Está seguro de activar la recibo?')) {
+            recibo.estado_id = 4;
+            recibosservice.save(recibo, function(data) {
                 $scope.message = data;
             }, function(error) {
-                programacion.estado_id = 3;
+                recibo.estado_id = 3;
             });
         }
     };
     
-    $scope.showProgramacionesEdit = function(programacion) {
+    $scope.showRecibosEdit = function(recibo) {
         var modalInstanceAdd = $uibModal.open({
-            templateUrl: 'views/programaciones-edit.html',
-            controller: 'ProgramacionesEditCtrl',
+            templateUrl: 'views/recibos-edit.html',
+            controller: 'RecibosEditCtrl',
             backdrop: false,
             resolve: {
-                programacion: function() {
-                    return programacion;
+                recibo: function() {
+                    return recibo;
                 }
             }
         });
@@ -187,21 +196,21 @@ angular.module('pagoServiciosFrontendApp')
         });
     };
     
-    $scope.showProgramacionesPagar = function(programacion) {
+    $scope.showRecibosPagar = function(recibo) {
         var modalInstancePagar = $uibModal.open({
-            templateUrl: 'views/programaciones-pagar.html',
-            controller: 'ProgramacionesPagarCtrl',
+            templateUrl: 'views/recibos-pagar.html',
+            controller: 'RecibosPagarCtrl',
             backdrop: false,
             resolve: {
-                programacion: function() {
-                    return programacion;
+                recibo: function() {
+                    return recibo;
                 }
             }
         });
 
         modalInstancePagar.result.then(function (data) {
             $scope.message = data;
-            $scope.getProgramaciones();
+            $scope.getRecibos();
         });
     };
     
@@ -210,9 +219,9 @@ angular.module('pagoServiciosFrontendApp')
         $scope.getServicios();
     };
     
-    $scope.onChangeItemsPerPageProgramaciones = function() {
-        $scope.page_programaciones = 1;
-        $scope.getProgramaciones();
+    $scope.onChangeItemsPerPageRecibos = function() {
+        $scope.page_recibos = 1;
+        $scope.getRecibos();
     };
     
     $scope.init();

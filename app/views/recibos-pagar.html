@@ -1,21 +1,31 @@
-<form novalidate angular-validator angular-validator-submit="saveProgramacionesMany(fecha_pre, nro_documento, 'btnSaveProgramacion')" name="ProgramacionEdit" angular-validator-quiet>
+<form novalidate angular-validator angular-validator-submit="saveRecibo(recibo, 'btnSaveRecibo')" name="ReciboEdit" angular-validator-quiet>
     <div class="modal-header">
         <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Registrar Pago</h4>
     </div>
     <div class="modal-body">
         <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label" >Tipo</label>
+                <p class="form-control-static">{{ recibo.servicio.tipo.descripcion }}</p>
+            </div>
+            <div class="form-group col-sm-6">
+                <label class="control-label">Servicio</label>
+                <p class="form-control-static">{{ recibo.servicio.descripcion_detallada }}</p>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="dtFechaPago">Fecha de Pago</label>
                     <input id="dtFechaPago" class="form-control" type="date" ng-model="fecha_pre"
-                        name="programacionFechaPago" required required-message="'Este campo es requerido'" validate-on="blur" />
+                        name="reciboFechaPago" required required-message="'Este campo es requerido'" validate-on="blur" />
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="txtNroDocumento">Nro. Documento</label>
-                    <input id="txtNroDocumento" class="form-control" type="text" ng-model="nro_documento"
+                    <input id="txtNroDocumento" class="form-control" type="text" ng-model="recibo.nro_documento"
                         name="pagoNroDocumento" />
                 </div>
             </div>
@@ -23,6 +33,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="cancel()">Cerrar</button>
-        <button id="btnSaveProgramacion" class="btn btn-success" type="submit">Registar Pago</button>
+        <button id="btnSaveRecibo" class="btn btn-success" type="submit">Registar Pago</button>
     </div>
 </form>

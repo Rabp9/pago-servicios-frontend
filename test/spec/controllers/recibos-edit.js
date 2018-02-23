@@ -1,23 +1,23 @@
 'use strict';
 
-describe('Controller: ReporteProgramacionesCtrl', function () {
+describe('Controller: RecibosEditCtrl', function () {
 
   // load the controller's module
   beforeEach(module('pagoServiciosFrontendApp'));
 
-  var ReporteProgramacionesCtrl,
+  var RecibosEditCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    ReporteProgramacionesCtrl = $controller('ReporteProgramacionesCtrl', {
+    RecibosEditCtrl = $controller('RecibosEditCtrl', {
       $scope: scope
       // place here mocked dependencies
     });
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    expect(ReporteProgramacionesCtrl.awesomeThings.length).toBe(3);
+    expect(RecibosEditCtrl.awesomeThings.length).toBe(3);
   });
 });

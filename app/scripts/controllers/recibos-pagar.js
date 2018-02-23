@@ -2,18 +2,18 @@
 
 /**
  * @ngdoc function
- * @name pagoServiciosFrontendApp.controller:ProgramacionesEditCtrl
+ * @name pagoServiciosFrontendApp.controller:RecibosPagarCtrl
  * @description
- * # ProgramacionesEditCtrl
+ * # RecibosPagarCtrl
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('ProgramacionesEditCtrl', function ($scope, $uibModalInstance, 
-    $utilsViewService, programacionesservice, programacion) {
+.controller('RecibosPagarCtrl', function ($scope, $uibModalInstance, 
+    $utilsViewService, recibosservice, recibo) {
  
     $scope.init = function() {
-        programacionesservice.get({id: programacion.id}, function(data) {
-            $scope.programacion = data.programacion;
+        recibosservice.get({id: recibo.id}, function(data) {
+            $scope.recibo = data.recibo;
         });
     };
 
@@ -21,13 +21,14 @@ angular.module('pagoServiciosFrontendApp')
         $uibModalInstance.dismiss('cancel');
     };
     
-    $scope.saveProgramacion = function(programacion, boton) {
+    $scope.saveRecibo = function(recibo, boton) {
         $utilsViewService.disable('#' + boton);
                 
         if ($scope.fecha_pre !== null) {
-            programacion.fecha_vencimiento = formatDate($scope.fecha_pre);
+            recibo.fecha_pago = formatDate($scope.fecha_pre);
         }
-        programacionesservice.save(programacion, function (data) {
+        recibo.estado_id = 3;
+        recibosservice.save(recibo, function (data) {
             $uibModalInstance.close(data);
         }, function (err) {
             $uibModalInstance.close(err.data);

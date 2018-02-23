@@ -30,11 +30,11 @@
                 <thead>
                     <tr>
                         <th sortable-header col="id">Código</th>
-                        <th sortable-header col="programacion.servicio.tipo.descripcion">Tipo de Servicio</th>
-                        <th sortable-header col="programacion.servicio.descripcion">Servicio</th>
-                        <th sortable-header col="programacion.servicio.detalle">Detalle</th>
+                        <th sortable-header col="recibo.servicio.tipo.descripcion">Tipo de Servicio</th>
+                        <th sortable-header col="recibo.servicio.descripcion">Servicio</th>
+                        <th sortable-header col="recibo.servicio.detalle">Detalle</th>
                         <th sortable-header col="fecha">Fecha de Pago</th>
-                        <th sortable-header col="programacion.fecha">Fecha Programada</th>
+                        <th sortable-header col="recibo.fecha">Fecha Programada</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -43,11 +43,11 @@
                     <tr ng-show="!loading && pagos.length === 0"><td colspan="7">No hay registros</td></tr>
                     <tr ng-hide="loading" ng-class="{'danger': pago.estado_id === 2}" ng-repeat="pago in pagos | toArray:false | filter:search" row-id="{{ pago.id }}">
                         <td>{{ pago.id }}</td>
-                        <td>{{ pago.programacion.servicio.tipo.descripcion }}</td>
-                        <td>{{ pago.programacion.servicio.descripcion }}</td>
-                        <td>{{ pago.programacion.servicio.detalle }}</td>
+                        <td>{{ pago.recibo.servicio.tipo.descripcion }}</td>
+                        <td>{{ pago.recibo.servicio.descripcion }}</td>
+                        <td>{{ pago.recibo.servicio.detalle }}</td>
                         <td>{{ pago.fecha }}</td>
-                        <td>{{ pago.programacion.fecha }}</td>
+                        <td>{{ pago.recibo.fecha }}</td>
                         <td>
                             <button ng-show="pago.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showPagosDelete(pago)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
                             <button ng-show="pago.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showPagosActivate(pago)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>

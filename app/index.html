@@ -54,13 +54,14 @@
                                 <li ui-sref-active="active"><a ui-sref="servicios">Servicios</a></li>
                             </ul>
                         </li>
-                        <li ui-sref-active="active"><a ui-sref="programaciones">Programaciones y Pagos</a></li>
+                        <li ui-sref-active="active"><a ui-sref="recibos">Recibos y Pagos</a></li>
+                        <li ui-sref-active="active"><a ui-sref="realizarPagos">Realizar Pagos</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li ui-sref-active="active"><a ui-sref="reporteServicios">Reporte de Servicios</a></li>
-                                <li ui-sref-active="active"><a ui-sref="reporteProgramaciones">Reporte de Programaciones sin Pagar</a></li>
-                                <li ui-sref-active="active"><a ui-sref="reportePagos">Reporte de Programaciones Pagadas</a></li>
+                                <li ui-sref-active="active"><a ui-sref="reporteRecibos">Reporte de Recibos sin Pagar</a></li>
+                                <li ui-sref-active="active"><a ui-sref="reportePagos">Reporte de Recibos Pagadas</a></li>
                             </ul>
                         </li>
                         <li ng-if="user.rol_user.rol.descripcion === 'Administrador'" ui-sref-active="active"><a ui-sref="roles">Roles</a></li>
@@ -74,7 +75,7 @@
             </div>
         </div>
     </div>
-    <div id="dvContainer" class="container">
+    <div id="dvContainer" class="container-fluid">
         <ui-view></ui-view>
     </div>
 
@@ -124,17 +125,17 @@
     <script src="scripts/controllers/pagos-registrar.js"></script>
     <script src="scripts/controllers/pagos-eliminar.js"></script>
     <script src="scripts/services/utilsviewservice.js"></script>
-    <script src="scripts/controllers/programaciones.js"></script>
-    <script src="scripts/services/programacionesservice.js"></script>
-    <script src="scripts/controllers/programaciones-add.js"></script>
-    <script src="scripts/controllers/programaciones-edit.js"></script>
+    <script src="scripts/controllers/recibos.js"></script>
+    <script src="scripts/services/recibosservice.js"></script>
+    <script src="scripts/controllers/recibos-add.js"></script>
+    <script src="scripts/controllers/recibos-edit.js"></script>
     <script src="scripts/controllers/tipos.js"></script>
     <script src="scripts/controllers/tipos-add.js"></script>
     <script src="scripts/controllers/tipos-edit.js"></script>
     <script src="scripts/services/tiposservice.js"></script>
     <script src="scripts/services/pagosservice.js"></script>
     <script src="scripts/controllers/reporte-servicios.js"></script>
-    <script src="scripts/controllers/reporte-programaciones.js"></script>
+    <script src="scripts/controllers/reporte-recibos.js"></script>
     <script src="scripts/controllers/reporte-pagos.js"></script>
     <script src="scripts/controllers/users.js"></script>
     <script src="scripts/controllers/users-login.js"></script>
@@ -148,9 +149,9 @@
     <script src="scripts/services/rolesservice.js"></script>
     <script src="scripts/services/controllersservice.js"></script>
     <script src="scripts/services/rolusersservice.js"></script>
-    <script src="scripts/controllers/programaciones-pagar.js"></script>
+    <script src="scripts/controllers/recibos-pagar.js"></script>
     <script src="scripts/filters/searchtext.js"></script>
-    <script src="scripts/controllers/programaciones-pagar-many.js"></script>
+    <script src="scripts/controllers/realizar-pagos.js"></script>
     <!-- endbuild -->
 </body>
 </html>

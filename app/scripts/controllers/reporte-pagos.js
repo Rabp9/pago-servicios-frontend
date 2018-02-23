@@ -8,7 +8,7 @@
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('ReportePagosCtrl', function ($scope, programacionesservice) {
+.controller('ReportePagosCtrl', function ($scope, recibosservice) {
     $scope.loading = false;
     
     $scope.changeDates = function(fecha_inicio, fecha_cierre) {
@@ -16,11 +16,11 @@ angular.module('pagoServiciosFrontendApp')
             return;
         } else {
             $scope.loading = true;
-            programacionesservice.getByDatesPagos({
+            recibosservice.getByDatesPagos({
                 fecha_inicio: formatDate(fecha_inicio), 
                 fecha_cierre: formatDate(fecha_cierre)
             }, function(data) {
-                $scope.programaciones = data.programaciones;
+                $scope.recibos = data.recibos;
                 $scope.loading = false;
             });
         }
