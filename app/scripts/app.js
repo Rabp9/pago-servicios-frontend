@@ -21,7 +21,8 @@ angular
     'scrollable-table',
     'angularValidator',
     'angular-toArrayFilter',
-    'checklist-model'
+    'checklist-model',
+    'ngDragDrop'
 ])
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     $httpProvider.interceptors.push('oauthHttpInterceptor');

@@ -9,6 +9,9 @@
         }
     },
     "attributes": {
+        "dnd-list": {
+            "context": "tbody"
+        },
         "checklist-model": {
             "context": "input"
         },

@@ -8,10 +8,23 @@
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-  .controller('RealizarPagosCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
+.controller('RealizarPagosCtrl', function ($scope) {
+    $scope.table1 = [
+        {
+            title: 'dsadsa',
+            contenido: 'dasdsa'
+        }, {
+            title: 'dsadsa',
+            contenido: 'dasdsa'
+        }, {
+            title: 'dsadsa',
+            contenido: 'dasdsa'
+        }
     ];
-  });
+    
+    $scope.table2 = [];
+
+    $scope.hideMe = function() {
+        return $scope.list4.length > 0;
+    };
+});
