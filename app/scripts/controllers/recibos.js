@@ -192,7 +192,7 @@ angular.module('pagoServiciosFrontendApp')
 
         modalInstanceAdd.result.then(function (data) {
             $scope.message = data;
-            $scope.onChangeServicio($scope.servicio.id);
+            $scope.getRecibos();
         });
     };
     
