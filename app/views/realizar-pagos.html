@@ -84,28 +84,31 @@
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label for="dtFechaPago">Fecha de Pago</label>
-                    <input id="dtFechaPago" class="form-control" type="date" ng-model="fecha_pre"
-                        name="reciboFechaPago" required required-message="'Este campo es requerido'" validate-on="blur" />
+        <form ng-submit="pagarRecibos(recibos_selected, fecha_pre, nro_documento, 'btnPagarRecibos')">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="dtFechaPago">Fecha de Pago</label>
+                        <input id="dtFechaPago" class="form-control" type="date" ng-model="fecha_pre"
+                            name="reciboFechaPago" required required-message="'Este campo es requerido'" validate-on="blur" />
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="txtNroDocumento">Nro. Documento</label>
+                        <input id="txtNroDocumento" class="form-control" type="text" ng-model="nro_documento"
+                            name="pagoNroDocumento" placeholder="Número de Documento" 
+                            required required-message="'Este campo es requerido'" validate-on="blur"/>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <button id="btnPagarRecibos" class="btn btn-success form-control" type="submit"><span class="glyphicon glyphicon-check"></span> Pagar Recibos</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <label for="txtNroDocumento">Nro. Documento</label>
-                    <input id="txtNroDocumento" class="form-control" type="text" ng-model="nro_documento"
-                        name="pagoNroDocumento" placeholder="Número de Documento"/>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <button class="btn btn-success form-control" type="button" ng-click="pagarRecibos(recibos_selected, fecha_pre, nro_documento, $event)"><span class="glyphicon glyphicon-check"></span> Pagar Recibos</button>
-                </div>
-            </div>
-        </div>
+        </form>
         <div class="row">
             <div class="col-sm-12">
                 <scrollable-table watch="recibos_selected" class="table-responsive">

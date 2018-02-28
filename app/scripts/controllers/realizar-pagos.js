@@ -52,8 +52,8 @@ angular.module('pagoServiciosFrontendApp')
         $scope.showRecibos();
     };
     
-    $scope.pagarRecibos = function(recibos_selected, fecha_pre, nro_documento, event) {
-        $utilsViewService.disable('#' + event.currentTarget);
+    $scope.pagarRecibos = function(recibos_selected, fecha_pre, nro_documento, boton) {
+        $utilsViewService.disable('#' + boton);
 
         var fecha = "";
         if (fecha_pre !== null) {
@@ -65,7 +65,7 @@ angular.module('pagoServiciosFrontendApp')
             nro_documento: nro_documento
         }, function(data) {
             $scope.message = data;
-            $utilsViewService.enable('#' + event.currentTarget);
+            $utilsViewService.enable('#' + boton);
         });
     };
     

@@ -1,9 +1,9 @@
 1. Mostrar nro documento en list pagos / recibos--------------------------
 2. Pagar many - view------------------------------------------------------
 3. Pagar many - controller------------------------------------------------
-4. Pagar many - validation
+4. Pagar many - validation------------------------------------------------
 5. Pagar many - backend
 6. View detalle para pagados en recibos
 7. Poner lista de 5 recibos sin pagar en el dashboard
 8. Poner count de recibos sin pagar
-9. Poner cuadros estadiscticos
+9. Poner cuadros estadisticos
