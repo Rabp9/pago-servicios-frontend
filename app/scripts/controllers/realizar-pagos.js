@@ -55,7 +55,7 @@ angular.module('pagoServiciosFrontendApp')
     $scope.pagarRecibos = function(recibos_selected, fecha_pre, nro_documento, boton) {
         $utilsViewService.disable('#' + boton);
 
-        var fecha = "";
+        var fecha = '';
         if (fecha_pre !== null) {
             fecha = $utilsViewService.formatDate(fecha_pre);
         }
