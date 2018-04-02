@@ -35,10 +35,12 @@ angular.module('pagoServiciosFrontendApp')
         recibosservice.get({
             text: $scope.search.text,
             fecha_inicio: $scope.search.fecha_inicio,
-            fecha_cierre: $scope.fecha_cierre,
-            page_recibos: $scope.page_recibos
+            fecha_cierre: $scope.search.fecha_cierre,
+            page: $scope.page_recibos,
+            items_per_page: $scope.items_per_page_servicios
         }, function(data) {
             $scope.recibos = data.recibos;
+            $scope.pagination_recibos = data.pagination;
             $scope.loading_recibos = false;
         });
     };
@@ -54,11 +56,12 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.pagarRecibos = function(recibos_selected, fecha_pre, nro_documento, boton) {
         $utilsViewService.disable('#' + boton);
-
+        
         var fecha = '';
         if (fecha_pre !== null) {
             fecha = $utilsViewService.formatDate(fecha_pre);
         }
+        
         recibosservice.pagarMany({
             recibos: recibos_selected,
             fecha: fecha,

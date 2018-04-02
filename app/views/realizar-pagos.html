@@ -15,19 +15,22 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="srBuscar" class="control-label">Buscar Recibo</label>
-                        <input id="srBuscar" class="form-control" type="search" ng-model="search.text" placeholder="Buscar" autofocus />
+                        <input id="srBuscar" class="form-control" type="search" ng-model="search.text" placeholder="Buscar" autofocus 
+                            ng-change="showRecibos()"/>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="dtFechaInicio" class="control-label">Fecha de Inicio</label>
-                        <input id="dtFechaInicio" class="form-control" type="date" ng-model="search.fecha_inicio" />
+                        <input id="dtFechaInicio" class="form-control" type="date" ng-model="search.fecha_inicio" 
+                            ng-change="showRecibos()"/>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="dtFechaCierre" class="control-label">Fecha de Cierre</label>
-                        <input id="dtFechaCierre" class="form-control" type="date" ng-model="search.fecha_cierre" />
+                        <input id="dtFechaCierre" class="form-control" type="date" ng-model="search.fecha_cierre" 
+                            ng-change="showRecibos()"/>
                     </div>
                 </div>
                 <div class="col-sm-2">

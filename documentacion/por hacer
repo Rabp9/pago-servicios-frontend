@@ -2,8 +2,11 @@
 2. Pagar many - view------------------------------------------------------
 3. Pagar many - controller------------------------------------------------
 4. Pagar many - validation------------------------------------------------
-5. Pagar many - backend
-6. View detalle para pagados en recibos
-7. Poner lista de 5 recibos sin pagar en el dashboard
+5. Pagar many - backend---------------------------------------------------
+6. View detalle para pagados en "Recibos"
+7. Poner lista de 5 recibos sin pagar en "Dashboard"
 8. Poner count de recibos sin pagar
 9. Poner cuadros estadisticos
+10. Eliminar totalmente los residuos de las filas en "Realizar Pagos"
+11. Mostrar por encima el drag de las filas en "Realizar Pagos"
+12. Limpiar el formulario luego de Pagar Recibos en "Realizar Pagos"
