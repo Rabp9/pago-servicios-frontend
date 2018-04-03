@@ -214,6 +214,19 @@ angular.module('pagoServiciosFrontendApp')
         });
     };
     
+    $scope.showRecibosPagadoDetail = function(recibo) {
+        var modalInstancePagadoDetail = $uibModal.open({
+            templateUrl: 'views/recibo-pagado-detail.html',
+            controller: 'ReciboPagadoDetailCtrl',
+            backdrop: false,
+            resolve: {
+                recibo: function() {
+                    return recibo;
+                }
+            }
+        });
+    };
+    
     $scope.onChangeItemsPerPageServicios = function() {
         $scope.page_servicios = 1;
         $scope.getServicios();
