@@ -1,11 +1,39 @@
 <h1>Dashboard</h1>
 <hr>
-<div class="row">
-    <div class="col-sm-4 dv-servicio" ng-repeat="servicio in servicios" >
-        <div class="dv-servicio-child" ng-class="{'btn-danger': servicio.condicion === 'DEUDA', 'btn-primary': servicio.condicion === 'PAGADO'}">
-            <h2>{{ servicio.descripcion_detallada }}</h2>
-            <p>{{ servicio.condicion }}</p>
-            <p><span ng-show="servicio.condicion === 'DEUDA'">S/ {{ servicio.deuda_acumulada }}</span>&nbsp;</p>
-        </div>
-    </div>
+<div class="alert alert-dismissible" ng-class="{'alert-success': message.code === 200, 'alert-danger': message.code !== 200 }" role="alert" ng-show="message.code !== undefined">
+    <button type="button" class="close" ng-click="message.code = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ message.message }} 
 </div>
+<scrollable-table watch="recibos" class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th ng-style="{'width': recibos_ws.wCodigo}" sortable-header col="id">Código</th>
+                <th ng-style="{'width': recibos_ws.wTipo}" sortable-header col="id">Tipo</th>
+                <th ng-style="{'width': recibos_ws.wServicio}" sortable-header col="id">Servicio</th>
+                <th ng-style="{'width': recibos_ws.wDetalle}" sortable-header col="id">Detalle</th>
+                <th ng-style="{'width': recibos_ws.wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Venc.</th>
+                <th ng-style="{'width': recibos_ws.wMonto}" sortable-header col="monto">Monto</th>
+                <th ng-style="{'width': recibos_ws.wAcciones}">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-hide="!loading_recibos"><td colspan="6">Cargando...</td></tr>
+            <tr ng-show="!loading_recibos && recibos.length === 0"><td colspan="6">No hay registros</td></tr>
+            <tr ng-hide="loading_recibos" ng-repeat="recibo in recibos" row-id="{{ recibo.id }}"
+                ng-show="recibo.id" ng-model="recibos">
+                <td ng-style="{'width': recibos_ws.wCodigo}">{{ recibo.id }}</td>
+                <td ng-style="{'width': recibos_ws.wTipo}">{{ recibo.servicio.tipo.descripcion }}</td>
+                <td ng-style="{'width': recibos_ws.wServicio}">{{ recibo.servicio.descripcion }}</td>
+                <td ng-style="{'width': recibos_ws.wDetalle}">{{ recibo.servicio.detalle }}</td>
+                <td ng-style="{'width': recibos_ws.wFechaVencimiento}">{{ recibo.fecha_vencimiento }}</td>
+                <td ng-style="{'width': recibos_ws.wMonto}">{{ recibo.monto }}</td>
+                <td ng-style="{'width': recibos_ws.wAcciones}">
+                    <button ng-show="recibo.estado_id === 4" type="button" class="btn btn-primary btn-sm" ng-click="showRecibosEdit(recibo)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
+                    <button ng-show="recibo.estado_id === 4" type="button" class="btn btn-default btn-sm" ng-click="showRecibosPagar(recibo)" title="Pagar"><span class="glyphicon glyphicon-check"></span></button>
+                    <button ng-show="recibo.estado_id === 4" type="button" class="btn btn-danger btn-sm" ng-click="showRecibosDelete(recibo)" title="Eliminar Recibo"><span class="glyphicon glyphicon-remove"></span></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</scrollable-table>

@@ -14,7 +14,6 @@ angular.module('pagoServiciosFrontendApp')
     $scope.search.text = '';
     $scope.search.estado_id = '1';
     $scope.page = 1;
-    $scope.loading_servicios = 'Seleccione un servicio';
     $scope.items_per_page = 10;
 
     $scope.init = function() {
@@ -117,6 +116,6 @@ angular.module('pagoServiciosFrontendApp')
         $scope.page = 1;
         $scope.getServicios();
     };
-        
+    
     $scope.init();
 });

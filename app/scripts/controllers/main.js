@@ -8,37 +8,78 @@
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('MainCtrl', function ($scope, serviciosservice) {
+.controller('MainCtrl', function ($scope, recibosservice, $uibModal) {
     $scope.bgcolor = 'btn-success';
     
-    $scope.init = function() {
-        serviciosservice.getReport(function(data) {
-            $scope.servicios = data.servicios;
-            $scope.loading = false;
-        });  
+    $scope.recibos_ws = {
+       wCodigo: '6%',
+       wFechaVencimiento: '16%',
+       wFechaPago: '16%',
+       wMonto: '10%',
+       wNroRecibo: '21%',
+       wNroDocumento: '12%',
+       wAcciones: '19%'
     };
-      
-    $scope.getBgColor = function() {
-        if ($scope.bgcolor === 'btn-success') {
-            $scope.bgcolor = 'btn-primary';
-            return $scope.bgcolor;
+    
+    $scope.init = function() {
+        $scope.getRecibos();
+    };
+    
+    $scope.getRecibos = function() {
+        $scope.loading_recibos = true;
+        recibosservice.get({
+            estado_id: 4
+        }, function(data) {
+            $scope.recibos = data.recibos;
+            $scope.loading_recibos = false;
+        });
+    };
+    
+    $scope.showRecibosDelete = function(recibo) {
+        if (confirm('¿Está seguro de eliminar la recibo?')) {
+            recibo.estado_id = 2;
+            recibosservice.save(recibo, function(data) {
+                $scope.message = data;
+            }, function(error) {
+                recibo.estado_id = 3;
+            });
         }
-        if ($scope.bgcolor === 'btn-primary') {
-            $scope.bgcolor = 'btn-danger';
-            return $scope.bgcolor;
-        }
-        if ($scope.bgcolor === 'btn-danger') {
-            $scope.bgcolor = 'btn-warning';
-            return $scope.bgcolor;
-        }
-        if ($scope.bgcolor === 'btn-warning') {
-            $scope.bgcolor = 'btn-info';
-            return $scope.bgcolor;
-        }
-        if ($scope.bgcolor === 'btn-info') {
-            $scope.bgcolor = 'btn-success';
-            return $scope.bgcolor;
-        }
+    };
+    
+    $scope.showRecibosEdit = function(recibo) {
+        var modalInstanceAdd = $uibModal.open({
+            templateUrl: 'views/recibos-edit.html',
+            controller: 'RecibosEditCtrl',
+            backdrop: false,
+            resolve: {
+                recibo: function() {
+                    return recibo;
+                }
+            }
+        });
+
+        modalInstanceAdd.result.then(function (data) {
+            $scope.message = data;
+            $scope.getRecibos();
+        });
+    };
+    
+    $scope.showRecibosPagar = function(recibo) {
+        var modalInstancePagar = $uibModal.open({
+            templateUrl: 'views/recibos-pagar.html',
+            controller: 'RecibosPagarCtrl',
+            backdrop: false,
+            resolve: {
+                recibo: function() {
+                    return recibo;
+                }
+            }
+        });
+
+        modalInstancePagar.result.then(function (data) {
+            $scope.message = data;
+            $scope.getRecibos();
+        });
     };
     
     $scope.init();
