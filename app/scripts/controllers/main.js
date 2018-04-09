@@ -9,8 +9,6 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('MainCtrl', function ($scope, recibosservice, $uibModal) {
-    $scope.bgcolor = 'btn-success';
-    
     $scope.recibos_ws = {
        wCodigo: '6%',
        wFechaVencimiento: '16%',
@@ -22,16 +20,34 @@ angular.module('pagoServiciosFrontendApp')
     };
     
     $scope.init = function() {
+        var date = new Date();
+        $scope.fecha_inicio = new Date(date.getFullYear(), date.getMonth(), 1);
+        $scope.fecha_cierre = new Date(date.getFullYear(), date.getMonth() + 1, 0);
         $scope.getRecibos();
+        $scope.getEstadisticas();
     };
     
     $scope.getRecibos = function() {
         $scope.loading_recibos = true;
+        $scope.loading_recibos = true;
         recibosservice.get({
-            estado_id: 4
+            estado_id: 4,
+            fecha_inicio: $scope.fecha_inicio,
+            fecha_cierre: $scope.fecha_cierre,
         }, function(data) {
             $scope.recibos = data.recibos;
             $scope.loading_recibos = false;
+        });
+    };
+    
+    $scope.getEstadisticas = function() {
+        $scope.loading_estadisticas = true;
+        recibosservice.getEstadisticas({
+            fecha_inicio: $scope.fecha_inicio,
+            fecha_cierre: $scope.fecha_cierre,
+        }, function(data) {
+            $scope.estadisticas = data;
+            $scope.loading_estadisticas = false;
         });
     };
     

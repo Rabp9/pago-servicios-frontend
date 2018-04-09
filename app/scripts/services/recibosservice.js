@@ -41,6 +41,10 @@ angular.module('pagoServiciosFrontendApp')
         saveMany: {
             method: 'POST',
             url: envservice.getHost() + 'recibos/saveMany/.json'
+        },
+        getEstadisticas: {
+            method: 'GET',
+            url: envservice.getHost() + 'recibos/getEstadisticas/.json'
         }
     });
 });

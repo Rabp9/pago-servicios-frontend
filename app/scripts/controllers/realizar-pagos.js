@@ -28,6 +28,7 @@ angular.module('pagoServiciosFrontendApp')
         $scope.search.fecha_inicio = firstDay;
         $scope.search.fecha_cierre = lastDay;
         $scope.fecha_pre = date;
+        $scope.showRecibos();
     };
     
     $scope.showRecibos = function() {
@@ -37,7 +38,8 @@ angular.module('pagoServiciosFrontendApp')
             fecha_inicio: $scope.search.fecha_inicio,
             fecha_cierre: $scope.search.fecha_cierre,
             page: $scope.page_recibos,
-            items_per_page: $scope.items_per_page_servicios
+            items_per_page: $scope.items_per_page_servicios,
+            estado_id: 4
         }, function(data) {
             $scope.recibos = data.recibos;
             $scope.pagination_recibos = data.pagination;

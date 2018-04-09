@@ -1,5 +1,22 @@
 <h1>Dashboard</h1>
 <hr>
+<div class="row">
+    <div class="col-sm-12" ng-show="loading_estadisticas">
+        Cargando...
+    </div>
+    <div class="col-sm-6 dv-servicio" ng-show="!loading_estadisticas">
+        <div class="dv-servicio-child" ng-class="{'btn-danger': estadisticas.sinPagarCount > 0, 'btn-primary': estadisticas.sinPagarCount == 0}">
+            <h2>{{ estadisticas.sinPagarCount }}</h2>
+            <p>Recibo(s) sin pagar este mes</p>
+        </div>
+    </div>
+    <div class="col-sm-6 dv-servicio" ng-show="!loading_estadisticas">
+        <div class="dv-servicio-child btn-primary">
+            <h2>{{ estadisticas.pagadosCount }}</h2>
+            <p>Recibo(s) pagados este mes</p>
+        </div>
+    </div>
+</div>
 <div class="alert alert-dismissible" ng-class="{'alert-success': message.code === 200, 'alert-danger': message.code !== 200 }" role="alert" ng-show="message.code !== undefined">
     <button type="button" class="close" ng-click="message.code = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ message.message }} 
