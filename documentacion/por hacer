@@ -6,8 +6,9 @@
 6. View detalle para pagados en "Recibos"---------------------------------
 7. Poner lista de recibos sin pagar en "Dashboard"------------------------
 8. Poner count de recibos sin pagar en "Dashboard"------------------------
-9. Poner cuadros estadisticos en "Dashboard"
+9. Poner cuadros estadisticos en "Dashboard"------------------------------
 10. Eliminar totalmente los residuos de las filas en "Realizar Pagos"
 11. Mostrar por encima el drag de las filas en "Realizar Pagos"
 12. Limpiar el formulario luego de Pagar Recibos en "Realizar Pagos"
 13. Poner el total items en tablas (caption del table)
+14. Graficos estadisticos en reportes

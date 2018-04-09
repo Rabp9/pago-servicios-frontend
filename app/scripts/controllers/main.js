@@ -8,7 +8,7 @@
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('MainCtrl', function ($scope, recibosservice, $uibModal) {
+.controller('MainCtrl', function ($scope, recibosservice, $uibModal, $utilsViewService) {
     $scope.recibos_ws = {
        wCodigo: '6%',
        wFechaVencimiento: '16%',
@@ -18,13 +18,25 @@ angular.module('pagoServiciosFrontendApp')
        wNroDocumento: '12%',
        wAcciones: '19%'
     };
+    $scope.labelsBar = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+    $scope.optionsBar = {legend: {display: true}};
+    $scope.dataBar = [];
     
+    $scope.dataPie = [];
+    $scope.optionsPie = {legend: {display: true, position: 'right'}};
+   
     $scope.init = function() {
         var date = new Date();
-        $scope.fecha_inicio = new Date(date.getFullYear(), date.getMonth(), 1);
-        $scope.fecha_cierre = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        $scope.fecha_inicio = $utilsViewService.formatDate(firstDay);
+        $scope.fecha_cierre = $utilsViewService.formatDate(lastDay);
         $scope.getRecibos();
         $scope.getEstadisticas();
+        var year = date.getFullYear();
+        $scope.seriesBar = ['Pagado en soles (' + year + ')', 'Deuda en soles (' + year + ')'];
+        $scope.labelsPie = ["Recibos no pagados (" + year + ")", "Recibos Pagados (" + year + ")"];
+        $scope.getChartBarData();
     };
     
     $scope.getRecibos = function() {
@@ -33,7 +45,7 @@ angular.module('pagoServiciosFrontendApp')
         recibosservice.get({
             estado_id: 4,
             fecha_inicio: $scope.fecha_inicio,
-            fecha_cierre: $scope.fecha_cierre,
+            fecha_cierre: $scope.fecha_cierre
         }, function(data) {
             $scope.recibos = data.recibos;
             $scope.loading_recibos = false;
@@ -48,6 +60,7 @@ angular.module('pagoServiciosFrontendApp')
         }, function(data) {
             $scope.estadisticas = data;
             $scope.loading_estadisticas = false;
+            $scope.dataPie = [$scope.estadisticas.sinPagarCount, $scope.estadisticas.pagadosCount];
         });
     };
     
@@ -95,6 +108,17 @@ angular.module('pagoServiciosFrontendApp')
         modalInstancePagar.result.then(function (data) {
             $scope.message = data;
             $scope.getRecibos();
+        });
+    };
+    
+    $scope.getChartBarData = function() {
+        $scope.loading_bar = true;
+        var date = new Date();
+        var year = date.getFullYear();
+        recibosservice.getChartBarData({anio: year}, function(data) {
+            $scope.dataBar.push(data.pagado_serie);
+            $scope.dataBar.push(data.deuda_serie);
+            $scope.loading_bar = false;
         });
     };
     

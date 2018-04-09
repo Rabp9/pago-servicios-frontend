@@ -25,8 +25,8 @@ angular.module('pagoServiciosFrontendApp')
         var date = new Date();
         var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
         var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-        $scope.search.fecha_inicio = firstDay;
-        $scope.search.fecha_cierre = lastDay;
+        $scope.search.fecha_inicio = $utilsViewService.formatDate(firstDay);
+        $scope.search.fecha_cierre = $utilsViewService.formatDate(lastDay);
         $scope.fecha_pre = date;
         $scope.showRecibos();
     };

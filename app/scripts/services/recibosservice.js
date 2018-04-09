@@ -45,6 +45,10 @@ angular.module('pagoServiciosFrontendApp')
         getEstadisticas: {
             method: 'GET',
             url: envservice.getHost() + 'recibos/getEstadisticas/.json'
+        },
+        getChartBarData: {
+            method: 'GET',
+            url: envservice.getHost() + 'recibos/getChartBarData/:anio.json'
         }
     });
 });

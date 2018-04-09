@@ -21,6 +21,9 @@
         "sortable-header": {
             "context": "th"
         },
+        "chart-data": {
+            "context": "canvas"
+        },
         "ui-sref-active": {
             "context": "li"
         },
