@@ -25,18 +25,20 @@ angular.module('pagoServiciosFrontendApp')
         var date = new Date();
         var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
         var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-        $scope.search.fecha_inicio = $utilsViewService.formatDate(firstDay);
-        $scope.search.fecha_cierre = $utilsViewService.formatDate(lastDay);
+        $scope.search.fecha_inicio = firstDay;
+        $scope.search.fecha_cierre = lastDay;
         $scope.fecha_pre = date;
         $scope.showRecibos();
     };
     
     $scope.showRecibos = function() {
         $scope.loading_recibos = true;
+        var fecha_inicio = $utilsViewService.formatDate($scope.search.fecha_inicio);
+        var fecha_cierre = $utilsViewService.formatDate($scope.search.fecha_cierre);
         recibosservice.get({
             text: $scope.search.text,
-            fecha_inicio: $scope.search.fecha_inicio,
-            fecha_cierre: $scope.search.fecha_cierre,
+            fecha_inicio: fecha_inicio,
+            fecha_cierre: fecha_cierre,
             page: $scope.page_recibos,
             items_per_page: $scope.items_per_page_servicios,
             estado_id: 4

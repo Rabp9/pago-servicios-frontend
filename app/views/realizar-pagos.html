@@ -60,7 +60,7 @@
                         <tbody dnd-list="recibos">
                             <tr ng-hide="!loading_recibos"><td colspan="6">Cargando...</td></tr>
                             <tr ng-show="!loading_recibos && recibos.length === 0"><td colspan="6">No hay registros</td></tr>
-                            <tr ng-hide="loading_recibos" ng-class="{'warning': recibo.estado_id === 4, 'danger': recibo.estado_id === 2}" 
+                            <tr ng-if="!loading_recibos" ng-class="{'warning': recibo.estado_id === 4, 'danger': recibo.estado_id === 2}" 
                                 ng-repeat="recibo in recibos" row-id="{{ recibo.id }}"
                                 ng-show="recibo.id" 
                                 data-drag="true"
