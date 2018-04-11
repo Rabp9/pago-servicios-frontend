@@ -72,6 +72,12 @@ angular.module('pagoServiciosFrontendApp')
             nro_documento: nro_documento
         }, function(data) {
             $scope.message = data;
+            
+            $scope.recibos_selected = [];
+            var date = new Date();
+            $scope.fecha_pre = date;
+            $scope.nro_documento = '';
+            $scope.showRecibos();
             $utilsViewService.enable('#' + boton);
         });
     };
