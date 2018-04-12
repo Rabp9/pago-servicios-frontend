@@ -45,6 +45,7 @@
         </form>
         <div class="row">
             <div class="col-sm-12">
+                <span>Total de recibos: {{ count }}</span>
                 <scrollable-table watch="recibos" class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -114,6 +115,7 @@
         </form>
         <div class="row">
             <div class="col-sm-12">
+                <span>Total de recibos seleccionados: {{ recibos_selected.length }}</span>
                 <scrollable-table watch="recibos_selected" class="table-responsive">
                     <table class="table table-striped">
                         <thead>

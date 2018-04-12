@@ -67,6 +67,7 @@ angular.module('pagoServiciosFrontendApp')
         }, function(data) {
             $scope.servicios = data.servicios;
             $scope.pagination_servicios = data.pagination;
+            $scope.count_servicios = data.count;
             $scope.loading_servicios = false;
         });
     };
@@ -97,6 +98,7 @@ angular.module('pagoServiciosFrontendApp')
         }, function(data) {
             $scope.recibos = data.recibos;
             $scope.loading_recibos = false;
+            $scope.count_recibos = data.count;
             $scope.pagination_recibos = data.pagination;
         });
     };
@@ -106,12 +108,12 @@ angular.module('pagoServiciosFrontendApp')
     };
     
     $scope.$watch('search.servicio_estado_id', function(oldValue, newValue) {
-        $scope.page = 1;
+        $scope.page_servicios = 1;
         $scope.getServicios();
     });
         
     $scope.$watch('search.recibo_estado_id', function(oldValue, newValue) {
-        $scope.page = 1;
+        $scope.page_recibos = 1;
         $scope.getRecibos();
     });
         

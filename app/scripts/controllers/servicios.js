@@ -37,6 +37,7 @@ angular.module('pagoServiciosFrontendApp')
         }, function(data) {
             $scope.servicios = data.servicios;
             $scope.pagination = data.pagination;
+            $scope.count = data.count;
             $scope.loading = false;
         });
     };
