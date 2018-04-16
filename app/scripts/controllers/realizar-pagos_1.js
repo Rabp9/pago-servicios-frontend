@@ -12,11 +12,9 @@ angular.module('pagoServiciosFrontendApp')
     $scope.search = {};
     $scope.items_per_page_servicios = 10;
     $scope.recibos_selected = [];
-    $scope.recibos_pre_selected = [];
     $scope.recibos_ws = {
-        wCheckbox: '1%',
         wCodigo: '5%',
-        wTipo: '28%',
+        wTipo: '29%',
         wServicio: '29%',
         wDetalle: '13%',
         wFechaVencimiento: '14%',
@@ -85,10 +83,8 @@ angular.module('pagoServiciosFrontendApp')
         });
     };
     
-    $scope.sendToSelectedList = function() {
-        angular.forEach($scope.recibos_pre_selected, function(value, key) {
-            $scope.recibos_selected.push(value);
-        });
+    $scope.hideMe = function() {
+        return $scope.recibos_selected.length > 0;
     };
     
     $scope.init();

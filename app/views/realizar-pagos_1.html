@@ -1,0 +1,155 @@
+<div class="alert alert-dismissible" ng-class="{'alert-success': message.code === 200, 'alert-danger': message.code !== 200 }" role="alert" ng-show="message.code !== undefined">
+    <button type="button" class="close" ng-click="message.code = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ message.message }} 
+</div>
+<ol class="breadcrumb">
+    <li><a ui-sref="administrar">Home</a></li>
+    <li>Realizar Pagos</li>
+</ol>
+<h2>Realizar Pagos</h2>
+<hr>
+<div class="row">
+    <div class="col-sm-6">
+        <form ng-submit="showRecibos()">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="srBuscar" class="control-label">Buscar Recibo</label>
+                        <input id="srBuscar" class="form-control" type="search" ng-model="search.text" placeholder="Buscar" autofocus 
+                            ng-change="showRecibos()"/>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="dtFechaInicio" class="control-label">Fecha de Inicio</label>
+                        <input id="dtFechaInicio" class="form-control" type="date" ng-model="search.fecha_inicio" 
+                            ng-change="showRecibos()"/>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="dtFechaCierre" class="control-label">Fecha de Cierre</label>
+                        <input id="dtFechaCierre" class="form-control" type="date" ng-model="search.fecha_cierre" 
+                            ng-change="showRecibos()"/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="sltItemsPerPage" class="control-label">Mostrando</label>
+                        <select id="sltItemsPerPage" class="form-control" ng-change="onChangeItemsPerPageServicios()"
+                            ng-model="items_per_page_servicios" ng-options="option for option in [10, 50, 100, 150]">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Total de recibos: {{ count }}</span>
+                <scrollable-table watch="recibos" class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th ng-style="{'width': recibos_ws.wCodigo}" sortable-header col="id">Código</th>
+                                <th ng-style="{'width': recibos_ws.wTipo}" sortable-header col="id">Tipo</th>
+                                <th ng-style="{'width': recibos_ws.wServicio}" sortable-header col="id">Servicio</th>
+                                <th ng-style="{'width': recibos_ws.wDetalle}" sortable-header col="id">Detalle</th>
+                                <th ng-style="{'width': recibos_ws.wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Venc.</th>
+                                <th ng-style="{'width': recibos_ws.wMonto}" sortable-header col="monto">Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody dnd-list="recibos">
+                            <tr ng-hide="!loading_recibos"><td colspan="6">Cargando...</td></tr>
+                            <tr ng-show="!loading_recibos && recibos.length === 0"><td colspan="6">No hay registros</td></tr>
+                            <tr ng-if="!loading_recibos" ng-class="{'warning': recibo.estado_id === 4, 'danger': recibo.estado_id === 2}" 
+                                ng-repeat="recibo in recibos" row-id="{{ recibo.id }}"
+                                ng-show="recibo.id" 
+                                data-drag="true"
+                                data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" 
+                                ng-model="recibos" 
+                                jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true}">
+                                <td ng-style="{'width': recibos_ws.wCodigo}">{{ recibo.id }}</td>
+                                <td ng-style="{'width': recibos_ws.wTipo}">{{ recibo.servicio.tipo.descripcion }}</td>
+                                <td ng-style="{'width': recibos_ws.wServicio}">{{ recibo.servicio.descripcion }}</td>
+                                <td ng-style="{'width': recibos_ws.wDetalle}">{{ recibo.servicio.detalle }}</td>
+                                <td ng-style="{'width': recibos_ws.wFechaVencimiento}">{{ recibo.fecha_vencimiento }}</td>
+                                <td ng-style="{'width': recibos_ws.wMonto}">{{ recibo.monto }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </scrollable-table>
+
+                <ul uib-pagination total-items="pagination_recibos.totalItems" first-text="Primero" 
+                    last-text="Último" next-text="Siguiente" previous-text="Anterior"
+                    items-per-page="pagination_recibos.itemsPerPage" ng-model="page_recibos" 
+                    class="pagination-sm" boundary-links="true" force-ellipses="true"
+                    ng-change="pageRecibosChanged()"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <form ng-submit="pagarRecibos(recibos_selected, fecha_pre, nro_documento, 'btnPagarRecibos')">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="dtFechaPago">Fecha de Pago</label>
+                        <input id="dtFechaPago" class="form-control" type="date" ng-model="fecha_pre"
+                            name="reciboFechaPago" required required-message="'Este campo es requerido'" validate-on="blur" />
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="txtNroDocumento">Nro. Documento</label>
+                        <input id="txtNroDocumento" class="form-control" type="text" ng-model="nro_documento"
+                            name="pagoNroDocumento" placeholder="Número de Documento" 
+                            required required-message="'Este campo es requerido'" validate-on="blur"/>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <button id="btnPagarRecibos" class="btn btn-success form-control" type="submit"><span class="glyphicon glyphicon-check"></span> Pagar Recibos</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Total de recibos seleccionados: {{ recibos_selected.length }}</span>
+                <scrollable-table watch="recibos_selected" class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th ng-style="{'width': recibos_ws.wCodigo}" sortable-header col="id">Código</th>
+                                <th ng-style="{'width': recibos_ws.wTipo}" sortable-header col="id">Tipo</th>
+                                <th ng-style="{'width': recibos_ws.wServicio}" sortable-header col="id">Servicio</th>
+                                <th ng-style="{'width': recibos_ws.wDetalle}" sortable-header col="id">Detalle</th>
+                                <th ng-style="{'width': recibos_ws.wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Venc.</th>
+                                <th ng-style="{'width': recibos_ws.wMonto}" sortable-header col="monto">Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody data-drop="true" ng-model='recibos_selected' jqyoui-droppable="{multiple:true}">
+                            <tr ng-class="{'warning': recibo_selected.estado_id === 4, 'danger': recibo_selected.estado_id === 2}" 
+                                ng-repeat="recibo_selected in recibos_selected track by $index" row-id="{{ recibo_selected.id }}"
+                                ng-show="recibo_selected.id" 
+                                data-drag="false" 
+                                data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
+                                ng-model="recibos_selected"
+                                jqyoui-draggable="{index: {{$index}},animate:true}">
+                                <td ng-style="{'width': recibos_ws.wCodigo}">{{ recibo_selected.id }}</td>
+                                <td ng-style="{'width': recibos_ws.wTipo}">{{ recibo_selected.servicio.tipo.descripcion }}</td>
+                                <td ng-style="{'width': recibos_ws.wServicio}">{{ recibo_selected.servicio.descripcion }}</td>
+                                <td ng-style="{'width': recibos_ws.wDetalle}">{{ recibo_selected.servicio.detalle }}</td>
+                                <td ng-style="{'width': recibos_ws.wFechaVencimiento}">{{ recibo_selected.fecha_vencimiento }}</td>
+                                <td ng-style="{'width': recibos_ws.wMonto}">{{ recibo.monto }}</td>
+                            </tr>
+                            <tr class="placeholder" ng-hide="hideMe()">
+                                <td colspan="6">Arrastra aquí los recibos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </scrollable-table>
+            </div>
+        </div>
+    </div>
+</div>

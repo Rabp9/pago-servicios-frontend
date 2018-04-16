@@ -43,51 +43,11 @@
                 </div>
             </div>
         </form>
-        <div class="row">
-            <div class="col-sm-12">
-                <span>Total de recibos: {{ count }}</span>
-                <scrollable-table watch="recibos" class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th ng-style="{'width': recibos_ws.wCodigo}" sortable-header col="id">Código</th>
-                                <th ng-style="{'width': recibos_ws.wTipo}" sortable-header col="id">Tipo</th>
-                                <th ng-style="{'width': recibos_ws.wServicio}" sortable-header col="id">Servicio</th>
-                                <th ng-style="{'width': recibos_ws.wDetalle}" sortable-header col="id">Detalle</th>
-                                <th ng-style="{'width': recibos_ws.wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Venc.</th>
-                                <th ng-style="{'width': recibos_ws.wMonto}" sortable-header col="monto">Monto</th>
-                            </tr>
-                        </thead>
-                        <tbody dnd-list="recibos">
-                            <tr ng-hide="!loading_recibos"><td colspan="6">Cargando...</td></tr>
-                            <tr ng-show="!loading_recibos && recibos.length === 0"><td colspan="6">No hay registros</td></tr>
-                            <tr ng-if="!loading_recibos" ng-class="{'warning': recibo.estado_id === 4, 'danger': recibo.estado_id === 2}" 
-                                ng-repeat="recibo in recibos" row-id="{{ recibo.id }}"
-                                ng-show="recibo.id" 
-                                data-drag="true"
-                                data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" 
-                                ng-model="recibos" 
-                                jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true}">
-                                <td ng-style="{'width': recibos_ws.wCodigo}">{{ recibo.id }}</td>
-                                <td ng-style="{'width': recibos_ws.wTipo}">{{ recibo.servicio.tipo.descripcion }}</td>
-                                <td ng-style="{'width': recibos_ws.wServicio}">{{ recibo.servicio.descripcion }}</td>
-                                <td ng-style="{'width': recibos_ws.wDetalle}">{{ recibo.servicio.detalle }}</td>
-                                <td ng-style="{'width': recibos_ws.wFechaVencimiento}">{{ recibo.fecha_vencimiento }}</td>
-                                <td ng-style="{'width': recibos_ws.wMonto}">{{ recibo.monto }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </scrollable-table>
-
-                <ul uib-pagination total-items="pagination_recibos.totalItems" first-text="Primero" 
-                    last-text="Último" next-text="Siguiente" previous-text="Anterior"
-                    items-per-page="pagination_recibos.itemsPerPage" ng-model="page_recibos" 
-                    class="pagination-sm" boundary-links="true" force-ellipses="true"
-                    ng-change="pageRecibosChanged()"></ul>
-            </div>
-        </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-1">
+        
+    </div>
+    <div class="col-sm-5">
         <form ng-submit="pagarRecibos(recibos_selected, fecha_pre, nro_documento, 'btnPagarRecibos')">
             <div class="row">
                 <div class="col-sm-4">
@@ -108,48 +68,84 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <button id="btnPagarRecibos" class="btn btn-success form-control" type="submit"><span class="glyphicon glyphicon-check"></span> Pagar Recibos</button>
+                        <button id="btnPagarRecibos" class="btn btn-success form-control" type="submit"><span class="glyphicon glyphicon-check"></span> Pagar</button>
                     </div>
                 </div>
             </div>
         </form>
-        <div class="row">
-            <div class="col-sm-12">
-                <span>Total de recibos seleccionados: {{ recibos_selected.length }}</span>
-                <scrollable-table watch="recibos_selected" class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th ng-style="{'width': recibos_ws.wCodigo}" sortable-header col="id">Código</th>
-                                <th ng-style="{'width': recibos_ws.wTipo}" sortable-header col="id">Tipo</th>
-                                <th ng-style="{'width': recibos_ws.wServicio}" sortable-header col="id">Servicio</th>
-                                <th ng-style="{'width': recibos_ws.wDetalle}" sortable-header col="id">Detalle</th>
-                                <th ng-style="{'width': recibos_ws.wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Venc.</th>
-                                <th ng-style="{'width': recibos_ws.wMonto}" sortable-header col="monto">Monto</th>
-                            </tr>
-                        </thead>
-                        <tbody data-drop="true" ng-model='recibos_selected' jqyoui-droppable="{multiple:true}">
-                            <tr ng-class="{'warning': recibo_selected.estado_id === 4, 'danger': recibo_selected.estado_id === 2}" 
-                                ng-repeat="recibo_selected in recibos_selected track by $index" row-id="{{ recibo_selected.id }}"
-                                ng-show="recibo_selected.id" 
-                                data-drag="false" 
-                                data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
-                                ng-model="recibos_selected"
-                                jqyoui-draggable="{index: {{$index}},animate:true}">
-                                <td ng-style="{'width': recibos_ws.wCodigo}">{{ recibo_selected.id }}</td>
-                                <td ng-style="{'width': recibos_ws.wTipo}">{{ recibo_selected.servicio.tipo.descripcion }}</td>
-                                <td ng-style="{'width': recibos_ws.wServicio}">{{ recibo_selected.servicio.descripcion }}</td>
-                                <td ng-style="{'width': recibos_ws.wDetalle}">{{ recibo_selected.servicio.detalle }}</td>
-                                <td ng-style="{'width': recibos_ws.wFechaVencimiento}">{{ recibo_selected.fecha_vencimiento }}</td>
-                                <td ng-style="{'width': recibos_ws.wMonto}">{{ recibo.monto }}</td>
-                            </tr>
-                            <tr class="placeholder" ng-hide="hideMe()">
-                                <td colspan="6">Arrastra aquí los recibos</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </scrollable-table>
-            </div>
-        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <span>Total de recibos: {{ count }}</span>
+        <scrollable-table watch="recibos" class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th ng-style="{'width': recibos_ws.wCheckbox}"><input type="checkbox"></th>
+                        <th ng-style="{'width': recibos_ws.wCodigo}" sortable-header col="id">Código</th>
+                        <th ng-style="{'width': recibos_ws.wTipo}" sortable-header col="id">Tipo</th>
+                        <th ng-style="{'width': recibos_ws.wServicio}" sortable-header col="id">Servicio</th>
+                        <th ng-style="{'width': recibos_ws.wDetalle}" sortable-header col="id">Detalle</th>
+                        <th ng-style="{'width': recibos_ws.wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Venc.</th>
+                        <th ng-style="{'width': recibos_ws.wMonto}" sortable-header col="monto">Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-hide="!loading_recibos"><td colspan="6">Cargando...</td></tr>
+                    <tr ng-show="!loading_recibos && recibos.length === 0"><td colspan="6">No hay registros</td></tr>
+                    <tr ng-if="!loading_recibos" ng-class="{'warning': recibo.estado_id === 4, 'danger': recibo.estado_id === 2}" 
+                        ng-repeat="recibo in recibos" row-id="{{ recibo.id }}"
+                        ng-show="recibo.id">
+                        <td ng-style="{'width': recibos_ws.wCheckbox}">
+                            <input type="checkbox" checklist-model="recibos_pre_selected" checklist-value="recibo"/>
+                        </td>
+                        <td ng-style="{'width': recibos_ws.wCodigo}">{{ recibo.id }}</td>
+                        <td ng-style="{'width': recibos_ws.wTipo}">{{ recibo.servicio.tipo.descripcion }}</td>
+                        <td ng-style="{'width': recibos_ws.wServicio}">{{ recibo.servicio.descripcion }}</td>
+                        <td ng-style="{'width': recibos_ws.wDetalle}">{{ recibo.servicio.detalle }}</td>
+                        <td ng-style="{'width': recibos_ws.wFechaVencimiento}">{{ recibo.fecha_vencimiento }}</td>
+                        <td ng-style="{'width': recibos_ws.wMonto}">{{ recibo.monto }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </scrollable-table>
+        <ul uib-pagination total-items="pagination_recibos.totalItems" first-text="Primero" 
+            last-text="Último" next-text="Siguiente" previous-text="Anterior"
+            items-per-page="pagination_recibos.itemsPerPage" ng-model="page_recibos" 
+            class="pagination-sm" boundary-links="true" force-ellipses="true"
+            ng-change="pageRecibosChanged()"></ul>
+    </div>
+    <div class="col-sm-1">
+        <button type="button" ng-click="sendToSelectedList()" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-arrow-right"></span></button>
+    </div>
+    <div class="col-sm-5">
+        <span>Total de recibos seleccionados: {{ recibos_selected.length }}</span>
+        <scrollable-table watch="recibos_selected" class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th ng-style="{'width': recibos_ws.wCodigo}" sortable-header col="id">Código</th>
+                        <th ng-style="{'width': recibos_ws.wTipo}" sortable-header col="id">Tipo</th>
+                        <th ng-style="{'width': recibos_ws.wServicio}" sortable-header col="id">Servicio</th>
+                        <th ng-style="{'width': recibos_ws.wDetalle}" sortable-header col="id">Detalle</th>
+                        <th ng-style="{'width': recibos_ws.wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Venc.</th>
+                        <th ng-style="{'width': recibos_ws.wMonto}" sortable-header col="monto">Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-class="{'warning': recibo_selected.estado_id === 4, 'danger': recibo_selected.estado_id === 2}" 
+                        ng-repeat="recibo_selected in recibos_selected track by $index" row-id="{{ recibo_selected.id }}"
+                        ng-show="recibo_selected.id">
+                        <td ng-style="{'width': recibos_ws.wCodigo}">{{ recibo_selected.id }}</td>
+                        <td ng-style="{'width': recibos_ws.wTipo}">{{ recibo_selected.servicio.tipo.descripcion }}</td>
+                        <td ng-style="{'width': recibos_ws.wServicio}">{{ recibo_selected.servicio.descripcion }}</td>
+                        <td ng-style="{'width': recibos_ws.wDetalle}">{{ recibo_selected.servicio.detalle }}</td>
+                        <td ng-style="{'width': recibos_ws.wFechaVencimiento}">{{ recibo_selected.fecha_vencimiento }}</td>
+                        <td ng-style="{'width': recibos_ws.wMonto}">{{ recibo.monto }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </scrollable-table>
     </div>
 </div>
