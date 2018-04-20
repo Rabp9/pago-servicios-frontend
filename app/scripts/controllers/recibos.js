@@ -51,7 +51,7 @@ angular.module('pagoServiciosFrontendApp')
     $scope.getTipos = function() {
         $scope.loading_tipos = 'Cargando...';
         tiposservice.get(function(data) {
-            $scope.loading_tipos = 'Selecciona un Tipo';
+            $scope.loading_tipos = 'Selecciona un Tipo de Servicio';
             $scope.tipos = data.tipos;
         });  
     };

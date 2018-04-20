@@ -9,17 +9,34 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('UsersCtrl', function ($scope, usersservice, $uibModal, $utilsViewService) {
-    $scope.loading = true;
     
-    function getUsers() {
+    $scope.search = {};
+    $scope.search.text = '';
+    $scope.page = 1;
+    $scope.items_per_page = 10;
+
+    $scope.init = function() {
+        $scope.getUsers();
+    };
+    
+    $scope.getUsers = function() {
         $scope.loading = true;
-        usersservice.getAdmin(function(data) {
+        usersservice.getAdmin({
+            page: $scope.page,
+            text: $scope.search.text,
+            items_per_page: $scope.items_per_page
+        }, function(data) {
             $scope.users = data.users;
+            $scope.pagination = data.pagination;
+            $scope.count = data.count;
             $scope.loading = false;
         });
-    }
+    };
     
-    getUsers();
+    $scope.$watch('search.text', function(oldValue, newValue) {
+        $scope.page = 1;
+        $scope.getUsers();
+    });
     
     $scope.showUsersEdit = function(user_id, event) {
         $utilsViewService.disable(event.currentTarget);
@@ -41,4 +58,6 @@ angular.module('pagoServiciosFrontendApp')
             $scope.message = data;
         });
     };
+    
+    $scope.init();
 });

@@ -20,7 +20,7 @@ angular.module('pagoServiciosFrontendApp')
         $scope.loading = true;
         $scope.loading_tipos = 'Cargando...';
         tiposservice.get(function(data) {
-            $scope.loading_tipos = 'Selecciona un Tipo';
+            $scope.loading_tipos = 'Selecciona un Tipo de Servicio';
             $scope.tipos = data.tipos;
             $scope.getServicios();
         });
@@ -96,6 +96,7 @@ angular.module('pagoServiciosFrontendApp')
             servicio.estado_id = 2;
             serviciosservice.save(servicio, function(data) {
                 $scope.message = data;
+                $scope.getServicios();
             }, function(error) {
                 servicio.estado_id = 1;
             });
@@ -107,6 +108,7 @@ angular.module('pagoServiciosFrontendApp')
             servicio.estado_id = 1;
             serviciosservice.save(servicio, function(data) {
                 $scope.message = data;
+                $scope.getServicios();
             }, function(error) {
                 servicio.estado_id = 2;
             });

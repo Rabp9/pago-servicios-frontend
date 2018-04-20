@@ -2,31 +2,56 @@
     <button type="button" class="close" ng-click="message.code = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ message.message }} 
 </div>
+<ol class="breadcrumb">
+    <li><a ui-sref="main">Home</a></li>
+    <li>Usuarios</li>
+</ol>
 <h2>Usuarios</h2>
 <hr>
 <div class="row">
     <div class="col-sm-12">
-        <scrollable-table watch="users" class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th sortable-header col="PerCod">Código</th>
-                        <th style="width: 20%;" sortable-header col="cPerUsuCodigo">Nombre de Usuario</th>
-                        <th sortable-header col="rol_user.rol.descripcion">Rol</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-hide="!loading"><td colspan="5">Cargando...</td></tr>
-                    <tr ng-show="!loading && users.length === 0"><td colspan="5">No hay registros</td></tr>
-                    <tr ng-hide="loading" ng-class="{'danger': user.Idestado === 2}" ng-repeat="user in users" row-id="{{ user.id }}">
-                        <td>{{ user.PerCod }}</td>
-                        <td style="width: 20%;">{{ user.cPerUsuCodigo }}</td>
-                        <td>{{ user.rol_user.rol.descripcion }}</td>
-                        <td><button type="button" class="btn btn-primary btn-sm" ng-click="showUsersEdit(user.PerCod, $event)"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </scrollable-table>
+        <form class="form-inline">
+            <div>
+                <input class="form-control" placeholder="Buscar" ng-model="search.text" />&nbsp;&nbsp;
+            </div>
+            <div>
+                <div class="pull-right">
+                    Mostrando 
+                    <select class="form-control" style="width: 70px; display: inline;" ng-change="onChangeItemsPerPage()"
+                        ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
+                    </select> 
+                    resultados por página
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div>
+            <span>Total de servicios {{ count }}</span>
+            <scrollable-table watch="users" class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th sortable-header col="PerCod">Código</th>
+                            <th style="width: 20%;" sortable-header col="cPerUsuCodigo">Nombre de Usuario</th>
+                            <th sortable-header col="rol_user.rol.descripcion">Rol</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-hide="!loading"><td colspan="5">Cargando...</td></tr>
+                        <tr ng-show="!loading && users.length === 0"><td colspan="5">No hay registros</td></tr>
+                        <tr ng-hide="loading" ng-class="{'danger': user.Idestado === 2}" ng-repeat="user in users" row-id="{{ user.id }}">
+                            <td>{{ user.PerCod }}</td>
+                            <td style="width: 20%;">{{ user.cPerUsuCodigo }}</td>
+                            <td>{{ user.rol_user.rol.descripcion }}</td>
+                            <td><button type="button" class="btn btn-primary btn-sm" ng-click="showUsersEdit(user.PerCod, $event)"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </scrollable-table>
+        </div>
     </div>
 </div>

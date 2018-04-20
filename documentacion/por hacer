@@ -12,12 +12,12 @@
 12. Limpiar el formulario luego de Pagar Recibos en "Realizar Pagos"------
 13. Poner el total items en tablas (caption del table)--------------------
 14. Cambiar drag & drop por flechas en "Realizar Pagos"-------------------
-15. Validar "Realizar Pagos"
-16. Implementar opciones avanzadas de busqueda en "Tipos"
-17. Cambiar labels de "Tipos" por "Tipos de Servicios"
-18. Implementar opciones avanzadas de busqueda en "Usuarios"
-19. Reporte por Tipos
-20. Reporte por Servicios
-21. Reporte detallado de Servicios
-22. Funcionalidad checkboxall en "Realizar Pagos"
-23. Funcionalidad eliminar seleccionados en "Realizar Pagos"
+15. Implementar opciones avanzadas de busqueda en "Tipos"-----------------
+16. Cambiar labels de "Tipos" por "Tipos de Servicios"--------------------
+17. Implementar opciones avanzadas de busqueda en "Usuarios"--------------
+18. Reporte por Tipos
+19. Reporte por Servicios
+20. Reporte detallado de Servicios
+21. Funcionalidad checkboxall en "Realizar Pagos"
+22. Funcionalidad eliminar seleccionados en "Realizar Pagos
+23. Validar "Realizar Pagos"

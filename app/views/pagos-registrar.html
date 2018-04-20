@@ -6,11 +6,11 @@
     <div class="modal-body">
         <div class="row">
             <div class="form-group col-sm-6">
-                <label for="sltTipo">Tipo</label>
+                <label for="sltTipo">Tipo de Servicio</label>
                 <select id="sltTipo" class="form-control"
                     ng-options="tipo as tipo.descripcion for tipo in tipos"
                     ng-model="tipo" ng-change="onChangeTipo(tipo.id)" name="pagoReciboServicioTipo">
-                    <option value="">Selecciona un Tipo</option>
+                    <option value="">Selecciona un Tipo de Servicio</option>
                 </select>
             </div>
             <div class="form-group col-sm-6">

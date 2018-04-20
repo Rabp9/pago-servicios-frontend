@@ -4,50 +4,66 @@
 </div>
 <ol class="breadcrumb">
     <li><a ui-sref="administrar">Home</a></li>
-    <li>Tipos</li>
+    <li>Tipos de Servicio</li>
 </ol>
-<h2>Tipos</h2>
+<h2>Tipos de Servicio</h2>
 <hr>
 <div class="row">
     <div class="col-sm-12"> 
-        <button type="button" class="btn btn-primary" ng-click="showTiposAdd()"><span class="glyphicon glyphicon-plus"></span> Nuevo Tipo</button>
-        <div class="radio">
-            <label>
-                <input type="radio" ng-model="search.estado_id" value=""> 
-                Todos
-            </label>
-            <label>
-                <input type="radio" ng-model="search.estado_id" value="1"> 
-                Activos
-            </label>
-            <label>
-                <input type="radio" ng-model="search.estado_id" value="2"> 
-                Inactivos
-            </label>
+        <button type="button" class="btn btn-primary" ng-click="showTiposAdd()"><span class="glyphicon glyphicon-plus"></span> Nuevo Tipo de Servicio</button>
+        <div>
+            <div class="radio pull-left">
+                <label>
+                    <input type="radio" ng-model="search.estado_id" value=""> 
+                    Todos
+                </label>
+                <label>
+                    <input type="radio" ng-model="search.estado_id" value="1"> 
+                    Activos
+                </label>
+                <label>
+                    <input type="radio" ng-model="search.estado_id" value="2"> 
+                    Inactivos
+                </label>
+            </div>
+            <div class="pull-right">
+                Mostrando 
+                <select class="form-control" style="width: 70px; display: inline;" ng-change="onChangeItemsPerPage()"
+                    ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
+                </select> 
+                resultados por página
+            </div>
         </div>
-        <scrollable-table watch="tipos" class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th sortable-header col="id">Código</th>
-                        <th sortable-header col="descripcion">Descripciòn</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-hide="!loading"><td colspan="3">Cargando...</td></tr>
-                    <tr ng-show="!loading && tipos.length === 0"><td colspan="3">No hay registros</td></tr>
-                    <tr ng-hide="loading" ng-class="{'danger': tipo.estado_id === 2}" ng-repeat="tipo in tipos | toArray:false | filter:search" row-id="{{ tipo.id }}">
-                        <td>{{ tipo.id }}</td>
-                        <td>{{ tipo.descripcion }}</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="showTiposEdit(tipo)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button ng-show="tipo.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showTiposDelete(tipo)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
-                            <button ng-show="tipo.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showTiposActivate(tipo)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </scrollable-table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div>
+            <span>Total de servicios {{ count }}</span>
+            <scrollable-table watch="tipos" class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th sortable-header col="id">Código</th>
+                            <th sortable-header col="descripcion">Descripciòn</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-hide="!loading"><td colspan="3">Cargando...</td></tr>
+                        <tr ng-show="!loading && tipos.length === 0"><td colspan="3">No hay registros</td></tr>
+                        <tr ng-hide="loading" ng-class="{'danger': tipo.estado_id === 2}" ng-repeat="tipo in tipos" row-id="{{ tipo.id }}">
+                            <td>{{ tipo.id }}</td>
+                            <td>{{ tipo.descripcion }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="showTiposEdit(tipo)" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button ng-show="tipo.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showTiposDelete(tipo)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
+                                <button ng-show="tipo.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showTiposActivate(tipo)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </scrollable-table>
+        </div>
     </div>
 </div>
