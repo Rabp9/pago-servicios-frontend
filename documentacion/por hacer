@@ -15,10 +15,22 @@
 15. Implementar opciones avanzadas de busqueda en "Tipos"-----------------
 16. Cambiar labels de "Tipos" por "Tipos de Servicios"--------------------
 17. Implementar opciones avanzadas de busqueda en "Usuarios"--------------
-18. Reporte por Tipos
+18. Reporte por Tipos-----------------------------------------------------
 19. Reporte por Servicios
 20. Reporte detallado de Servicios
 21. Funcionalidad checkboxall en "Realizar Pagos"
 22. Funcionalidad eliminar seleccionados en "Realizar Pagos
 23. Validar "Realizar Pagos"
 24. Reparar Link a "Home" en todos sitios
+25. Reporte de Tipos - view
+26. Reporte de Tipos - controller
+27. Reporte de Tipos - backend
+28. Reporte de Tipos - Gráfico
+29. Reporte de Servicios - view
+30. Reporte de Servicios - controller
+31. Reporte de Servicios - backend
+32. Reporte de Servicios - Gráfico
+33. Reporte de detallado de Servicios - view
+34. Reporte de detallado de Servicios - controller
+35. Reporte de detallado de Servicios - backend
+36. Reporte de detallado de Servicios - Gráfico

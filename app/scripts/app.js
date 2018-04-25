@@ -72,6 +72,15 @@ angular
         title: 'Realizar Pagos'
     };
     
+    var reporteTiposState = {
+        name: 'reporteTipos',
+        url: '/reportes/tipos',
+        templateUrl: 'views/reporte-tipos.html',
+        controller: 'ReporteTiposCtrl',
+        controllerAs: 'reporteTipos',
+        title: 'Reporte de Tipos'
+    };
+    
     var reporteServiciosState = {
         name: 'reporteServicios',
         url: '/reporte-servicios',
@@ -131,6 +140,7 @@ angular
     $stateProvider.state(tiposState);
     $stateProvider.state(recibosState);
     $stateProvider.state(realizarPagosState);
+    $stateProvider.state(reporteTiposState);
     $stateProvider.state(reporteServiciosState);
     $stateProvider.state(reporteRecibosState);
     $stateProvider.state(reportePagosState);
