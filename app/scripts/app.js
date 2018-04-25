@@ -78,7 +78,7 @@ angular
         templateUrl: 'views/reporte-tipos.html',
         controller: 'ReporteTiposCtrl',
         controllerAs: 'reporteTipos',
-        title: 'Reporte de Tipos'
+        title: 'Reporte por Tipos'
     };
     
     var reporteServiciosState = {
@@ -87,7 +87,7 @@ angular
         templateUrl: 'views/reporte-servicios.html',
         controller: 'ReporteServiciosCtrl',
         controllerAs: 'reporteServicios',
-        title: 'Reporte de Servicios'
+        title: 'Reporte por Servicios'
     };
 
     var reporteRecibosState = {
