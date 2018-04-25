@@ -52,7 +52,16 @@ angular
         controller: 'TiposCtrl',
         controllerAs: 'tipos',
         title: 'Tipos'
-    };  
+    };
+    
+    var tiposState = {
+        name: 'tipos',
+        url: '/tipos',
+        templateUrl: 'views/tipos.html',
+        controller: 'TiposCtrl',
+        controllerAs: 'tipos',
+        title: 'Tipos'
+    };
     
     var recibosState = {
         name: 'recibos',
@@ -88,6 +97,15 @@ angular
         controller: 'ReporteServiciosCtrl',
         controllerAs: 'reporteServicios',
         title: 'Reporte por Servicios'
+    };
+
+    var reporteDetalleServiciosState = {
+        name: 'reporteDetalleServicios',
+        url: '/reporte/detalle-servicios',
+        templateUrl: 'views/reporte-detalle-servicios.html',
+        controller: 'ReporteDetalleServiciosCtrl',
+        controllerAs: 'reporteDetalleServicios',
+        title: 'Reporte Detallado de Servicios'
     };
 
     var reporteRecibosState = {
@@ -142,6 +160,7 @@ angular
     $stateProvider.state(realizarPagosState);
     $stateProvider.state(reporteTiposState);
     $stateProvider.state(reporteServiciosState);
+    $stateProvider.state(reporteDetalleServiciosState);
     $stateProvider.state(reporteRecibosState);
     $stateProvider.state(reportePagosState);
     $stateProvider.state(rolesState);
