@@ -20,7 +20,8 @@ angular.module('pagoServiciosFrontendApp')
         wServicio: '29%',
         wDetalle: '13%',
         wFechaVencimiento: '14%',
-        wMonto: '10%'
+        wMonto: '9%',
+        wAcciones: '1%'
     };
     $scope.checkAll = {
         value: false
@@ -89,8 +90,16 @@ angular.module('pagoServiciosFrontendApp')
     };
     
     $scope.sendToSelectedList = function() {
-        angular.forEach($scope.recibos_pre_selected, function(value, key) {
-            $scope.recibos_selected.push(value);
+        angular.forEach($scope.recibos_pre_selected, function(p_value, p_key) {
+            var seleccionar = true
+            angular.forEach($scope.recibos_selected, function(value, key) {
+                if (value.id === p_value.id) {
+                    seleccionar = false;
+                }
+            });
+            if (seleccionar) {
+                $scope.recibos_selected.push(p_value);
+            }
         });
     };
     
@@ -102,6 +111,11 @@ angular.module('pagoServiciosFrontendApp')
             $scope.recibos_pre_selected = [];
             $('.chReciboPre').prop('checked', false);
         }
+    };
+    
+    $scope.removeReciboSelected = function(recibo_index) {
+        var index = $scope.recibos_selected.indexOf(recibo_index);
+        $scope.recibos_selected.splice(index, 1);
     };
     
     $scope.init();

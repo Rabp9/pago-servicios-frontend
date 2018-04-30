@@ -3,7 +3,7 @@
     {{ message.message }} 
 </div>
 <ol class="breadcrumb">
-    <li><a ui-sref="administrar">Home</a></li>
+    <li><a ui-sref="main">Home</a></li>
     <li>Realizar Pagos</li>
 </ol>
 <h2>Realizar Pagos</h2>
@@ -131,6 +131,7 @@
                         <th ng-style="{'width': recibos_ws.wDetalle}" sortable-header col="id">Detalle</th>
                         <th ng-style="{'width': recibos_ws.wFechaVencimiento}" sortable-header col="fecha_vencimiento">F. de Venc.</th>
                         <th ng-style="{'width': recibos_ws.wMonto}" sortable-header col="monto">Monto</th>
+                        <th ng-style="{'width': recibos_ws.wAcciones}"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -143,6 +144,9 @@
                         <td ng-style="{'width': recibos_ws.wDetalle}">{{ recibo_selected.servicio.detalle }}</td>
                         <td ng-style="{'width': recibos_ws.wFechaVencimiento}">{{ recibo_selected.fecha_vencimiento }}</td>
                         <td ng-style="{'width': recibos_ws.wMonto}">{{ recibo.monto }}</td>
+                        <td ng-style="{'width': recibos_ws.wAcciones}">
+                            <button ng-click="removeReciboSelected($index)" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

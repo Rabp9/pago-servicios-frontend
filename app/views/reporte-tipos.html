@@ -1,1 +1,62 @@
-<p>This is the reporte-tipos view.</p>
+<div class="alert alert-dismissible" ng-class="{'alert-success': message.code === 200, 'alert-danger': message.code !== 200 }" role="alert" ng-show="message.code !== undefined">
+    <button type="button" class="close" ng-click="message.code = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ message.message }} 
+</div>
+<ol class="breadcrumb">
+    <li><a ui-sref="main">Home</a></li>
+    <li>Reportes</li>
+    <li>Reporte por Tipos</li>
+</ol>
+<h2>Reporte por Tipos</h2>
+<hr>
+<div class="row">
+    <div class="col-sm-12">
+        <form class="form-inline">
+            <label for="dtFechaInicio">Fecha Inicio:</label>
+            <input id="dtFechaInicio" type="date" class="form-control" ng-model="fechaInicio">
+            <label for="dtFechaCierre">Fecha Cierre:</label>
+            <input id="dtFechaCierre" type="date" class="form-control" ng-model="fechaCierre">
+            <div class="pull-right">
+                <button type="btn" class="btn btn-primary" ng-click="exportData('excel')" title="Exportar a Excel">
+                    <img src="../images/excel-icon.svg" alt="Exportar a Excel" class="img-icon">
+                </button>
+                <button type="btn" class="btn btn-primary" ng-click="exportData('txt')" title="Exportar a TXT">
+                    <img src="../images/txt-icon.svg" alt="Exportar a TXT" class="img-icon">
+                </button>
+                <button type="btn" class="btn btn-primary" ng-click="exportData('csv')" title="Exportar a CSV">
+                    <img src="../images/csv-icon.svg" alt="Exportar a CSV" class="img-icon">
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <scrollable-table watch="servicios" class="table-responsive" id="exportable">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th sortable-header col="id">Código</th>
+                        <th sortable-header col="descripcion">Descripciòn</th>
+                        <th sortable-header col="countServicios">Número de Servicios</th>
+                        <th sortable-header col="countRecibos">Número de Recibos</th>
+                        <th sortable-header col="countRecibosPendientes">Número de Recibos sin pagar</th>
+                        <th sortable-header col="montoPendiente">Monto total pendiente de pago</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="trCargando" ng-hide="!loading"><td colspan="6">Cargando...</td></tr>
+                    <tr id="trNoHayRegistros" ng-show="!loading && tipos.length === 0"><td colspan="6">No hay registros</td></tr>
+                    <tr ng-hide="loading" ng-class="{'danger': tipo.countRecibosPendientes !== 0}" ng-repeat="tipo in tipos" row-id="{{ tipo.id }}">
+                        <td>{{ tipo.id }}</td>
+                        <td>{{ tipo.descripcion }}</td>
+                        <td>{{ tipo.countServicios }}</td>
+                        <td>{{ tipo.countRecibos }}</td>
+                        <td>{{ tipo.countRecibosPendientes }}</td>
+                        <td>{{ tipo.montoPendiente }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </scrollable-table>
+    </div>
+</div>
