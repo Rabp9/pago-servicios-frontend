@@ -22,6 +22,9 @@ angular.module('pagoServiciosFrontendApp')
         wFechaVencimiento: '14%',
         wMonto: '10%'
     };
+    $scope.checkAll = {
+        value: false
+    };
 
     $scope.init = function() {
         var date = new Date();
@@ -89,6 +92,16 @@ angular.module('pagoServiciosFrontendApp')
         angular.forEach($scope.recibos_pre_selected, function(value, key) {
             $scope.recibos_selected.push(value);
         });
+    };
+    
+    $scope.checkAllRecibos = function(checkAll) {
+        if (checkAll.value) {
+            $scope.recibos_pre_selected = $scope.recibos.slice();
+            $('.chReciboPre').prop('checked', true);
+        } else {
+            $scope.recibos_pre_selected = [];
+            $('.chReciboPre').prop('checked', false);
+        }
     };
     
     $scope.init();

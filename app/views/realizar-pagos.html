@@ -82,7 +82,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th ng-style="{'width': recibos_ws.wCheckbox}"><input type="checkbox"></th>
+                        <th ng-style="{'width': recibos_ws.wCheckbox}"><input type="checkbox" id="chSelectAll" ng-model="checkAll.value" ng-change="checkAllRecibos(checkAll)"></th>
                         <th ng-style="{'width': recibos_ws.wCodigo}" sortable-header col="id">Código</th>
                         <th ng-style="{'width': recibos_ws.wTipo}" sortable-header col="id">Tipo de Servicio</th>
                         <th ng-style="{'width': recibos_ws.wServicio}" sortable-header col="id">Servicio</th>
@@ -98,7 +98,7 @@
                         ng-repeat="recibo in recibos" row-id="{{ recibo.id }}"
                         ng-show="recibo.id">
                         <td ng-style="{'width': recibos_ws.wCheckbox}">
-                            <input type="checkbox" checklist-model="recibos_pre_selected" checklist-value="recibo"/>
+                            <input type="checkbox" class="chReciboPre" checklist-model="recibos_pre_selected" checklist-value="recibo"/>
                         </td>
                         <td ng-style="{'width': recibos_ws.wCodigo}">{{ recibo.id }}</td>
                         <td ng-style="{'width': recibos_ws.wTipo}">{{ recibo.servicio.tipo.descripcion }}</td>
