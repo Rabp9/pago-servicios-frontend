@@ -13,9 +13,14 @@
     <div class="col-sm-12">
         <form class="form-inline">
             <label for="dtFechaInicio">Fecha Inicio:</label>
-            <input id="dtFechaInicio" type="date" class="form-control" ng-model="fechaInicio">
+            <input id="dtFechaInicio" type="date" class="form-control" ng-model="search.fechaInicio" ng-change="getReporteTipos()">
             <label for="dtFechaCierre">Fecha Cierre:</label>
-            <input id="dtFechaCierre" type="date" class="form-control" ng-model="fechaCierre">
+            <input id="dtFechaCierre" type="date" class="form-control" ng-model="search.fechaCierre" ng-change="getReporteTipos()">
+            Mostrando 
+            <select class="form-control" style="width: 70px; display: inline;" ng-change="onChangeItemsPerPage()"
+                ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
+            </select> 
+            resultados por página
             <div class="pull-right">
                 <button type="btn" class="btn btn-primary" ng-click="exportData('excel')" title="Exportar a Excel">
                     <img src="../images/excel-icon.svg" alt="Exportar a Excel" class="img-icon">
@@ -58,5 +63,10 @@
                 </tbody>
             </table>
         </scrollable-table>
+        <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
+            last-text="Último" next-text="Siguiente" previous-text="Anterior"
+            items-per-page="pagination.itemsPerPage" ng-model="page" 
+            class="pagination-sm" boundary-links="true" force-ellipses="true"
+            ng-change="pageChanged()"></ul>
     </div>
 </div>

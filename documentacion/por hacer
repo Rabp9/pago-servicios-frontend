@@ -23,7 +23,7 @@
 23. Validar "Realizar Pagos"----------------------------------------------
 24. Reparar Link a "Home" en todos sitios---------------------------------
 25. Reporte de Tipos - view-----------------------------------------------
-26. Reporte de Tipos - controller
+26. Reporte de Tipos - controller-----------------------------------------
 27. Reporte de Tipos - backend
 28. Reporte de Tipos - Gráfico
 29. Reporte de Servicios - view
@@ -34,3 +34,4 @@
 34. Reporte de detallado de Servicios - controller
 35. Reporte de detallado de Servicios - backend
 36. Reporte de detallado de Servicios - Gráfico
+37. Verificar administrar users

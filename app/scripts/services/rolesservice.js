@@ -12,7 +12,7 @@ angular.module('pagoServiciosFrontendApp')
     return $resource(envservice.getHost() + 'roles/:id.json', {}, {
         getAdmin: {
             method: 'GET',
-            url: envservice.getHost() + 'roles/getAdmin/.json',
+            url: envservice.getHost() + 'roles/getAdmin/.json'
         }
     });
 });
