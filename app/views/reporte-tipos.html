@@ -41,24 +41,24 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th sortable-header col="id">Código</th>
-                        <th sortable-header col="descripcion">Descripciòn</th>
-                        <th sortable-header col="countServicios">Número de Servicios</th>
-                        <th sortable-header col="countRecibos">Número de Recibos</th>
-                        <th sortable-header col="countRecibosPendientes">Número de Recibos sin pagar</th>
-                        <th sortable-header col="montoPendiente">Monto total pendiente de pago</th>
+                        <th ng-style="{'width': tipos_ws.wCodigo}" sortable-header col="id">Código</th>
+                        <th ng-style="{'width': tipos_ws.wDescripcion}" sortable-header col="descripcion">Descripciòn</th>
+                        <th ng-style="{'width': tipos_ws.wNServicios}" sortable-header col="countServicios">N. de Servicios</th>
+                        <th ng-style="{'width': tipos_ws.wNRecibos}" sortable-header col="countRecibos">N. de Recibos</th>
+                        <th ng-style="{'width': tipos_ws.wNRecibosSinPagar}" sortable-header col="countRecibosPendientes">N. de Recibos sin pagar</th>
+                        <th ng-style="{'width': tipos_ws.wMontoPendiente}" sortable-header col="montoPendiente">Monto total pendiente de pago</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr id="trCargando" ng-hide="!loading"><td colspan="6">Cargando...</td></tr>
                     <tr id="trNoHayRegistros" ng-show="!loading && tipos.length === 0"><td colspan="6">No hay registros</td></tr>
                     <tr ng-hide="loading" ng-class="{'danger': tipo.countRecibosPendientes !== 0}" ng-repeat="tipo in tipos" row-id="{{ tipo.id }}">
-                        <td>{{ tipo.id }}</td>
-                        <td>{{ tipo.descripcion }}</td>
-                        <td>{{ tipo.countServicios }}</td>
-                        <td>{{ tipo.countRecibos }}</td>
-                        <td>{{ tipo.countRecibosPendientes }}</td>
-                        <td>{{ tipo.montoPendiente }}</td>
+                        <td ng-style="{'width': tipos_ws.wCodigo}">{{ tipo.id }}</td>
+                        <td ng-style="{'width': tipos_ws.wDescripcion}">{{ tipo.descripcion }}</td>
+                        <td ng-style="{'width': tipos_ws.wNServicios}" class="tdNumber">{{ tipo.countServicios }}</td>
+                        <td ng-style="{'width': tipos_ws.wNRecibos}" class="tdNumber">{{ tipo.countRecibos }}</td>
+                        <td ng-style="{'width': tipos_ws.wNRecibosSinPagar}" class="tdNumber">{{ tipo.countRecibosPendientes }}</td>
+                        <td ng-style="{'width': tipos_ws.wMontoPendiente}" class="tdNumber">{{ tipo.montoPendiente }}</td>
                     </tr>
                 </tbody>
             </table>

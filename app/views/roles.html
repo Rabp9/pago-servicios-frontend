@@ -21,8 +21,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-hide="!loading"><td colspan="5">Cargando...</td></tr>
-                    <tr ng-show="!loading && roles.length === 0"><td colspan="5">No hay registros</td></tr>
+                    <tr ng-hide="!loading"><td colspan="3">Cargando...</td></tr>
+                    <tr ng-show="!loading && roles.length === 0"><td colspan="3">No hay registros</td></tr>
                     <tr ng-hide="loading" ng-class="{'danger': rol.estado_id === 2}" ng-repeat="rol in roles" row-id="{{ rol.id }}">
                         <td>{{ rol.id }}</td>
                         <td>{{ rol.descripcion }}</td>

@@ -9,5 +9,10 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .factory('tiposservice', function($resource, envservice) {
-    return $resource(envservice.getHost() + 'tipos/:id.json', {});
+    return $resource(envservice.getHost() + 'tipos/:id.json', {}, {
+        getReporte: {
+            method: 'GET',
+            url: envservice.getHost() + 'tipos/getReporte/:fechaInicio/:fechaCierre/.json'
+        }
+    });
 });
