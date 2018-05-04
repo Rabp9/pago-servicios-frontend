@@ -37,36 +37,54 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <scrollable-table watch="servicios" class="table-responsive" id="exportable">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th ng-style="{'width': tipos_ws.wCodigo}" sortable-header col="id">Código</th>
-                        <th ng-style="{'width': tipos_ws.wDescripcion}" sortable-header col="descripcion">Descripciòn</th>
-                        <th ng-style="{'width': tipos_ws.wNServicios}" sortable-header col="countServicios">N. de Servicios</th>
-                        <th ng-style="{'width': tipos_ws.wNRecibos}" sortable-header col="countRecibos">N. de Recibos</th>
-                        <th ng-style="{'width': tipos_ws.wNRecibosSinPagar}" sortable-header col="countRecibosPendientes">N. de Recibos sin pagar</th>
-                        <th ng-style="{'width': tipos_ws.wMontoPendiente}" sortable-header col="montoPendiente">Monto total pendiente de pago</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="trCargando" ng-hide="!loading"><td colspan="6">Cargando...</td></tr>
-                    <tr id="trNoHayRegistros" ng-show="!loading && tipos.length === 0"><td colspan="6">No hay registros</td></tr>
-                    <tr ng-hide="loading" ng-class="{'danger': tipo.countRecibosPendientes !== 0}" ng-repeat="tipo in tipos" row-id="{{ tipo.id }}">
-                        <td ng-style="{'width': tipos_ws.wCodigo}">{{ tipo.id }}</td>
-                        <td ng-style="{'width': tipos_ws.wDescripcion}">{{ tipo.descripcion }}</td>
-                        <td ng-style="{'width': tipos_ws.wNServicios}" class="tdNumber">{{ tipo.countServicios }}</td>
-                        <td ng-style="{'width': tipos_ws.wNRecibos}" class="tdNumber">{{ tipo.countRecibos }}</td>
-                        <td ng-style="{'width': tipos_ws.wNRecibosSinPagar}" class="tdNumber">{{ tipo.countRecibosPendientes }}</td>
-                        <td ng-style="{'width': tipos_ws.wMontoPendiente}" class="tdNumber">{{ tipo.montoPendiente }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </scrollable-table>
-        <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
-            last-text="Último" next-text="Siguiente" previous-text="Anterior"
-            items-per-page="pagination.itemsPerPage" ng-model="page" 
-            class="pagination-sm" boundary-links="true" force-ellipses="true"
-            ng-change="pageChanged()"></ul>
+        <div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active" style="cursor: pointer;"><a data-target="#tabla" aria-controls="tabla" role="tab" data-toggle="tab">Tabla</a></li>
+                <li role="presentation" style="cursor: pointer;"><a data-target="#grafico" aria-controls="grafico" role="tab" data-toggle="tab">Gráfico</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="tabla">
+                    <scrollable-table watch="servicios" class="table-responsive" id="exportable">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th ng-style="{'width': tipos_ws.wCodigo}" sortable-header col="id">Código</th>
+                                    <th ng-style="{'width': tipos_ws.wDescripcion}" sortable-header col="descripcion">Descripciòn</th>
+                                    <th ng-style="{'width': tipos_ws.wNServicios}" sortable-header col="countServicios">N. de Servicios</th>
+                                    <th ng-style="{'width': tipos_ws.wNRecibos}" sortable-header col="countRecibos">N. de Recibos</th>
+                                    <th ng-style="{'width': tipos_ws.wNRecibosSinPagar}" sortable-header col="countRecibosPendientes">N. de Recibos sin pagar</th>
+                                    <th ng-style="{'width': tipos_ws.wMontoPendiente}" sortable-header col="montoPendiente">Monto total pendiente de pago</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="trCargando" ng-hide="!loading"><td colspan="6">Cargando...</td></tr>
+                                <tr id="trNoHayRegistros" ng-show="!loading && tipos.length === 0"><td colspan="6">No hay registros</td></tr>
+                                <tr ng-hide="loading" ng-class="{'danger': tipo.countRecibosPendientes !== 0}" ng-repeat="tipo in tipos" row-id="{{ tipo.id }}">
+                                    <td ng-style="{'width': tipos_ws.wCodigo}">{{ tipo.id }}</td>
+                                    <td ng-style="{'width': tipos_ws.wDescripcion}">{{ tipo.descripcion }}</td>
+                                    <td ng-style="{'width': tipos_ws.wNServicios}" class="tdNumber">{{ tipo.countServicios }}</td>
+                                    <td ng-style="{'width': tipos_ws.wNRecibos}" class="tdNumber">{{ tipo.countRecibos }}</td>
+                                    <td ng-style="{'width': tipos_ws.wNRecibosSinPagar}" class="tdNumber">{{ tipo.countRecibosPendientes }}</td>
+                                    <td ng-style="{'width': tipos_ws.wMontoPendiente}" class="tdNumber">S/ {{ tipo.montoPendiente }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </scrollable-table>
+                    <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
+                        last-text="Último" next-text="Siguiente" previous-text="Anterior"
+                        items-per-page="pagination.itemsPerPage" ng-model="page" 
+                        class="pagination-sm" boundary-links="true" force-ellipses="true"
+                        ng-change="pageChanged()"></ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="grafico">
+                    <canvas id="bar" class="chart chart-bar" chart-series="seriesBar" height="100"
+                        chart-data="dataBar" chart-labels="labelsBar" chart-options="optionsBar">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>

@@ -12,7 +12,7 @@ angular.module('pagoServiciosFrontendApp')
     return $resource(envservice.getHost() + 'tipos/:id.json', {}, {
         getReporte: {
             method: 'GET',
-            url: envservice.getHost() + 'tipos/getReporte/:fechaInicio/:fechaCierre/.json'
+            url: envservice.getHost() + 'tipos/getReporte.json'
         }
     });
 });

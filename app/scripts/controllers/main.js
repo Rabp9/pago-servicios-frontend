@@ -22,8 +22,8 @@ angular.module('pagoServiciosFrontendApp')
     $scope.optionsBar = {legend: {display: true}};
     $scope.dataBar = [];
     
-    $scope.dataPie = [];
     $scope.optionsPie = {legend: {display: true, position: 'right'}};
+    $scope.dataPie = [];
    
     $scope.init = function() {
         var date = new Date();

@@ -8,7 +8,7 @@
  * Controller of the pagoServiciosFrontendApp
  */
 angular.module('pagoServiciosFrontendApp')
-.controller('ReporteTiposCtrl', function ($scope, tiposservice) {
+.controller('ReporteTiposCtrl', function ($scope, tiposservice, $utilsViewService) {
     $scope.search = {};
     $scope.items_per_page = 10;
     $scope.page = 1;
@@ -19,7 +19,11 @@ angular.module('pagoServiciosFrontendApp')
        wNRecibos: '14%',
        wNRecibosSinPagar: '14%',
        wMontoPendiente: '21%',
-   };
+    };
+    $scope.labelsBar = [];
+    $scope.seriesBar = ['Monto Total Pendiente de Pago'];
+    $scope.optionsBar = {legend: {display: true}};
+    $scope.dataBar = [];
    
     $scope.init = function() {
         var date = new Date();
@@ -32,13 +36,21 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.getReporteTipos = function() {
         $scope.loading = true;
+        var fechaInicio = $utilsViewService.formatDate($scope.search.fechaInicio);
+        var fechaCierre = $utilsViewService.formatDate($scope.search.fechaCierre);
         tiposservice.getReporte({
-            fechaInicio: $scope.search.fechaInicio,
-            fechaCierre: $scope.search.fechaCierre,
+            fechaInicio: fechaInicio,
+            fechaCierre: fechaCierre,
             page: $scope.page,
             items_per_page: $scope.items_per_page
         }, function(data) {
             $scope.tipos = data.tipos;
+            var montoPendienteArray = [];
+            angular.forEach($scope.tipos, function(val, key) {
+                $scope.labelsBar.push(val.descripcion);
+                montoPendienteArray.push(val.montoPendiente);
+            });
+            $scope.dataBar.push(montoPendienteArray);
             $scope.loading = false;
         });
     };
