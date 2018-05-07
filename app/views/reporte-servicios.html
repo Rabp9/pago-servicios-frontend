@@ -5,74 +5,91 @@
 <ol class="breadcrumb">
     <li><a ui-sref="main">Home</a></li>
     <li>Reportes</li>
-    <li>Reporte de Servicios</li>
+    <li>Reporte por Servicios</li>
 </ol>
-<h2>Reporte de Servicios</h2>
+<h2>Reporte por Servicios</h2>
 <hr>
 <div class="row">
-    <div class="col-sm-6">
-        <label for="sltTipo">Tipo de Servicio</label>
-        <select id="sltTipo" class="form-control"
-            ng-options="tipo as tipo.descripcion for tipo in tipos"
-            ng-model="tipo" ng-change="onChangeTipo(tipo.id)">
-            <option value="">{{ loading_tipos }}</option>
-        </select>
+    <div class="col-sm-12">
+        <form class="form-inline">
+            <select id="sltTipo" class="form-control"
+                ng-options="tipo as tipo.descripcion for tipo in tipos"
+                ng-model="tipo" ng-change="onChangeTipo(tipo.id)">
+                <option value="">{{ loading_tipos }}</option> 
+            </select>
+            <label for="dtFechaInicio">Fecha Inicio:</label>
+            <input id="dtFechaInicio" type="date" class="form-control" ng-model="search.fechaInicio" ng-change="getReporteTipos()">
+            <label for="dtFechaCierre">Fecha Cierre:</label>
+            <input id="dtFechaCierre" type="date" class="form-control" ng-model="search.fechaCierre" ng-change="getReporteTipos()">
+            Mostrando 
+            <select class="form-control" style="width: 70px; display: inline;" ng-change="onChangeItemsPerPage()"
+                ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
+            </select> 
+            resultados por página
+            <div class="pull-right">
+                <button type="btn" class="btn btn-primary" ng-click="exportData('excel')" title="Exportar a Excel">
+                    <img src="../images/excel-icon.svg" alt="Exportar a Excel" class="img-icon">
+                </button>
+                <button type="btn" class="btn btn-primary" ng-click="exportData('txt')" title="Exportar a TXT">
+                    <img src="../images/txt-icon.svg" alt="Exportar a TXT" class="img-icon">
+                </button>
+                <button type="btn" class="btn btn-primary" ng-click="exportData('csv')" title="Exportar a CSV">
+                    <img src="../images/csv-icon.svg" alt="Exportar a CSV" class="img-icon">
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <div class="radio">
-            <label>
-                <input type="radio" ng-model="search.condicion" value=""> 
-                Todos
-            </label>
-            <label>
-                <input type="radio" ng-model="search.condicion" value="DEUDA"> 
-                No pagados
-            </label>
-            <label>
-                <input type="radio" ng-model="search.condicion" value="PAGADO"> 
-                Pagados
-            </label>
+        <div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active" style="cursor: pointer;"><a data-target="#tabla" aria-controls="tabla" role="tab" data-toggle="tab">Tabla</a></li>
+                <li role="presentation" style="cursor: pointer;"><a data-target="#grafico" aria-controls="grafico" role="tab" data-toggle="tab">Gráfico</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="tabla">
+                    <scrollable-table watch="servicios" class="table-responsive" id="exportable">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th ng-style="{'width': tipos_ws.wCodigo}" sortable-header col="id">Código</th>
+                                    <th ng-style="{'width': tipos_ws.wDescripcion}" sortable-header col="descripcion">Descripciòn</th>
+                                    <th ng-style="{'width': tipos_ws.wDetalle}" sortable-header col="detalle">Detalle</th>
+                                    <th ng-style="{'width': tipos_ws.wNRecibos}" sortable-header col="countRecibos">N. de Recibos</th>
+                                    <th ng-style="{'width': tipos_ws.wNRecibosSinPagar}" sortable-header col="countRecibosPendientes">N. de Recibos sin pagar</th>
+                                    <th ng-style="{'width': tipos_ws.wMontoPendiente}" sortable-header col="montoPendiente">Monto total pendiente de pago</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="trCargando" ng-hide="!loading"><td colspan="6">Cargando...</td></tr>
+                                <tr id="trNoHayRegistros" ng-show="!loading && servicios.length === 0"><td colspan="6">No hay registros</td></tr>
+                                <tr ng-hide="loading" ng-class="{'danger': servicio.countRecibosPendientes !== 0}" ng-repeat="servicio in servicios" row-id="{{ servicio.id }}">
+                                    <td ng-style="{'width': tipos_ws.wCodigo}">{{ servicio.id }}</td>
+                                    <td ng-style="{'width': tipos_ws.wDescripcion}">{{ servicio.descripcion }}</td>
+                                    <td ng-style="{'width': tipos_ws.wNServicios}" class="tdNumber">{{ servicio.detalle }}</td>
+                                    <td ng-style="{'width': tipos_ws.wNRecibos}" class="tdNumber">{{ servicio.countRecibos }}</td>
+                                    <td ng-style="{'width': tipos_ws.wNRecibosSinPagar}" class="tdNumber">{{ servicio.countRecibosPendientes }}</td>
+                                    <td ng-style="{'width': tipos_ws.wMontoPendiente}" class="tdNumber">S/ {{ servicio.montoPendiente }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </scrollable-table>
+                    <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
+                        last-text="Último" next-text="Siguiente" previous-text="Anterior"
+                        items-per-page="pagination.itemsPerPage" ng-model="page" 
+                        class="pagination-sm" boundary-links="true" force-ellipses="true"
+                        ng-change="pageChanged()"></ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="grafico">
+                    <canvas id="bar" class="chart chart-bar" chart-series="seriesBar" height="100"
+                        chart-data="dataBar" chart-labels="labelsBar" chart-options="optionsBar">
+                    </canvas>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-sm-12">
-        <button type="btn" class="btn btn-primary" ng-click="exportData('excel')" title="Exportar a Excel">
-            <img src="../images/excel-icon.svg" alt="Exportar a Excel" class="img-icon">
-        </button>
-        <button type="btn" class="btn btn-primary" ng-click="exportData('txt')" title="Exportar a TXT">
-            <img src="../images/txt-icon.svg" alt="Exportar a TXT" class="img-icon">
-        </button>
-        <button type="btn" class="btn btn-primary" ng-click="exportData('csv')" title="Exportar a CSV">
-            <img src="../images/csv-icon.svg" alt="Exportar a CSV" class="img-icon">
-        </button>
-    </div>
-    <div class="col-sm-12">
-        <scrollable-table watch="servicios" class="table-responsive" id="exportable">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th sortable-header col="id">Código</th>
-                        <th sortable-header col="descripcion">Descripciòn</th>
-                        <th sortable-header col="tipo.descripcion">Tipo de Servicio</th>
-                        <th sortable-header col="detalle">Detalle</th>
-                        <th sortable-header col="condicion">Condición</th>
-                        <th sortable-header col="deuda_acumulada">Deuda Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="trCargando" ng-hide="!loading"><td colspan="6">Cargando...</td></tr>
-                    <tr id="trNoHayRegistros" ng-show="!loading && pagos.length === 0"><td colspan="6">No hay registros</td></tr>
-                    <tr ng-hide="loading" ng-class="{'danger': servicio.estado_id === 2}" ng-repeat="servicio in servicios | toArray:false | filter:search" row-id="{{ servicio.id }}">
-                        <td>{{ servicio.id }}</td>
-                        <td>{{ servicio.descripcion }}</td>
-                        <td>{{ servicio.tipo.descripcion }}</td>
-                        <td>{{ servicio.detalle }}</td>
-                        <td>{{ servicio.condicion }}</td>
-                        <td>{{ servicio.deuda_acumulada }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </scrollable-table>
+        
     </div>
 </div>

@@ -46,7 +46,7 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="tabla">
-                    <scrollable-table watch="servicios" class="table-responsive" id="exportable">
+                    <scrollable-table watch="tipos" class="table-responsive" id="exportable">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -73,9 +73,9 @@
                         </table>
                     </scrollable-table>
                     <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
-                        last-text="Último" next-text="Siguiente" previous-text="Anterior"
+                        last-text="Último" next-text="Signte" previous-text="Anterior"
                         items-per-page="pagination.itemsPerPage" ng-model="page" 
-                        class="pagination-sm" boundary-links="true" force-ellipses="true"
+                        class="pagination-sm" boundary-links="true"uie force-ellipses="true"
                         ng-change="pageChanged()"></ul>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="grafico">

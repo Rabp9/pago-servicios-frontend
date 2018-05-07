@@ -4,6 +4,7 @@
         "scrollable-table": {
             "attributes": {
                 "watch": {},
+                "id": {},
                 "class": {}
             }
         }

@@ -64,5 +64,18 @@ angular.module('pagoServiciosFrontendApp')
         $scope.getReporteTipos();
     };
     
+    $scope.exportData = function (option) {
+        var cargando = $( '#trCargando' ).detach();
+        var no_hay_registros = $( '#trNoHayRegistros' ).detach();
+
+        $('#exportable').tableExport({ type: option, escape: false });
+        
+        cargando.appendTo('#exportable tbody');
+        no_hay_registros.appendTo('#exportable tbody');
+        
+        no_hay_registros = null;
+        cargando = null;
+    };
+    
     $scope.init();
 });
