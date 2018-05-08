@@ -18,11 +18,11 @@
                 <option value="">{{ loading_tipos }}</option> 
             </select>
             <label for="dtFechaInicio">Fecha Inicio:</label>
-            <input id="dtFechaInicio" type="date" class="form-control" ng-model="search.fechaInicio" ng-change="getReporteTipos()">
+            <input id="dtFechaInicio" type="date" class="form-control" ng-model="search.fechaInicio" ng-change="getReporteServicios(tipo.id)">
             <label for="dtFechaCierre">Fecha Cierre:</label>
-            <input id="dtFechaCierre" type="date" class="form-control" ng-model="search.fechaCierre" ng-change="getReporteTipos()">
+            <input id="dtFechaCierre" type="date" class="form-control" ng-model="search.fechaCierre" ng-change="getReporteServicios(tipo.id)">
             Mostrando 
-            <select class="form-control" style="width: 70px; display: inline;" ng-change="onChangeItemsPerPage()"
+            <select class="form-control" style="width: 70px; display: inline;" ng-change="onChangeItemsPerPage(tipo.id)"
                 ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
             </select> 
             resultados por página
@@ -81,7 +81,7 @@
                         last-text="Último" next-text="Siguiente" previous-text="Anterior"
                         items-per-page="pagination.itemsPerPage" ng-model="page" 
                         class="pagination-sm" boundary-links="true" force-ellipses="true"
-                        ng-change="pageChanged()"></ul>
+                        ng-change="pageChanged(tipo.id)"></ul>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="grafico">
                     <canvas id="bar" class="chart chart-bar" chart-series="seriesBar" height="100"
