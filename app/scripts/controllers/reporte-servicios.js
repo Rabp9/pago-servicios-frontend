@@ -49,7 +49,7 @@ angular.module('pagoServiciosFrontendApp')
         $scope.loading = true;
         var fechaInicio = $utilsViewService.formatDate($scope.search.fechaInicio);
         var fechaCierre = $utilsViewService.formatDate($scope.search.fechaCierre);
-        serviciosservice.getReport({
+        serviciosservice.getReporte({
             tipo_id: tipo_id,
             fechaInicio: fechaInicio,
             fechaCierre: fechaCierre,

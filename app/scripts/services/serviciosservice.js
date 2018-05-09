@@ -14,9 +14,9 @@ angular.module('pagoServiciosFrontendApp')
             method: 'GET',
             url: envservice.getHost() + 'servicios/getByTipo/:tipo_id.json'
         },
-        getReport: {
+        getReporte: {
             method: 'GET',
-            url: envservice.getHost() + 'servicios/getReport/:tipo_id.json'
+            url: envservice.getHost() + 'servicios/getReporte/:tipo_id.json'
         },
         search: {
             method: 'GET',

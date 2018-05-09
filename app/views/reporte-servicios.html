@@ -69,7 +69,7 @@
                                 <tr ng-hide="loading" ng-class="{'danger': servicio.countRecibosPendientes !== 0}" ng-repeat="servicio in servicios" row-id="{{ servicio.id }}">
                                     <td ng-style="{'width': tipos_ws.wCodigo}">{{ servicio.id }}</td>
                                     <td ng-style="{'width': tipos_ws.wDescripcion}">{{ servicio.descripcion }}</td>
-                                    <td ng-style="{'width': tipos_ws.wNServicios}" class="tdNumber">{{ servicio.detalle }}</td>
+                                    <td ng-style="{'width': tipos_ws.wDetalle}" class="tdNumber">{{ servicio.detalle }}</td>
                                     <td ng-style="{'width': tipos_ws.wNRecibos}" class="tdNumber">{{ servicio.countRecibos }}</td>
                                     <td ng-style="{'width': tipos_ws.wNRecibosSinPagar}" class="tdNumber">{{ servicio.countRecibosPendientes }}</td>
                                     <td ng-style="{'width': tipos_ws.wMontoPendiente}" class="tdNumber">S/ {{ servicio.montoPendiente }}</td>
@@ -90,6 +90,6 @@
                 </div>
             </div>
         </div>
-        
     </div>
 </div>
+{{ servicios | json }}
