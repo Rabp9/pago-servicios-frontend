@@ -29,13 +29,15 @@
 29. Reporte de Servicios - view-------------------------------------------
 30. Reporte de Servicios - controller-------------------------------------
 31. Reporte de Servicios - backend----------------------------------------
-32. Reporte de Servicios - Gráfico
-33. Reporte de detallado de Servicios - view
-34. Reporte de detallado de Servicios - controller
-35. Reporte de detallado de Servicios - backend
-36. Reporte de detallado de Servicios - Gráfico
-37. Buscar otro sistema de Exportación
-38. Reporte de detallado de Servicios - Export
-39. Reporte de Servicios - Export
-40. Reporte de Tipos - Export
-41. Verificar administrar users
+32. Reporte de Servicios - Gráfico----------------------------------------
+33. Reporte de detallado de Servicios - viewXXXXX-------------------------
+34. Filtro por años inicio y fin en "Recibos" - view
+35. Filtro por años inicio y fin en "Recibos" - backend
+36. Imprimir Reporte detallado en "Recibos" - controller
+37. Imprimir Reporte detallado en "Recibos" - view
+38. Imprimir Reporte detallado en "Recibos" - backend
+39. Buscar otro sistema de Exportación
+40. Reporte de detallado de Servicios - Export
+41. Reporte de Servicios - Export
+42. Reporte de Tipos - Export
+43. Verificar administrar users

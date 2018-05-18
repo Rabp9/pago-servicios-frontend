@@ -176,7 +176,13 @@ angular
     
     // Configure all line charts
     ChartJsProvider.setOptions('bar', {
-        showLines: true
+        showLines: true,
+        plugins: {
+            datalabels: {
+                align: 'end',
+                anchor: 'top'
+            }
+        }
     });
 })
 .run(function($rootScope, $state, $window, $interval, recibosservice, 
