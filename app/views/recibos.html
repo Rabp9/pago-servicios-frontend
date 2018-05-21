@@ -33,7 +33,15 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <button type="button" class="btn btn-primary" ng-disabled="selected.servicio_id === ''" ng-click="showRecibosAdd(selected)"><span class="glyphicon glyphicon-plus"></span> Nueva Recibo</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="selected.servicio_id === ''" ng-click="showRecibosAdd(selected)"><span class="glyphicon glyphicon-plus"></span> Nuevo Recibo</button>
+                </div>
+                <div class="col-sm-12">
+                    <form class="form-inline">
+                        <label for="dtFechaInicio">Del</label> 
+                        <input id="dtFechaInicio" type="date" class="form-control" ng-model="search.fecha_inicio" ng-change="getRecibos()"> 
+                        <label for="dtFechaCierre">Al</label> 
+                        <input id="dtFechaCierre" type="date" class="form-control" ng-model="search.fecha_cierre" ng-change="getRecibos()">
+                    </form>
                 </div>
             </div>
         </div>

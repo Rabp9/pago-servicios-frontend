@@ -9,7 +9,7 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('RecibosCtrl', function ($scope, serviciosservice, recibosservice,
-    $uibModal, tiposservice) {
+    $uibModal, tiposservice, $utilsViewService) {
     
     $scope.servicios_ws = {
        wCheckbox: '6%',
@@ -44,6 +44,11 @@ angular.module('pagoServiciosFrontendApp')
     };
     
     $scope.init = function() {
+        var date = new Date();
+        var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        $scope.search.fecha_inicio = firstDay;
+        $scope.search.fecha_cierre = lastDay;
         $scope.getTipos();
         $scope.getServicios();
     };
@@ -90,10 +95,14 @@ angular.module('pagoServiciosFrontendApp')
         }
         $scope.recibos = [];
         $scope.loading_recibos = true;
+        var fecha_inicio = $utilsViewService.formatDate($scope.search.fecha_inicio);
+        var fecha_cierre = $utilsViewService.formatDate($scope.search.fecha_cierre);
         recibosservice.get({
             servicio_id: $scope.selected.servicio_id,
             page: $scope.page_recibos,
             estado_id: $scope.search.recibo_estado_id,
+            fecha_inicio: fecha_inicio,
+            fecha_cierre: fecha_cierre,
             items_per_page: $scope.items_per_page_recibos
         }, function(data) {
             $scope.recibos = data.recibos;
