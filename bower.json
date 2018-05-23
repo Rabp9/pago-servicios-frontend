@@ -19,7 +19,8 @@
     "angular-ui-select": "^0.19.8",
     "angular-dragdrop": "^1.0.13",
     "angular-chart.js": "^1.1.1",
-    "chartjs-plugin-datalabels": "^0.3.0"
+    "chartjs-plugin-datalabels": "^0.3.0",
+    "pdfmake": "^0.1.36"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

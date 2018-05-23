@@ -248,5 +248,66 @@ angular.module('pagoServiciosFrontendApp')
         $scope.getRecibos();
     };
     
+    $scope.downloadPDF = function() {
+        var docDefinition = {
+            header: function() {
+                return [
+                    {
+                        style: 'table',
+                        margin: [62,35,62,35],
+                        table: {
+                            widths: ['*', '*'],
+                            headerRows: 0,
+                            body: [
+                                [
+                                    {text: 'Booking Summary', style: 'topHeader', alignment: 'left'},
+                                    {
+                                        'base64-image-string-goes-here',
+                                        width: 150,
+                                        alignment: 'right'
+                                    }
+                                ]
+                            ]
+                        },
+                        layout: 'noBorders'
+                    }
+                ]
+            },
+            footer: function(currentPage, pageCount) { 
+                return [
+                    {text: currentPage.toString() + ' of ' + pageCount, alignment: 'center', style: 'footer'}
+                ]
+            },
+            content: [],
+            pageSize: 'A4',
+            pageMargins: [62,80,62,80],
+            styles: {
+                topHeader: {
+                    fontSize: 20,
+                    bold: true,
+                    margin: [0, 6, 0, 30],
+                    alignment: 'left'
+                },
+                table: {
+                    fontSize: 8,
+                    alignment: 'left',
+                    color: 'black',
+                    margin: [0, 5, 0, 15]
+                },
+                header: {       
+                    fontSize: 16,
+                    bold: true,
+                    margin: [0, 10, 0, 15],
+                    alignment: 'left'
+                },
+                footer: {
+                    fontSize: 8,
+                    margin: [0, 25, 0, 17],
+                    alignment: 'center'
+                }
+            }
+        };
+      pdfMake.createPdf(docDefinition).download();
+    };
     $scope.init();
 });
