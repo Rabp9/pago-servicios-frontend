@@ -41,8 +41,8 @@
                         <input id="dtFechaInicio" type="date" class="form-control" ng-model="search.fecha_inicio" ng-change="getRecibos()"> 
                         <label for="dtFechaCierre">Al</label> 
                         <input id="dtFechaCierre" type="date" class="form-control" ng-model="search.fecha_cierre" ng-change="getRecibos()">
+                        <button ng-disabled="loading_recibos || recibos.length === 0 || selected.servicio_id === ''" class="btn btn-default" type="button" ng-click="showReporte(search.fecha_inicio, search.fecha_cierre)"><span class="glyphicon glyphicon-file"></span> Reporte Detallado</button>
                     </form>
-                    <a href=”#” ng-click="downloadPDF()">Prueba</a>
                 </div>
             </div>
         </div>
