@@ -23,7 +23,8 @@ angular
     'angular-toArrayFilter',
     'checklist-model',
     'ngDragDrop',
-    'chart.js'
+    'chart.js',
+    'base64'
 ])
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, ChartJsProvider) {
     $httpProvider.interceptors.push('oauthHttpInterceptor');
