@@ -27,14 +27,20 @@
             </select> 
             resultados por página
             <div class="pull-right">
-                <button type="btn" class="btn btn-primary" ng-click="exportData('excel')" title="Exportar a Excel">
+                <button ng-show="tab === 1" type="btn" class="btn btn-primary" ng-click="exportData('excel')" title="Exportar a Excel">
                     <img src="../images/excel-icon.svg" alt="Exportar a Excel" class="img-icon">
                 </button>
-                <button type="btn" class="btn btn-primary" ng-click="exportData('txt')" title="Exportar a TXT">
+                <button ng-show="tab === 1" type="btn" class="btn btn-primary" ng-click="exportData('txt')" title="Exportar a TXT">
                     <img src="../images/txt-icon.svg" alt="Exportar a TXT" class="img-icon">
                 </button>
-                <button type="btn" class="btn btn-primary" ng-click="exportData('csv')" title="Exportar a CSV">
+                <button ng-show="tab === 1" type="btn" class="btn btn-primary" ng-click="exportData('csv')" title="Exportar a CSV">
                     <img src="../images/csv-icon.svg" alt="Exportar a CSV" class="img-icon">
+                </button>
+                <button ng-show="tab === 1" type="btn" class="btn btn-primary" ng-click="exportPDFTabla(tipo.id)" title="Exportar a PDF">
+                    <img src="../images/pdf-icon.svg" alt="Exportar a PDF" class="img-icon">
+                </button>
+                <button ng-show="tab === 2" type="btn" class="btn btn-primary" ng-click="exportPDFGrafico()" title="Exportar a PDF">
+                    <img src="../images/pdf-icon.svg" alt="Exportar a PDF" class="img-icon">
                 </button>
             </div>
         </form>
@@ -45,8 +51,8 @@
         <div>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active" style="cursor: pointer;"><a data-target="#tabla" aria-controls="tabla" role="tab" data-toggle="tab">Tabla</a></li>
-                <li role="presentation" style="cursor: pointer;"><a data-target="#grafico" aria-controls="grafico" role="tab" data-toggle="tab">Gráfico</a></li>
+                <li role="presentation" class="active" style="cursor: pointer;"><a ng-click="tab = 1" data-target="#tabla" aria-controls="tabla" role="tab" data-toggle="tab">Tabla</a></li>
+                <li role="presentation" style="cursor: pointer;"><a ng-click="tab = 2" data-target="#grafico" aria-controls="grafico" role="tab" data-toggle="tab">Gráfico</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">

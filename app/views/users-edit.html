@@ -6,7 +6,7 @@
     <div class="modal-body">
         <div class="form-group">
             <label for="txtUsername">Nombre de Usuario</label>
-            <input id="txtUsername" class="form-control" type="text" ng-model="user.cPerUsuCodigo" readonly>
+            <input id="txtUsername" class="form-control" type="text" ng-model="user_edit.cPerUsuCodigo" readonly>
         </div>
         <div class="form-group">
             <label for="sltRol">Rol</label>
@@ -14,7 +14,7 @@
                 ng-options="rol.id as rol.descripcion for rol in roles"
                 ng-model="rol_user.rol_id"
                 name="rol" required required-message="'Este campo es requerido'" validate-on="blur">
-                <option value="">Selecciona un Rol</option>
+                <option value="">{{ loading_roles }}</option>
             </select>
         </div>
     </div>

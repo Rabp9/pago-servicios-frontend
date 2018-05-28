@@ -23,8 +23,7 @@ angular
     'angular-toArrayFilter',
     'checklist-model',
     'ngDragDrop',
-    'chart.js',
-    'base64'
+    'chart.js'
 ])
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, ChartJsProvider) {
     $httpProvider.interceptors.push('oauthHttpInterceptor');
@@ -45,15 +44,6 @@ angular
         controllerAs: 'servicios',
         title: 'Servicios'
     };  
-    
-    var tiposState = {
-        name: 'tipos',
-        url: '/tipos',
-        templateUrl: 'views/tipos.html',
-        controller: 'TiposCtrl',
-        controllerAs: 'tipos',
-        title: 'Tipos'
-    };
     
     var tiposState = {
         name: 'tipos',
@@ -100,33 +90,6 @@ angular
         title: 'Reporte por Servicios'
     };
 
-    var reporteDetalleServiciosState = {
-        name: 'reporteDetalleServicios',
-        url: '/reporte/detalle-servicios',
-        templateUrl: 'views/reporte-detalle-servicios.html',
-        controller: 'ReporteDetalleServiciosCtrl',
-        controllerAs: 'reporteDetalleServicios',
-        title: 'Reporte Detallado de Servicios'
-    };
-
-    var reporteRecibosState = {
-        name: 'reporteRecibos',
-        url: '/reporte-recibos',
-        templateUrl: 'views/reporte-recibos.html',
-        controller: 'ReporteRecibosCtrl',
-        controllerAs: 'reporteRecibos',
-        title: 'Reporte de Recibos de Pagos'
-    };
-
-    var reportePagosState = {
-        name: 'reportePagos',
-        url: '/reporte-pagos',
-        templateUrl: 'views/reporte-pagos.html',
-        controller: 'ReportePagosCtrl',
-        controllerAs: 'reportePagos',
-        title: 'Reporte de Pagos'
-    };
-
     var rolesState = {
         name: 'roles',
         url: '/roles',
@@ -161,9 +124,6 @@ angular
     $stateProvider.state(realizarPagosState);
     $stateProvider.state(reporteTiposState);
     $stateProvider.state(reporteServiciosState);
-    $stateProvider.state(reporteDetalleServiciosState);
-    $stateProvider.state(reporteRecibosState);
-    $stateProvider.state(reportePagosState);
     $stateProvider.state(rolesState);
     $stateProvider.state(usersState);
     $stateProvider.state(usersLoginState);

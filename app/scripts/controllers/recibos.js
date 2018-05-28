@@ -9,7 +9,7 @@
  */
 angular.module('pagoServiciosFrontendApp')
 .controller('RecibosCtrl', function ($scope, serviciosservice, recibosservice,
-    $uibModal, tiposservice, $utilsViewService, $rootScope, $base64) {
+    $uibModal, tiposservice, $utilsViewService, $rootScope) {
     
     $scope.servicios_ws = {
        wCheckbox: '6%',
@@ -287,7 +287,7 @@ angular.module('pagoServiciosFrontendApp')
                 var docDefinition = {
                     info: {
                         title: "Recibos del Servicio " + servicio.descripcion_detallada,
-                        author: $rootScope.user.username,
+                        author: $rootScope.user.cPerUsuCodigo,
                         subject: 'Reporte Detallado de Recibos del Servicio ' + servicio.descripcion_detallada,
                         keywords: 'servicio ' + servicio.descripcion_detallada + " recibos"
                     },
@@ -309,7 +309,7 @@ angular.module('pagoServiciosFrontendApp')
                     content: [
                         { text: "Recibos del Servicio " + servicio.descripcion_detallada, style: 'header' },
                         { text: "Recibos registrados en el periodo del " + fecha_inicio + " al " + fecha_cierre, style: 'paragraph' },
-                        { text: "Usuario: " + $rootScope.user.username + " Fecha: " + date, style: 'paragraph' },
+                        { text: "Usuario: " + $rootScope.user.cPerUsuCodigo + " Fecha: " + date, style: 'paragraph' },
                         {
                             layout: 'headerLineOnly',
                             table: {
@@ -326,7 +326,7 @@ angular.module('pagoServiciosFrontendApp')
                         },
                         headerPDF: {
                             alignment: 'left',
-                            margin: [4, 25, 15, 15]
+                            margin: [-18, 25, 15, 15]
                         },
                         header: {
                             fontSize: 14,
@@ -347,9 +347,7 @@ angular.module('pagoServiciosFrontendApp')
                 };
                 pdfMake.createPdf(docDefinition).open();
             });
-            
         });
-        
     };
     
     $scope.init();

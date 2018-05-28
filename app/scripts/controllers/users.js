@@ -54,9 +54,18 @@ angular.module('pagoServiciosFrontendApp')
         
         $utilsViewService.enable(event.currentTarget);
         modalInstanceEdit.result.then(function (data) {
-            getUsers();
+            $scope.getUsers();
             $scope.message = data;
         });
+    };
+    
+    $scope.pageChanged = function() {
+        $scope.getUsers();
+    };
+    
+    $scope.onChangeItemsPerPage = function() {
+        $scope.page = 1;
+        $scope.getUsers();
     };
     
     $scope.init();

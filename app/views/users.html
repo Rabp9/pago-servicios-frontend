@@ -52,6 +52,12 @@
                     </tbody>
                 </table>
             </scrollable-table>
+            
+            <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
+                last-text="Último" next-text="Siguiente" previous-text="Anterior"
+                items-per-page="pagination.itemsPerPage" ng-model="page" 
+                class="pagination-sm" boundary-links="true" force-ellipses="true"
+                ng-change="pageChanged()"></ul>
         </div>
     </div>
 </div>
