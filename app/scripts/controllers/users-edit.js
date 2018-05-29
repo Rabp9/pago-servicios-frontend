@@ -32,10 +32,10 @@ angular.module('pagoServiciosFrontendApp')
     };
     
     $scope.getRoles = function() {
-        $scope.loading_roles = "Cargando...";
+        $scope.loading_roles = 'Cargando...';
         rolesservice.getAdmin(function(data) {
             $scope.roles = data.roles;
-            $scope.loading_roles = "Selecciona un Rol";
+            $scope.loading_roles = 'Selecciona un Rol';
         });
     };
     

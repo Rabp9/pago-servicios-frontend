@@ -18,7 +18,7 @@ angular.module('pagoServiciosFrontendApp')
        wNroDocumento: '12%',
        wAcciones: '19%'
     };
-    $scope.labelsBar = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+    $scope.labelsBar = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     $scope.optionsBar = {legend: {display: true}};
     $scope.dataBar = [];
     
@@ -35,7 +35,7 @@ angular.module('pagoServiciosFrontendApp')
         $scope.getEstadisticas();
         var year = date.getFullYear();
         $scope.seriesBar = ['Pagado en soles (' + year + ')', 'Deuda en soles (' + year + ')'];
-        $scope.labelsPie = ["Recibos no pagados (" + year + ")", "Recibos Pagados (" + year + ")"];
+        $scope.labelsPie = ['Recibos no pagados (' + year + ')', 'Recibos Pagados (' + year + ')'];
         $scope.getChartBarData();
     };
     

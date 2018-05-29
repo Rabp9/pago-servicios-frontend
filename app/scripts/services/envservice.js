@@ -16,6 +16,8 @@ angular.module('pagoServiciosFrontendApp')
                     return 'http://localhost:8000/pago-servicios-backend/';
                 case '172.20.1.2':
                     return 'http://172.20.1.2:8989/pago-servicios/api/';
+                case '172.20.11.60':
+                    return 'http://172.20.11.60:8000/pago-servicios-backend/';
             }
         }
     };

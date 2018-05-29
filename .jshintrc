@@ -14,6 +14,7 @@
         "angular": false,
         "$": true,
         "confirm": true,
-        "alert": true
+        "alert": true,
+        "pdfMake": true
   }
 }

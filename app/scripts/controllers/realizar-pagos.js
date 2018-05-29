@@ -91,7 +91,7 @@ angular.module('pagoServiciosFrontendApp')
     
     $scope.sendToSelectedList = function() {
         angular.forEach($scope.recibos_pre_selected, function(p_value, p_key) {
-            var seleccionar = true
+            var seleccionar = true;
             angular.forEach($scope.recibos_selected, function(value, key) {
                 if (value.id === p_value.id) {
                     seleccionar = false;
